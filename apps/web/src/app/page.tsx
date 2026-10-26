@@ -1,16 +1,12 @@
 import { Translator } from "@/components/Translator";
 import Link from "next/link";
-import { BookOpen, Sparkles, GraduationCap, ShieldCheck } from "lucide-react";
+import { BookOpen, Sparkles, GraduationCap } from "lucide-react";
 
 export default function HomePage() {
   return (
     <div className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
       {/* Hero Header */}
       <div className="text-center max-w-3xl mx-auto space-y-3">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-stone-100 text-stone-800 border border-stone-200">
-          <ShieldCheck className="w-3.5 h-3.5 text-[#8b1e1b]" />
-          <span>Akurat &middot; Berlandaskan Kamus &middot; Budaya Asli</span>
-        </div>
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-stone-900 tracking-tight leading-tight">
           Penerjemah & Lensa Linguistik{" "}
           <span className="text-[#8b1e1b]">Batak Simalungun</span>

@@ -28,9 +28,6 @@ export function Navbar() {
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-bold text-lg text-stone-900 tracking-tight">Rumah Hata</span>
-                <span className="text-[11px] font-semibold bg-stone-100 text-stone-700 px-2 py-0.5 rounded border border-stone-300">
-                  Simalungun
-                </span>
               </div>
               <p className="text-xs text-stone-700 hidden sm:block">
                 Lensa Linguistik Bahasa & Aksara Simalungun
