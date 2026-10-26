@@ -1,0 +1,202 @@
+[
+  {
+    "id": "gold-01-vowel-a",
+    "latin": "a",
+    "aksara": "\u1BC1",
+    "syllables": ["a"],
+    "description": "Vokal mandiri A Simalungun",
+    "sourceId": "unicode-batak"
+  },
+  {
+    "id": "gold-02-vowel-i",
+    "latin": "i",
+    "aksara": "\u1BE4",
+    "syllables": ["i"],
+    "description": "Vokal mandiri I",
+    "sourceId": "unicode-batak"
+  },
+  {
+    "id": "gold-03-vowel-u",
+    "latin": "u",
+    "aksara": "\u1BE5",
+    "syllables": ["u"],
+    "description": "Vokal mandiri U",
+    "sourceId": "unicode-batak"
+  },
+  {
+    "id": "gold-04-cv-ba",
+    "latin": "ba",
+    "aksara": "\u1BC5",
+    "syllables": ["ba"],
+    "description": "Suku kata dasar Ba",
+    "sourceId": "kozok-1999"
+  },
+  {
+    "id": "gold-05-cv-bi",
+    "latin": "bi",
+    "aksara": "\u1BC5\u1BEA",
+    "syllables": ["bi"],
+    "description": "Ba + haluan (i)",
+    "sourceId": "kozok-1999"
+  },
+  {
+    "id": "gold-06-cv-bu",
+    "latin": "bu",
+    "aksara": "\u1BC5\u1BEE",
+    "syllables": ["bu"],
+    "description": "Ba + haboritan (u)",
+    "sourceId": "kozok-1999"
+  },
+  {
+    "id": "gold-07-cv-be",
+    "latin": "be",
+    "aksara": "\u1BC5\u1BE9",
+    "syllables": ["be"],
+    "description": "Ba + hatelingan (e)",
+    "sourceId": "kozok-1999"
+  },
+  {
+    "id": "gold-08-cv-bo",
+    "latin": "bo",
+    "aksara": "\u1BC5\u1BEC",
+    "syllables": ["bo"],
+    "description": "Ba + sihorlu (o)",
+    "sourceId": "kozok-1999"
+  },
+  {
+    "id": "gold-09-cv-bou",
+    "latin": "bou",
+    "aksara": "\u1BC5\u1BED",
+    "syllables": ["bou"],
+    "description": "Ba + hatulungan (ou)",
+    "sourceId": "kozok-1999"
+  },
+  {
+    "id": "gold-10-special-su",
+    "latin": "su",
+    "aksara": "\u1BD9\u1BEF",
+    "syllables": ["su"],
+    "description": "Sa Simalungun + U khusus (U+1BEF)",
+    "sourceId": "unicode-batak"
+  },
+  {
+    "id": "gold-11-final-ng",
+    "latin": "bang",
+    "aksara": "\u1BC5\u1BF0",
+    "syllables": ["bang"],
+    "description": "Ba + haminsaran (-ng)",
+    "sourceId": "kozok-1999"
+  },
+  {
+    "id": "gold-12-final-h",
+    "latin": "bah",
+    "aksara": "\u1BC5\u1BF1",
+    "syllables": ["bah"],
+    "description": "Ba + hajoringan (-h)",
+    "sourceId": "kozok-1999"
+  },
+  {
+    "id": "gold-13-panongonan-bat",
+    "latin": "bat",
+    "aksara": "\u1BC5\u1BD6\u1BF3",
+    "syllables": ["bat"],
+    "description": "Ba + Ta + Panongonan virama",
+    "sourceId": "kozok-1999"
+  },
+  {
+    "id": "gold-14-word-horas",
+    "latin": "horas",
+    "aksara": "\u1BC3\u1BEC\u1BD3\u1BD9\u1BF3",
+    "syllables": ["ho", "ras"],
+    "description": "Salam khas: ho (Ha+o) + ras (Ra+Sa+virama)",
+    "sourceId": "tarigan-1989"
+  },
+  {
+    "id": "gold-15-word-hata",
+    "latin": "hata",
+    "aksara": "\u1BC3\u1BD6",
+    "syllables": ["ha", "ta"],
+    "description": "Kata hata (bahasa/kata): Ha + Ta",
+    "sourceId": "tarigan-1989"
+  },
+  {
+    "id": "gold-16-word-bamu",
+    "latin": "bamu",
+    "aksara": "\u1BC5\u1BD5\u1BEE",
+    "syllables": ["ba", "mu"],
+    "description": "Kata bamu (kepadamu): Ba + Ma+u",
+    "sourceId": "tarigan-1989"
+  },
+  {
+    "id": "gold-17-word-simalungun",
+    "latin": "simalungun",
+    "aksara": "\u1BD9\u1BEA\u1BD5\u1BDF\u1BEE\u1BDD\u1BEE\u1BC9\u1BF3",
+    "syllables": ["si", "ma", "lu", "ngun"],
+    "description": "Nama bahasa/etnis Simalungun",
+    "sourceId": "tarigan-1989"
+  },
+  {
+    "id": "gold-18-word-horja",
+    "latin": "horja",
+    "aksara": "\u1BC3\u1BEC\u1BD3\u1BF3\u1BD0",
+    "syllables": ["hor", "ja"],
+    "description": "Pesta adat / kerja: Ha+o+Ra+virama + Ja",
+    "sourceId": "tarigan-1989"
+  },
+  {
+    "id": "gold-19-word-surat",
+    "latin": "surat",
+    "aksara": "\u1BD9\u1BEF\u1BD3\u1BD6\u1BF3",
+    "syllables": ["su", "rat"],
+    "description": "Kata surat: Sa+u_khusus (U+1BEF) + Ra+Ta+virama",
+    "sourceId": "tarigan-1989"
+  },
+  {
+    "id": "gold-20-word-pustaha",
+    "latin": "pustaha",
+    "aksara": "\u1BC8\u1BEE\u1BD9\u1BF3\u1BD6\u1BC3",
+    "syllables": ["pus", "ta", "ha"],
+    "description": "Kata pustaha: Pa+u+Sa+virama + Ta + Ha",
+    "sourceId": "kozok-1999"
+  },
+  {
+    "id": "gold-21-word-laklak",
+    "latin": "laklak",
+    "aksara": "\u1BDF\u1BC3\u1BF3\u1BDF\u1BC3\u1BF3",
+    "syllables": ["lak", "lak"],
+    "description": "Kata laklak: La+Ka+virama + La+Ka+virama",
+    "sourceId": "kozok-1999"
+  },
+  {
+    "id": "gold-22-word-tolu",
+    "latin": "tolu",
+    "aksara": "\u1BD6\u1BEC\u1BDF\u1BEE",
+    "syllables": ["to", "lu"],
+    "description": "Kata bilangan tolu (tiga): Ta+o + La+u",
+    "sourceId": "tarigan-1989"
+  },
+  {
+    "id": "gold-23-word-parhata",
+    "latin": "parhata",
+    "aksara": "\u1BC8\u1BD3\u1BF3\u1BC3\u1BD6",
+    "syllables": ["par", "ha", "ta"],
+    "description": "Kata derivasi parhata: Pa+Ra+virama + Ha + Ta",
+    "sourceId": "tarigan-1989"
+  },
+  {
+    "id": "gold-24-word-bonar",
+    "latin": "bonar",
+    "aksara": "\u1BC5\u1BEC\u1BC9\u1BD3\u1BF3",
+    "syllables": ["bo", "nar"],
+    "description": "Kata bonar (benar/jujur): Ba+o + Na+Ra+virama",
+    "sourceId": "tarigan-1989"
+  },
+  {
+    "id": "gold-25-word-marsimalungun",
+    "latin": "marsimalungun",
+    "aksara": "\u1BD5\u1BD3\u1BF3\u1BD9\u1BEA\u1BD5\u1BDF\u1BEE\u1BDD\u1BEE\u1BC9\u1BF3",
+    "syllables": ["mar", "si", "ma", "lu", "ngun"],
+    "description": "Prefiks mar- + simalungun",
+    "sourceId": "saragih-1989"
+  }
+]

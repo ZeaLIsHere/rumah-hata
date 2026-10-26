@@ -1,0 +1,38 @@
+[
+  {
+    "id": "phrase-horas-bamu",
+    "simalungun": "Horas bamu",
+    "indonesian": "Salam sejahtera bagimu",
+    "aksara": "\u1BC3\u1BEC\u1BD3\u1BD9\u1BF3 \u1BC5\u1BD5\u1BEE",
+    "context": "Salam pembuka kepada satu orang.",
+    "sourceId": "tarigan-1989",
+    "validation": "expert"
+  },
+  {
+    "id": "phrase-diatei-tupa",
+    "simalungun": "Diatei tupa",
+    "indonesian": "Terima kasih",
+    "aksara": "\u1BD1\u1BEA\u1BC1\u1BD6\u1BE9\u1BEA \u1BD6\u1BEE\u1BC8",
+    "context": "Ungkapan terima kasih baku dalam bahasa Simalungun.",
+    "sourceId": "tarigan-1989",
+    "validation": "expert"
+  },
+  {
+    "id": "phrase-habonaron-do-bona",
+    "simalungun": "Habonaron do bona",
+    "indonesian": "Kebenaran adalah pangkal segalanya",
+    "aksara": "\u1BC3\u1BC5\u1BEC\u1BC9\u1BD3\u1BEC\u1BC9\u1BF3 \u1BD1\u1BEC \u1BC5\u1BEC\u1BC9",
+    "context": "Motto falsafah luhur Simalungun.",
+    "sourceId": "tarigan-1989",
+    "validation": "expert"
+  },
+  {
+    "id": "phrase-horas-hamu",
+    "simalungun": "Horas ma bamu hamu",
+    "indonesian": "Salam sejahtera bagi kalian semua",
+    "aksara": "\u1BC3\u1BEC\u1BD3\u1BD9\u1BF3 \u1BD5 \u1BC5\u1BD5\u1BEE \u1BC3\u1BD5\u1BEE",
+    "context": "Salam penghormatan kepada majelis atau hadirin umum.",
+    "sourceId": "tarigan-1989",
+    "validation": "expert"
+  }
+]

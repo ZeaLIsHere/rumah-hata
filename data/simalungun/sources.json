@@ -1,0 +1,42 @@
+[
+  {
+    "id": "kozok-1999",
+    "title": "Warisan Leluhur: Sastra Lama dan Aksara Batak",
+    "author": "Uli Kozok",
+    "year": 1999,
+    "type": "book",
+    "publisher": "Kepustakaan Populer Gramedia (KPG)",
+    "license": "Academic Reference",
+    "notes": "Rujukan utama klasifikasi varian aksara Batak dan ortografi Surat Sisimolungun."
+  },
+  {
+    "id": "unicode-batak",
+    "title": "The Unicode Standard, Version 15.0 - Batak (Range 1BC0-1BFF)",
+    "author": "Unicode Consortium & Uli Kozok",
+    "year": 2010,
+    "type": "standard",
+    "url": "https://www.unicode.org/charts/PDF/U1BC0.pdf",
+    "license": "Unicode Terms of Use",
+    "notes": "Spesifikasi resmi karakter Unicode Surat Batak Simalungun."
+  },
+  {
+    "id": "tarigan-1989",
+    "title": "Kamus Simalungun - Indonesia",
+    "author": "Henry Guntur Tarigan & Jago Tarigan",
+    "year": 1989,
+    "type": "dictionary",
+    "publisher": "Pusat Pembinaan dan Pengembangan Bahasa, Departemen Pendidikan dan Kebudayaan",
+    "license": "Public Domain / Pemerintahan",
+    "notes": "Kamus leksikon standar bahasa Simalungun."
+  },
+  {
+    "id": "saragih-1989",
+    "title": "Struktur Bahasa Simalungun",
+    "author": "Amran Saragih dkk.",
+    "year": 1989,
+    "type": "monograph",
+    "publisher": "Pusat Pembinaan dan Pengembangan Bahasa",
+    "license": "Public Domain / Pemerintahan",
+    "notes": "Rujukan fonologi, silabifikasi, dan morfologi verba/nomina Simalungun."
+  }
+]

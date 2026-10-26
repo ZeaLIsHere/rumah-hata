@@ -1,0 +1,13 @@
+{
+  "name": "rumah-hata",
+  "private": true,
+  "scripts": {
+    "build": "pnpm --filter \"@rumah-hata/*\" build",
+    "test": "pnpm --filter \"@rumah-hata/*\" test",
+    "typecheck": "pnpm --filter \"@rumah-hata/*\" typecheck"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild", "@swc/core"]
+  },
+  "packageManager": "pnpm@12.6.0"
+}

@@ -1,0 +1,103 @@
+{
+  "script": "Surat Sisimolungun (Aksara Batak Simalungun)",
+  "language": "simalungun",
+  "unicodeRange": "U+1BC0-U+1BFF",
+  "sourceIds": ["kozok-1999", "unicode-batak"],
+  "virama": {
+    "name": "panongonan",
+    "char": "\u1BF3",
+    "unicode": "U+1BF3",
+    "description": "Tanda pemati vokal inheren /a/ pada aksara dasar Simalungun (berbeda dari pangolat Toba U+1BF2)."
+  },
+  "inaNiSurat": [
+    { "latin": "a", "char": "\u1BC1", "unicode": "U+1BC1", "name": "A Simalungun", "pos": "independent_vowel" },
+    { "latin": "ha", "char": "\u1BC3", "unicode": "U+1BC3", "name": "Ha / Ka Simalungun", "pos": "consonant", "aliases": ["ka"] },
+    { "latin": "ba", "char": "\u1BC5", "unicode": "U+1BC5", "name": "Ba", "pos": "consonant" },
+    { "latin": "pa", "char": "\u1BC8", "unicode": "U+1BC8", "name": "Pa Simalungun", "pos": "consonant" },
+    { "latin": "na", "char": "\u1BC9", "unicode": "U+1BC9", "name": "Na", "pos": "consonant" },
+    { "latin": "wa", "char": "\u1BCC", "unicode": "U+1BCC", "name": "Wa Simalungun", "pos": "consonant" },
+    { "latin": "ga", "char": "\u1BCF", "unicode": "U+1BCF", "name": "Ga Simalungun", "pos": "consonant" },
+    { "latin": "ja", "char": "\u1BD0", "unicode": "U+1BD0", "name": "Ja", "pos": "consonant" },
+    { "latin": "da", "char": "\u1BD1", "unicode": "U+1BD1", "name": "Da", "pos": "consonant" },
+    { "latin": "ra", "char": "\u1BD3", "unicode": "U+1BD3", "name": "Ra Simalungun", "pos": "consonant" },
+    { "latin": "ma", "char": "\u1BD5", "unicode": "U+1BD5", "name": "Ma Simalungun", "pos": "consonant" },
+    { "latin": "ta", "char": "\u1BD6", "unicode": "U+1BD6", "name": "Ta (Southern Ta)", "pos": "consonant" },
+    { "latin": "sa", "char": "\u1BD9", "unicode": "U+1BD9", "name": "Sa Simalungun", "pos": "consonant" },
+    { "latin": "ya", "char": "\u1BDC", "unicode": "U+1BDC", "name": "Ya Simalungun", "pos": "consonant" },
+    { "latin": "nga", "char": "\u1BDD", "unicode": "U+1BDD", "name": "Nga", "pos": "consonant" },
+    { "latin": "la", "char": "\u1BDF", "unicode": "U+1BDF", "name": "La Simalungun", "pos": "consonant" },
+    { "latin": "nya", "char": "\u1BE0", "unicode": "U+1BE0", "name": "Nya", "pos": "consonant" },
+    { "latin": "i", "char": "\u1BE4", "unicode": "U+1BE4", "name": "I (Aksara Berdiri Sendiri)", "pos": "independent_vowel" },
+    { "latin": "u", "char": "\u1BE5", "unicode": "U+1BE5", "name": "U (Aksara Berdiri Sendiri)", "pos": "independent_vowel" }
+  ],
+  "anakNiSurat": [
+    {
+      "type": "vowel",
+      "vowel": "i",
+      "char": "\u1BEA",
+      "unicode": "U+1BEA",
+      "name": "haluan",
+      "description": "Diakritik pengubah vokal menjadi /i/."
+    },
+    {
+      "type": "vowel",
+      "vowel": "u",
+      "char": "\u1BEE",
+      "unicode": "U+1BEE",
+      "name": "haboritan",
+      "description": "Diakritik pengubah vokal menjadi /u/ pada konsonan umum."
+    },
+    {
+      "type": "vowel_special",
+      "vowel": "u_sa",
+      "char": "\u1BEF",
+      "unicode": "U+1BEF",
+      "name": "haboritan for simalungun sa",
+      "description": "Bentuk khusus diakritik /u/ yang hanya melekat pada aksara Sa Simalungun (U+1BD9)."
+    },
+    {
+      "type": "vowel",
+      "vowel": "e",
+      "char": "\u1BE9",
+      "unicode": "U+1BE9",
+      "name": "hatalingan",
+      "description": "Diakritik pengubah vokal menjadi /e/ (talinga)."
+    },
+    {
+      "type": "vowel",
+      "vowel": "o",
+      "char": "\u1BEC",
+      "unicode": "U+1BEC",
+      "name": "sihorlu",
+      "description": "Diakritik pengubah vokal menjadi /o/ (siala ulu)."
+    },
+    {
+      "type": "vowel",
+      "vowel": "ou",
+      "char": "\u1BED",
+      "unicode": "U+1BED",
+      "name": "hatulungan",
+      "description": "Diakritik diftong khas Simalungun /-ou/."
+    },
+    {
+      "type": "final_consonant",
+      "consonant": "ng",
+      "char": "\u1BF0",
+      "unicode": "U+1BF0",
+      "name": "haminsaran",
+      "description": "Penanda nasal sengau akhir /-ng/ (amisara)."
+    },
+    {
+      "type": "final_consonant",
+      "consonant": "h",
+      "char": "\u1BF1",
+      "unicode": "U+1BF1",
+      "name": "hajoringan",
+      "description": "Penanda hembus akhir /-h/."
+    }
+  ],
+  "punctuation": [
+    { "name": "bindu na metek", "char": "\u1BFC", "unicode": "U+1BFC", "description": "Tanda pisah antar bagian/kalimat." },
+    { "name": "bindu judul", "char": "\u1BFE", "unicode": "U+1BFE", "description": "Tanda pemisah judul teks." }
+  ]
+}
