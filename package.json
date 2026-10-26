@@ -2,7 +2,7 @@
   "name": "rumah-hata",
   "private": true,
   "scripts": {
-    "build": "pnpm --filter \"@rumah-hata/*\" build",
+    "build": "pnpm --filter @rumah-hata/linguistics build && pnpm --filter @rumah-hata/web build",
     "test": "pnpm --filter \"@rumah-hata/*\" test",
     "typecheck": "pnpm --filter \"@rumah-hata/*\" typecheck"
   },
