@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import {
   analyzeText,
   type Direction,
@@ -10,6 +10,7 @@ import { simalungunLexicon, simalungunPhrasebook } from "@/lib/data";
 import { CardExportModal } from "./CardExportModal";
 import {
   ArrowRightLeft,
+  ChevronDown,
   Copy,
   Check,
   RotateCcw,
@@ -27,7 +28,27 @@ export function Translator() {
   const [isExportOpen, setIsExportOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"translit" | "phonology" | "morphology" | "culture">("translit");
 
-  // Sample phrases for quick learning
+  // Dropdown states
+  const [isSourceOpen, setIsSourceOpen] = useState(false);
+  const [isTargetOpen, setIsTargetOpen] = useState(false);
+  const sourceRef = useRef<HTMLDivElement | null>(null);
+  const targetRef = useRef<HTMLDivElement | null>(null);
+
+  // Close dropdowns on click outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (sourceRef.current && !sourceRef.current.contains(event.target as Node)) {
+        setIsSourceOpen(false);
+      }
+      if (targetRef.current && !targetRef.current.contains(event.target as Node)) {
+        setIsTargetOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Quick samples
   const samples = [
     { label: "Horas bamu", dir: "sim-id" as Direction, text: "Horas bamu" },
     { label: "Diatei tupa", dir: "sim-id" as Direction, text: "Diatei tupa" },
@@ -39,7 +60,7 @@ export function Translator() {
     { label: "Kebenaran", dir: "id-sim" as Direction, text: "Kebenaran" }
   ];
 
-  // Perform deterministic analysis
+  // Deterministic linguistic analysis
   const analysis: AnalysisResult = useMemo(() => {
     if (!inputText.trim()) {
       return {
@@ -80,6 +101,15 @@ export function Translator() {
     }
   };
 
+  // Label helpers
+  const sourceLabel = direction === "id-sim" ? "Indonesia" : "Simalungun";
+  const targetLabel =
+    direction === "id-sim"
+      ? "Simalungun"
+      : direction === "sim-aksara"
+      ? "Aksara Simalungun"
+      : "Indonesia";
+
   return (
     <div className="w-full max-w-5xl mx-auto space-y-4">
       {/* Quick Samples Chips */}
@@ -100,177 +130,231 @@ export function Translator() {
         ))}
       </div>
 
-      {/* Main Translation Card with Integrated Header (Google Translate style) */}
-      <div className="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
-        {/* Integrated Language Switcher Header */}
-        <div className="px-4 py-2.5 bg-stone-50 border-b border-stone-200 flex items-center justify-between gap-2 overflow-x-auto">
-          {/* Source Language Options */}
-          <div className="flex items-center gap-1">
+      {/* Main Modern Translator Container (Bing / Edge Translator Style) */}
+      <div className="bg-[#edf2f7] rounded-3xl p-3 sm:p-5 border border-slate-200/80 shadow-xs space-y-3">
+        {/* Top Centered Language Selector Bar */}
+        <div className="flex items-center justify-center gap-2 sm:gap-4 py-1">
+          {/* Source Language Dropdown */}
+          <div className="relative" ref={sourceRef}>
             <button
               type="button"
-              onClick={() => setDirection(direction === "id-sim" ? "sim-id" : direction)}
-              className={`px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition ${
-                direction !== "id-sim"
-                  ? "bg-white text-[#8b1e1b] shadow-2xs border border-stone-200"
-                  : "text-stone-600 hover:text-stone-900"
-              }`}
+              onClick={() => {
+                setIsSourceOpen(!isSourceOpen);
+                setIsTargetOpen(false);
+              }}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm sm:text-base font-medium text-slate-800 hover:bg-black/5 transition"
             >
-              Simalungun
+              <span>{sourceLabel}</span>
+              <ChevronDown className="w-4 h-4 text-slate-500" />
             </button>
-            <button
-              type="button"
-              onClick={() => setDirection("id-sim")}
-              className={`px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition ${
-                direction === "id-sim"
-                  ? "bg-white text-[#8b1e1b] shadow-2xs border border-stone-200"
-                  : "text-stone-600 hover:text-stone-900"
-              }`}
-            >
-              Indonesia
-            </button>
+
+            {isSourceOpen && (
+              <div className="absolute left-0 mt-1 w-44 bg-white rounded-xl shadow-lg border border-slate-200 py-1.5 z-30 animate-fadeIn">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setDirection("sim-id");
+                    setIsSourceOpen(false);
+                  }}
+                  className={`w-full px-3.5 py-2 text-left text-xs sm:text-sm hover:bg-slate-50 transition flex items-center justify-between ${
+                    direction !== "id-sim" ? "font-semibold text-[#8b1e1b]" : "text-slate-700"
+                  }`}
+                >
+                  <span>Simalungun</span>
+                  {direction !== "id-sim" && <Check className="w-3.5 h-3.5 text-[#8b1e1b]" />}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setDirection("id-sim");
+                    setIsSourceOpen(false);
+                  }}
+                  className={`w-full px-3.5 py-2 text-left text-xs sm:text-sm hover:bg-slate-50 transition flex items-center justify-between ${
+                    direction === "id-sim" ? "font-semibold text-[#8b1e1b]" : "text-slate-700"
+                  }`}
+                >
+                  <span>Indonesia</span>
+                  {direction === "id-sim" && <Check className="w-3.5 h-3.5 text-[#8b1e1b]" />}
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Central Swap Button */}
           <button
             type="button"
             onClick={swapDirection}
-            className="min-h-[40px] min-w-[40px] flex items-center justify-center p-2 rounded-xl text-stone-600 hover:text-stone-950 hover:bg-white border border-transparent hover:border-stone-200 transition"
+            className="w-9 h-9 rounded-full flex items-center justify-center text-slate-600 hover:text-slate-950 hover:bg-black/5 transition"
             title="Tukar Bahasa"
           >
             <ArrowRightLeft className="w-4 h-4" />
           </button>
 
-          {/* Target Language Options */}
-          <div className="flex items-center gap-1">
+          {/* Target Language Dropdown */}
+          <div className="relative" ref={targetRef}>
             <button
               type="button"
-              onClick={() => setDirection(direction === "id-sim" ? "id-sim" : "sim-id")}
-              className={`px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition ${
-                direction !== "sim-aksara"
-                  ? "bg-white text-[#8b1e1b] shadow-2xs border border-stone-200"
-                  : "text-stone-600 hover:text-stone-900"
-              }`}
+              onClick={() => {
+                setIsTargetOpen(!isTargetOpen);
+                setIsSourceOpen(false);
+              }}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm sm:text-base font-medium text-slate-800 hover:bg-black/5 transition"
             >
-              {direction === "id-sim" ? "Simalungun" : "Indonesia"}
+              <span>{targetLabel}</span>
+              <ChevronDown className="w-4 h-4 text-slate-500" />
             </button>
-            <button
-              type="button"
-              onClick={() => setDirection("sim-aksara")}
-              className={`px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition ${
-                direction === "sim-aksara"
-                  ? "bg-white text-[#8b1e1b] shadow-2xs border border-stone-200"
-                  : "text-stone-600 hover:text-stone-900"
-              }`}
-            >
-              Aksara
-            </button>
+
+            {isTargetOpen && (
+              <div className="absolute right-0 mt-1 w-48 bg-white rounded-xl shadow-lg border border-slate-200 py-1.5 z-30 animate-fadeIn">
+                {direction === "id-sim" ? (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setDirection("id-sim");
+                        setIsTargetOpen(false);
+                      }}
+                      className="w-full px-3.5 py-2 text-left text-xs sm:text-sm hover:bg-slate-50 font-semibold text-[#8b1e1b] flex items-center justify-between"
+                    >
+                      <span>Simalungun</span>
+                      <Check className="w-3.5 h-3.5 text-[#8b1e1b]" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setDirection("sim-aksara");
+                        setIsTargetOpen(false);
+                      }}
+                      className="w-full px-3.5 py-2 text-left text-xs sm:text-sm hover:bg-slate-50 text-slate-700 flex items-center justify-between"
+                    >
+                      <span>Aksara Simalungun</span>
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setDirection("sim-id");
+                        setIsTargetOpen(false);
+                      }}
+                      className={`w-full px-3.5 py-2 text-left text-xs sm:text-sm hover:bg-slate-50 flex items-center justify-between ${
+                        direction === "sim-id" ? "font-semibold text-[#8b1e1b]" : "text-slate-700"
+                      }`}
+                    >
+                      <span>Indonesia</span>
+                      {direction === "sim-id" && <Check className="w-3.5 h-3.5 text-[#8b1e1b]" />}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setDirection("sim-aksara");
+                        setIsTargetOpen(false);
+                      }}
+                      className={`w-full px-3.5 py-2 text-left text-xs sm:text-sm hover:bg-slate-50 flex items-center justify-between ${
+                        direction === "sim-aksara" ? "font-semibold text-[#8b1e1b]" : "text-slate-700"
+                      }`}
+                    >
+                      <span>Aksara Simalungun</span>
+                      {direction === "sim-aksara" && <Check className="w-3.5 h-3.5 text-[#8b1e1b]" />}
+                    </button>
+                  </>
+                )}
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Two-Panel Translation Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-stone-200">
-          {/* Input Panel */}
-          <div className="p-4 sm:p-5 flex flex-col justify-between space-y-3 bg-white">
+        {/* Two Separate White Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+          {/* Left Card: Input Box */}
+          <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-2xs border border-slate-200/60 flex flex-col justify-between min-h-[220px] sm:min-h-[250px]">
             <textarea
               value={inputText}
+              maxLength={500}
               onChange={(e) => setInputText(e.target.value)}
-              placeholder={
-                direction === "id-sim"
-                  ? "Ketik teks Bahasa Indonesia..."
-                  : "Ketik teks Bahasa Simalungun..."
-              }
-              className="w-full flex-1 min-h-[160px] text-base sm:text-lg text-stone-900 bg-transparent resize-none border-none focus:outline-none placeholder:text-stone-400"
+              placeholder="Ketik atau tempelkan teks yang akan diterjemahkan"
+              className="w-full flex-1 text-base sm:text-lg text-slate-800 bg-transparent resize-none border-none focus:outline-none placeholder:text-slate-400 leading-relaxed min-h-[140px]"
             />
-            <div className="flex items-center justify-between text-xs text-stone-500 pt-2 border-t border-stone-100">
-              <span>{inputText.length} karakter</span>
-              {inputText && (
+
+            {/* Bottom Input Action Row */}
+            <div className="flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-slate-100">
+              {inputText ? (
                 <button
                   type="button"
                   onClick={() => setInputText("")}
-                  className="hover:text-stone-900 flex items-center gap-1 text-stone-600"
+                  className="hover:text-slate-700 flex items-center gap-1 text-slate-500 font-medium transition"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                   <span>Bersihkan</span>
                 </button>
+              ) : (
+                <span />
               )}
+              <span className="font-mono text-slate-400">{inputText.length} / 500</span>
             </div>
           </div>
 
-          {/* Output Panel */}
-          <div className="p-4 sm:p-5 flex flex-col justify-between space-y-4 bg-[#faf9f6]">
-            {/* Action Bar (Top of Output) */}
-            <div className="flex items-center justify-between text-xs text-stone-500">
-              <span className="font-medium text-stone-600">
-                {direction === "sim-aksara" ? "Surat Sisimolungun" : "Hasil Terjemahan"}
-              </span>
-              {analysis.aksara && (
-                <div className="flex items-center gap-1.5">
-                  <button
-                    type="button"
-                    onClick={() => setIsExportOpen(true)}
-                    className="flex items-center gap-1 text-xs text-stone-700 hover:text-[#8b1e1b] font-medium px-2.5 py-1 bg-white hover:bg-stone-100 rounded-lg border border-stone-200 transition"
-                    title="Unduh Kartu Aksara PNG"
-                  >
-                    <Share2 className="w-3.5 h-3.5 text-[#8b1e1b]" />
-                    <span>Kartu</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleCopy(analysis.aksara)}
-                    className="flex items-center gap-1 text-xs text-stone-700 hover:text-[#8b1e1b] font-medium px-2.5 py-1 bg-white hover:bg-stone-100 rounded-lg border border-stone-200 transition"
-                  >
-                    {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-                    <span>{copied ? "Tersalin" : "Salin"}</span>
-                  </button>
-                </div>
-              )}
-            </div>
-
-            {/* Main Output Display */}
-            <div className="flex-1 space-y-3">
-              {analysis.aksara ? (
-                <>
-                  {/* Aksara Box */}
-                  <div className="p-3.5 bg-white rounded-xl border border-stone-200 shadow-2xs">
-                    <div className="font-aksara text-3xl sm:text-4xl text-[#18181b] tracking-wider leading-relaxed select-all">
-                      {analysis.aksara}
-                    </div>
+          {/* Right Card: Output Box */}
+          <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-2xs border border-slate-200/60 flex flex-col justify-between min-h-[220px] sm:min-h-[250px]">
+            {analysis.aksara ? (
+              <>
+                <div className="flex-1 space-y-3">
+                  {/* Aksara Output */}
+                  <div className="font-aksara text-3xl sm:text-4xl text-slate-900 tracking-wider leading-relaxed select-all">
+                    {analysis.aksara}
                   </div>
 
-                  {/* Latin Translation */}
+                  {/* Latin Output */}
                   {direction !== "sim-aksara" && (
-                    <div className="text-base sm:text-lg font-semibold text-stone-900 px-1">
+                    <div className="text-base sm:text-lg font-medium text-slate-800">
                       {analysis.translation}
                     </div>
                   )}
-                </>
-              ) : (
-                <div className="h-full flex items-center justify-center text-stone-400 text-sm italic py-8">
-                  Teks terjemahan dan aksara akan tampil di sini.
                 </div>
-              )}
-            </div>
 
-            {/* Provenance Summary */}
-            {analysis.aksara && (
-              <div className="flex items-center justify-between text-xs pt-2 border-t border-stone-200">
-                <div className="flex items-center gap-1.5 text-stone-600">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
-                  <span className="font-medium text-stone-800">
-                    {analysis.tokens.some((t) => t.provenance === "dictionary")
-                      ? "Kamus Baku Simalungun"
-                      : analysis.tokens.some((t) => t.provenance === "phrasebook")
-                      ? "Frasa Adat Terverifikasi"
-                      : "Kaidah Ortografi Baku"}
-                  </span>
+                {/* Bottom Output Action Row */}
+                <div className="flex items-center justify-between text-xs text-slate-500 pt-3 border-t border-slate-100">
+                  <div className="flex items-center gap-1.5 text-slate-600">
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
+                    <span className="font-medium">
+                      {analysis.tokens.some((t) => t.provenance === "dictionary")
+                        ? "Kamus Baku"
+                        : analysis.tokens.some((t) => t.provenance === "phrasebook")
+                        ? "Frasa Terverifikasi"
+                        : "Ortografi Baku"}
+                    </span>
+                    <a
+                      href="#lensa-linguistik"
+                      className="text-[#8b1e1b] hover:underline font-semibold ml-1"
+                    >
+                      Bedah &darr;
+                    </a>
+                  </div>
+
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      type="button"
+                      onClick={() => setIsExportOpen(true)}
+                      className="p-1.5 text-slate-600 hover:text-[#8b1e1b] hover:bg-slate-100 rounded-lg transition"
+                      title="Unduh Kartu Gambar PNG"
+                    >
+                      <Share2 className="w-4 h-4" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleCopy(analysis.aksara)}
+                      className="p-1.5 text-slate-600 hover:text-[#8b1e1b] hover:bg-slate-100 rounded-lg transition"
+                      title="Salin Aksara"
+                    >
+                      {copied ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
+                    </button>
+                  </div>
                 </div>
-                <a
-                  href="#lensa-linguistik"
-                  className="text-[#8b1e1b] hover:underline font-semibold text-[11px]"
-                >
-                  Bedah Bahasa &darr;
-                </a>
-              </div>
+              </>
+            ) : (
+              /* Empty white card matching the screenshot */
+              <div className="h-full flex items-center justify-center text-slate-300 text-sm select-none" />
             )}
           </div>
         </div>
