@@ -162,14 +162,14 @@ export function CardExportModal({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 sm:flex-none px-4 py-2 border border-stone-300 text-stone-700 hover:bg-stone-50 text-xs sm:text-sm font-medium rounded-lg transition"
+              className="min-h-[44px] flex-1 sm:flex-none px-4 py-2.5 border border-stone-300 text-stone-700 hover:bg-stone-50 text-xs sm:text-sm font-medium rounded-xl transition flex items-center justify-center"
             >
               Tutup
             </button>
             <button
               type="button"
               onClick={handleDownload}
-              className="flex-1 sm:flex-none px-4 py-2 bg-[#8b1e1b] hover:bg-[#6b1412] text-white text-xs sm:text-sm font-semibold rounded-lg shadow-sm transition flex items-center justify-center gap-1.5"
+              className="min-h-[44px] flex-1 sm:flex-none px-5 py-2.5 bg-[#8b1e1b] hover:bg-[#6b1412] text-white text-xs sm:text-sm font-semibold rounded-xl shadow-xs transition flex items-center justify-center gap-1.5"
             >
               {downloaded ? <Check className="w-4 h-4 text-emerald-300" /> : <Download className="w-4 h-4" />}
               <span>{downloaded ? "Tersimpan!" : "Unduh Gambar (PNG)"}</span>

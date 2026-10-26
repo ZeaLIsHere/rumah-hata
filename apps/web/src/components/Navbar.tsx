@@ -63,7 +63,7 @@ export function Navbar() {
       </div>
 
       {/* Mobile Navigation bar at top */}
-      <div className="md:hidden border-t border-stone-200 bg-white/80 overflow-x-auto">
+      <div className="md:hidden border-t border-stone-200 bg-white/95 overflow-x-auto">
         <div className="flex px-2 py-1.5 space-x-1 min-w-max">
           {navLinks.map((link) => {
             const Icon = link.icon;
@@ -72,13 +72,13 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium whitespace-nowrap ${
+                className={`min-h-[44px] flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition ${
                   isActive
-                    ? "bg-[#8b1e1b] text-white"
+                    ? "bg-[#8b1e1b] text-white shadow-xs"
                     : "text-stone-700 hover:bg-stone-100"
                 }`}
               >
-                <Icon className="w-3.5 h-3.5" />
+                <Icon className="w-4 h-4" />
                 <span>{link.label}</span>
               </Link>
             );

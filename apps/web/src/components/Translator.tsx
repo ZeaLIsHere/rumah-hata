@@ -84,14 +84,14 @@ export function Translator() {
   return (
     <div className="w-full max-w-5xl mx-auto space-y-6">
       {/* Direction Toolbar */}
-      <div className="bg-white rounded-xl p-3 border border-stone-200 shadow-sm flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-2">
+      <div className="bg-white rounded-xl p-2.5 sm:p-3 border border-stone-200 shadow-sm flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
+        <div className="grid grid-cols-1 sm:flex items-center gap-1.5 sm:gap-2">
           <button
             type="button"
             onClick={() => setDirection("sim-id")}
-            className={`px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition ${
+            className={`min-h-[44px] px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition ${
               direction === "sim-id"
-                ? "bg-[#8b1e1b] text-white"
+                ? "bg-[#8b1e1b] text-white shadow-xs"
                 : "text-stone-700 hover:bg-stone-100"
             }`}
           >
@@ -100,9 +100,9 @@ export function Translator() {
           <button
             type="button"
             onClick={() => setDirection("id-sim")}
-            className={`px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition ${
+            className={`min-h-[44px] px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition ${
               direction === "id-sim"
-                ? "bg-[#8b1e1b] text-white"
+                ? "bg-[#8b1e1b] text-white shadow-xs"
                 : "text-stone-700 hover:bg-stone-100"
             }`}
           >
@@ -111,9 +111,9 @@ export function Translator() {
           <button
             type="button"
             onClick={() => setDirection("sim-aksara")}
-            className={`px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition ${
+            className={`min-h-[44px] px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition ${
               direction === "sim-aksara"
-                ? "bg-[#8b1e1b] text-white"
+                ? "bg-[#8b1e1b] text-white shadow-xs"
                 : "text-stone-700 hover:bg-stone-100"
             }`}
           >
@@ -125,11 +125,11 @@ export function Translator() {
           <button
             type="button"
             onClick={swapDirection}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-stone-700 hover:text-stone-900 border border-stone-300 rounded-lg hover:bg-stone-50 transition"
+            className="min-h-[44px] flex items-center justify-center gap-1.5 px-3.5 py-2 text-xs sm:text-sm text-stone-700 hover:text-stone-900 border border-stone-300 rounded-lg hover:bg-stone-50 transition"
             title="Tukar Arah Terjemahan"
           >
-            <ArrowRightLeft className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Tukar Arah</span>
+            <ArrowRightLeft className="w-4 h-4" />
+            <span>Tukar Arah</span>
           </button>
         )}
       </div>
@@ -197,18 +197,18 @@ export function Translator() {
                 <button
                   type="button"
                   onClick={() => setIsExportOpen(true)}
-                  className="flex items-center gap-1 text-xs text-stone-700 hover:text-[#8b1e1b] font-medium px-2 py-1 bg-stone-100 rounded-md border border-stone-200 transition"
+                  className="min-h-[44px] flex items-center gap-1.5 text-xs text-stone-700 hover:text-[#8b1e1b] font-medium px-3 py-2 bg-stone-100 hover:bg-stone-200 rounded-lg border border-stone-200 transition"
                   title="Unduh Kartu Aksara PNG"
                 >
-                  <Share2 className="w-3.5 h-3.5 text-[#8b1e1b]" />
+                  <Share2 className="w-4 h-4 text-[#8b1e1b]" />
                   <span>Unduh Kartu</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => handleCopy(analysis.aksara)}
-                  className="flex items-center gap-1 text-xs text-stone-700 hover:text-[#8b1e1b] font-medium px-2 py-1 bg-stone-100 rounded-md border border-stone-200 transition"
+                  className="min-h-[44px] flex items-center gap-1.5 text-xs text-stone-700 hover:text-[#8b1e1b] font-medium px-3 py-2 bg-stone-100 hover:bg-stone-200 rounded-lg border border-stone-200 transition"
                 >
-                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copied ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
                   <span>{copied ? "Tersalin" : "Salin"}</span>
                 </button>
               </div>
@@ -342,7 +342,32 @@ export function Translator() {
                   Setiap suku kata dialihkan ke Aksara Batak Simalungun langkah demi langkah menggunakan kaidah ortografi baku.
                 </p>
 
-                <div className="overflow-x-auto">
+                {/* Mobile stacked card view */}
+                <div className="space-y-3 sm:hidden">
+                  {analysis.transliterationSteps.map((step) => (
+                    <div
+                      key={step.step}
+                      className="p-3.5 bg-stone-50 rounded-xl border border-stone-200 space-y-2"
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-mono font-bold text-stone-500">#{step.step}</span>
+                          <span className="text-sm font-bold text-stone-900">{step.input}</span>
+                        </div>
+                        <span className="font-aksara text-2xl text-[#8b1e1b]">
+                          {step.output || "(inheren)"}
+                        </span>
+                      </div>
+                      <p className="text-xs text-stone-700 leading-relaxed">{step.explanation}</p>
+                      <div className="text-[10px] font-mono text-stone-500 bg-white px-2 py-0.5 rounded border border-stone-200 w-fit">
+                        {step.rule}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Desktop table view */}
+                <div className="hidden sm:block overflow-x-auto">
                   <table className="w-full text-left text-xs sm:text-sm border-collapse">
                     <thead>
                       <tr className="bg-stone-50 border-y border-stone-200 text-stone-700">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { RotateCcw, Check, Sparkles, PenTool } from "lucide-react";
 
 interface PracticeLetter {
@@ -21,52 +21,75 @@ const PRACTICE_LETTERS: PracticeLetter[] = [
 ];
 
 export function WritingCanvas() {
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [selectedLetter, setSelectedLetter] = useState<PracticeLetter>(PRACTICE_LETTERS[0]);
   const [isDrawing, setIsDrawing] = useState(false);
   const [strokeCount, setStrokeCount] = useState(0);
   const [evaluation, setEvaluation] = useState<string | null>(null);
+  const [canvasDim, setCanvasDim] = useState<number>(320);
 
-  // Initialize canvas
+  // Resize canvas according to container
+  const updateDimensions = useCallback(() => {
+    if (!containerRef.current) return;
+    const containerWidth = containerRef.current.clientWidth;
+    // Calculate square size: fit screen nicely with max 360px
+    const dim = Math.min(360, Math.max(260, containerWidth - 32));
+    setCanvasDim(dim);
+  }, []);
+
   useEffect(() => {
-    resetCanvas();
-  }, [selectedLetter]);
+    updateDimensions();
+    window.addEventListener("resize", updateDimensions);
+    return () => window.removeEventListener("resize", updateDimensions);
+  }, [updateDimensions]);
+
+  const drawTemplate = useCallback(
+    (dim: number) => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+
+      canvas.width = dim;
+      canvas.height = dim;
+
+      // Background
+      ctx.fillStyle = "#faf9f6";
+      ctx.fillRect(0, 0, dim, dim);
+
+      // Guide grid
+      ctx.strokeStyle = "#e7e5e4";
+      ctx.lineWidth = 1;
+      ctx.setLineDash([4, 4]);
+
+      ctx.beginPath();
+      ctx.moveTo(dim / 2, 0);
+      ctx.lineTo(dim / 2, dim);
+      ctx.moveTo(0, dim / 2);
+      ctx.lineTo(dim, dim / 2);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Faint template glyph
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      const fontSize = Math.round(dim * 0.5);
+      ctx.font = `${fontSize}px 'Noto Sans Batak', 'Plus Jakarta Sans', sans-serif`;
+      ctx.fillStyle = "#e2ded6";
+      ctx.fillText(selectedLetter.char, dim / 2, dim / 2);
+    },
+    [selectedLetter]
+  );
+
+  useEffect(() => {
+    drawTemplate(canvasDim);
+    setStrokeCount(0);
+    setEvaluation(null);
+  }, [selectedLetter, canvasDim, drawTemplate]);
 
   const resetCanvas = () => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const width = 360;
-    const height = 360;
-    canvas.width = width;
-    canvas.height = height;
-
-    // Background
-    ctx.fillStyle = "#faf9f6";
-    ctx.fillRect(0, 0, width, height);
-
-    // Guide grid
-    ctx.strokeStyle = "#e7e5e4";
-    ctx.lineWidth = 1;
-    ctx.setLineDash([4, 4]);
-
-    ctx.beginPath();
-    ctx.moveTo(width / 2, 0);
-    ctx.lineTo(width / 2, height);
-    ctx.moveTo(0, height / 2);
-    ctx.lineTo(width, height / 2);
-    ctx.stroke();
-    ctx.setLineDash([]);
-
-    // Faint tracing template glyph
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.font = "180px 'Noto Sans Batak', 'Plus Jakarta Sans', sans-serif";
-    ctx.fillStyle = "#e2ded6";
-    ctx.fillText(selectedLetter.char, width / 2, height / 2);
-
+    drawTemplate(canvasDim);
     setStrokeCount(0);
     setEvaluation(null);
   };
@@ -86,7 +109,7 @@ export function WritingCanvas() {
     const y = e.clientY - rect.top;
 
     ctx.strokeStyle = "#8b1e1b";
-    ctx.lineWidth = 10;
+    ctx.lineWidth = Math.max(6, Math.round(canvasDim / 35));
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
 
@@ -131,7 +154,7 @@ export function WritingCanvas() {
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-stone-200 shadow-xs p-6 space-y-6">
+    <div className="bg-white rounded-2xl border border-stone-200 shadow-xs p-4 sm:p-6 space-y-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-stone-100 pb-4">
         <div>
           <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#8b1e1b]">
@@ -142,53 +165,54 @@ export function WritingCanvas() {
           <p className="text-xs text-stone-700">Ikuti garis panduan samar untuk melatih memori motorik bentuk huruf.</p>
         </div>
 
-        {/* Letter picker chips */}
+        {/* Letter picker chips with accessible touch targets */}
         <div className="flex items-center gap-1.5 overflow-x-auto max-w-full pb-1">
           {PRACTICE_LETTERS.map((letter) => (
             <button
               key={letter.latin}
               type="button"
               onClick={() => setSelectedLetter(letter)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition flex items-center gap-1 ${
+              className={`min-h-[44px] px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition flex items-center gap-1.5 ${
                 selectedLetter.latin === letter.latin
-                  ? "bg-[#8b1e1b] text-white"
-                  : "bg-stone-100 hover:bg-stone-200 text-stone-700"
+                  ? "bg-[#8b1e1b] text-white shadow-xs"
+                  : "bg-stone-100 hover:bg-stone-200 text-stone-800"
               }`}
             >
-              <span className="font-aksara text-base">{letter.char}</span>
+              <span className="font-aksara text-lg leading-none">{letter.char}</span>
               <span>{letter.latin}</span>
             </button>
           ))}
         </div>
       </div>
 
-      <div className="flex flex-col lg:flex-row items-center justify-center gap-8">
-        {/* Canvas Display */}
-        <div className="flex flex-col items-center space-y-3">
-          <div className="p-2 bg-[#faf9f6] rounded-2xl border-2 border-stone-300 shadow-inner inline-block">
+      <div className="flex flex-col lg:flex-row items-center justify-center gap-6 sm:gap-8">
+        {/* Canvas Display with auto-scaled dimension */}
+        <div ref={containerRef} className="w-full max-w-[380px] flex flex-col items-center space-y-3">
+          <div className="p-2 bg-[#faf9f6] rounded-2xl border-2 border-stone-300 shadow-inner w-fit">
             <canvas
               ref={canvasRef}
               onPointerDown={startDrawing}
               onPointerMove={draw}
               onPointerUp={stopDrawing}
               onPointerCancel={stopDrawing}
+              style={{ width: `${canvasDim}px`, height: `${canvasDim}px` }}
               className="touch-none rounded-xl cursor-crosshair block shadow-xs bg-white"
             />
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 w-full justify-center">
             <button
               type="button"
               onClick={resetCanvas}
-              className="px-3.5 py-1.5 rounded-lg border border-stone-300 text-xs text-stone-700 hover:bg-stone-100 transition flex items-center gap-1.5"
+              className="min-h-[44px] px-4 py-2 rounded-xl border border-stone-300 text-xs text-stone-700 hover:bg-stone-100 transition flex items-center gap-1.5"
             >
               <RotateCcw className="w-3.5 h-3.5" />
-              <span>Bersihkan Kanvas</span>
+              <span>Bersihkan</span>
             </button>
             <button
               type="button"
               onClick={evaluateDrawing}
-              className="px-4 py-1.5 rounded-lg bg-[#8b1e1b] hover:bg-[#6b1412] text-xs text-white font-semibold transition flex items-center gap-1.5"
+              className="min-h-[44px] px-5 py-2 rounded-xl bg-[#8b1e1b] hover:bg-[#6b1412] text-xs text-white font-semibold transition flex items-center gap-1.5 shadow-xs"
             >
               <Check className="w-3.5 h-3.5" />
               <span>Cek Goresan</span>
@@ -197,22 +221,22 @@ export function WritingCanvas() {
         </div>
 
         {/* Instructions & Feedback Panel */}
-        <div className="max-w-md space-y-4">
-          <div className="p-4 bg-stone-50 rounded-xl border border-stone-200 text-xs sm:text-sm text-stone-700 space-y-2">
+        <div className="w-full lg:max-w-md space-y-4">
+          <div className="p-4 sm:p-5 bg-stone-50 rounded-xl border border-stone-200 text-xs sm:text-sm text-stone-700 space-y-2">
             <h4 className="font-bold text-stone-900">Petunjuk Menulis:</h4>
             <ol className="list-decimal list-inside space-y-1.5 text-stone-700">
               <li>Pilih huruf yang ingin dilatih pada bilah pilihan di atas.</li>
-              <li>Goreskan jari atau pen stylus pada bidang kanvas mengikuti bayangan aksara.</li>
-              <li>Tarik garis dari sisi kiri atas ke kanan bawah mengikuti aliran tradisional pena lidi (suligi).</li>
+              <li>Goreskan jari atau kursor pada kanvas mengikuti bayangan aksara.</li>
+              <li>Tarik garis dari sisi kiri atas ke kanan bawah mengikuti aliran tradisional.</li>
               <li>Tekan tombol &ldquo;Cek Goresan&rdquo; untuk memeriksa kelengkapan bentuk.</li>
             </ol>
           </div>
 
           {evaluation && (
-            <div className="p-4 bg-amber-50/70 border border-amber-200 rounded-xl text-xs sm:text-sm text-amber-950 flex items-start gap-2 animate-fadeIn">
+            <div className="p-4 bg-amber-50/70 border border-amber-200 rounded-xl text-xs sm:text-sm text-amber-950 flex items-start gap-2.5 animate-fadeIn">
               <Sparkles className="w-4 h-4 text-[#8b1e1b] mt-0.5 shrink-0" />
               <div>
-                <div className="font-bold mb-0.5">Umpan Balik Latihan:</div>
+                <div className="font-bold mb-0.5">Umpan Balik:</div>
                 <p className="leading-relaxed">{evaluation}</p>
               </div>
             </div>
