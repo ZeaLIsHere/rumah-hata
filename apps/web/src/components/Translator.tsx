@@ -296,24 +296,26 @@ export function Translator() {
         </div>
 
         {/* Two Separate White Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 items-stretch">
           {/* Left Card: Input Box */}
-          <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-2xs border border-slate-200/60 flex flex-col justify-between min-h-[220px] sm:min-h-[250px]">
-            <textarea
-              value={inputText}
-              maxLength={500}
-              onChange={(e) => setInputText(e.target.value)}
-              placeholder="Ketik atau tempelkan teks yang akan diterjemahkan"
-              className="w-full flex-1 text-base sm:text-lg text-slate-800 bg-transparent resize-none border-none focus:outline-none placeholder:text-slate-400 leading-relaxed min-h-[140px]"
-            />
+          <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-2xs border border-slate-200/60 flex flex-col justify-between h-[250px] sm:h-[270px]">
+            <div className="flex-1 flex flex-col overflow-y-auto pr-1">
+              <textarea
+                value={inputText}
+                maxLength={500}
+                onChange={(e) => setInputText(e.target.value)}
+                placeholder="Ketik atau tempelkan teks yang akan diterjemahkan"
+                className="w-full flex-1 text-base sm:text-lg text-slate-800 bg-transparent resize-none border-none focus:outline-none placeholder:text-slate-400 leading-relaxed"
+              />
+            </div>
 
-            {/* Bottom Input Action Row */}
-            <div className="flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-slate-100">
+            {/* Bottom Input Action Row - clean borderless footer */}
+            <div className="h-8 flex items-center justify-between text-xs text-slate-400 pt-1">
               {inputText ? (
                 <button
                   type="button"
                   onClick={() => setInputText("")}
-                  className="hover:text-slate-700 flex items-center gap-1 text-slate-500 font-medium transition"
+                  className="hover:text-slate-700 flex items-center gap-1.5 text-slate-500 font-medium transition"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                   <span>Bersihkan</span>
@@ -326,10 +328,10 @@ export function Translator() {
           </div>
 
           {/* Right Card: Output Box */}
-          <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-2xs border border-slate-200/60 flex flex-col justify-between min-h-[220px] sm:min-h-[250px]">
+          <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-2xs border border-slate-200/60 flex flex-col justify-between h-[250px] sm:h-[270px]">
             {hasOutput ? (
               <>
-                <div className="flex-1 space-y-3">
+                <div className="flex-1 flex flex-col space-y-3 overflow-y-auto pr-1">
                   {/* Aksara Output ONLY when user explicitly chose Aksara */}
                   {targetLang === "aksara" ? (
                     <div className="font-aksara text-3xl sm:text-5xl text-slate-900 tracking-wider leading-relaxed select-all">
@@ -343,11 +345,11 @@ export function Translator() {
                   )}
                 </div>
 
-                {/* Bottom Output Action Row */}
-                <div className="flex items-center justify-between text-xs text-slate-500 pt-3 border-t border-slate-100">
+                {/* Bottom Output Action Row - clean borderless footer matching left height */}
+                <div className="h-8 flex items-center justify-between text-xs text-slate-500 pt-1">
                   <div className="flex items-center gap-1.5 text-slate-600">
                     <ShieldCheck className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
-                    <span className="font-medium">
+                    <span className="font-medium text-slate-700">
                       {analysis.tokens.some((t) => t.provenance === "dictionary")
                         ? "Kamus Baku"
                         : analysis.tokens.some((t) => t.provenance === "phrasebook")
@@ -356,19 +358,20 @@ export function Translator() {
                     </span>
                     <a
                       href="#lensa-linguistik"
-                      className="text-[#8b1e1b] hover:underline font-semibold ml-1"
+                      className="text-[#8b1e1b] hover:underline font-semibold ml-1 inline-flex items-center gap-0.5"
                     >
-                      Bedah &darr;
+                      <span>Bedah</span>
+                      <span>&darr;</span>
                     </a>
                   </div>
 
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-1">
                     {/* Share Card Modal button only relevant if aksara exists */}
                     {analysis.aksara && (
                       <button
                         type="button"
                         onClick={() => setIsExportOpen(true)}
-                        className="p-1.5 text-slate-600 hover:text-[#8b1e1b] hover:bg-slate-100 rounded-lg transition"
+                        className="p-1.5 text-slate-500 hover:text-[#8b1e1b] hover:bg-slate-100 rounded-lg transition"
                         title="Unduh Kartu Gambar PNG"
                       >
                         <Share2 className="w-4 h-4" />
@@ -377,7 +380,7 @@ export function Translator() {
                     <button
                       type="button"
                       onClick={handleCopy}
-                      className="p-1.5 text-slate-600 hover:text-[#8b1e1b] hover:bg-slate-100 rounded-lg transition"
+                      className="p-1.5 text-slate-500 hover:text-[#8b1e1b] hover:bg-slate-100 rounded-lg transition"
                       title={targetLang === "aksara" ? "Salin Aksara" : "Salin Teks Terjemahan"}
                     >
                       {copied ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
