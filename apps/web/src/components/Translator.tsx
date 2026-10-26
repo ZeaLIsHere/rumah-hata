@@ -21,14 +21,18 @@ import {
   Share2
 } from "lucide-react";
 
+type SourceLang = "simalungun" | "indonesia";
+type TargetLang = "indonesia" | "simalungun" | "aksara";
+
 export function Translator() {
-  const [direction, setDirection] = useState<Direction>("sim-id");
+  const [sourceLang, setSourceLang] = useState<SourceLang>("simalungun");
+  const [targetLang, setTargetLang] = useState<TargetLang>("indonesia");
   const [inputText, setInputText] = useState("Horas bamu");
   const [copied, setCopied] = useState(false);
   const [isExportOpen, setIsExportOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"translit" | "phonology" | "morphology" | "culture">("translit");
 
-  // Dropdown states
+  // Dropdown visibility states
   const [isSourceOpen, setIsSourceOpen] = useState(false);
   const [isTargetOpen, setIsTargetOpen] = useState(false);
   const sourceRef = useRef<HTMLDivElement | null>(null);
@@ -48,17 +52,14 @@ export function Translator() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Quick samples
-  const samples = [
-    { label: "Horas bamu", dir: "sim-id" as Direction, text: "Horas bamu" },
-    { label: "Diatei tupa", dir: "sim-id" as Direction, text: "Diatei tupa" },
-    { label: "Habonaron do bona", dir: "sim-id" as Direction, text: "Habonaron do bona" },
-    { label: "Surat Sisimolungun", dir: "sim-id" as Direction, text: "Surat Sisimolungun" },
-    { label: "marsimalungun", dir: "sim-id" as Direction, text: "marsimalungun" },
-    { label: "manurat", dir: "sim-id" as Direction, text: "manurat" },
-    { label: "Terima kasih", dir: "id-sim" as Direction, text: "Terima kasih" },
-    { label: "Kebenaran", dir: "id-sim" as Direction, text: "Kebenaran" }
-  ];
+  // Map source & target to engine Direction
+  const direction: Direction = useMemo(() => {
+    if (targetLang === "aksara") {
+      return sourceLang === "simalungun" ? "sim-aksara" : "id-sim";
+    }
+    if (sourceLang === "indonesia") return "id-sim";
+    return "sim-id";
+  }, [sourceLang, targetLang]);
 
   // Deterministic linguistic analysis
   const analysis: AnalysisResult = useMemo(() => {
@@ -78,37 +79,58 @@ export function Translator() {
     return analyzeText(inputText, direction, simalungunLexicon, simalungunPhrasebook);
   }, [inputText, direction]);
 
-  const handleCopy = (text: string) => {
-    if (!text) return;
-    navigator.clipboard.writeText(text);
+  // Copy handler aligned with active target selection
+  const handleCopy = () => {
+    const textToCopy = targetLang === "aksara" ? analysis.aksara : analysis.translation;
+    if (!textToCopy) return;
+    navigator.clipboard.writeText(textToCopy);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
+  // Swap handler
   const swapDirection = () => {
-    if (direction === "sim-id") {
-      setDirection("id-sim");
+    if (targetLang === "aksara") {
+      if (sourceLang === "simalungun") {
+        setSourceLang("indonesia");
+        setTargetLang("simalungun");
+      } else {
+        setSourceLang("simalungun");
+        setTargetLang("indonesia");
+      }
+    } else {
+      const nextSource: SourceLang = targetLang === "indonesia" ? "indonesia" : "simalungun";
+      const nextTarget: TargetLang = sourceLang === "indonesia" ? "indonesia" : "simalungun";
+      setSourceLang(nextSource);
+      setTargetLang(nextTarget);
+
       if (analysis.translation && !analysis.translation.startsWith("[")) {
         setInputText(analysis.translation);
       }
-    } else if (direction === "id-sim") {
-      setDirection("sim-id");
-      if (analysis.latin) {
-        setInputText(analysis.latin);
-      }
-    } else {
-      setDirection("sim-id");
     }
   };
 
-  // Label helpers
-  const sourceLabel = direction === "id-sim" ? "Indonesia" : "Simalungun";
+  // Quick samples
+  const samples = [
+    { label: "Horas bamu", src: "simalungun" as SourceLang, tgt: "indonesia" as TargetLang, text: "Horas bamu" },
+    { label: "Diatei tupa", src: "simalungun" as SourceLang, tgt: "indonesia" as TargetLang, text: "Diatei tupa" },
+    { label: "Habonaron do bona", src: "simalungun" as SourceLang, tgt: "indonesia" as TargetLang, text: "Habonaron do bona" },
+    { label: "Surat Sisimolungun (Aksara)", src: "simalungun" as SourceLang, tgt: "aksara" as TargetLang, text: "Surat Sisimolungun" },
+    { label: "marsimalungun", src: "simalungun" as SourceLang, tgt: "indonesia" as TargetLang, text: "marsimalungun" },
+    { label: "Terima kasih", src: "indonesia" as SourceLang, tgt: "simalungun" as TargetLang, text: "Terima kasih" },
+    { label: "Kebenaran (Aksara)", src: "indonesia" as SourceLang, tgt: "aksara" as TargetLang, text: "Kebenaran" }
+  ];
+
+  // Labels for dropdown triggers
+  const sourceLabel = sourceLang === "indonesia" ? "Indonesia" : "Simalungun";
   const targetLabel =
-    direction === "id-sim"
-      ? "Simalungun"
-      : direction === "sim-aksara"
+    targetLang === "aksara"
       ? "Aksara Simalungun"
+      : targetLang === "simalungun"
+      ? "Simalungun"
       : "Indonesia";
+
+  const hasOutput = targetLang === "aksara" ? Boolean(analysis.aksara) : Boolean(analysis.translation);
 
   return (
     <div className="w-full max-w-5xl mx-auto space-y-4">
@@ -120,7 +142,8 @@ export function Translator() {
             key={idx}
             type="button"
             onClick={() => {
-              setDirection(s.dir);
+              setSourceLang(s.src);
+              setTargetLang(s.tgt);
               setInputText(s.text);
             }}
             className="px-2.5 py-1 bg-stone-100 hover:bg-stone-200 border border-stone-300 text-stone-800 rounded-md whitespace-nowrap transition"
@@ -153,28 +176,30 @@ export function Translator() {
                 <button
                   type="button"
                   onClick={() => {
-                    setDirection("sim-id");
+                    setSourceLang("simalungun");
+                    if (targetLang === "simalungun") setTargetLang("indonesia");
                     setIsSourceOpen(false);
                   }}
                   className={`w-full px-3.5 py-2 text-left text-xs sm:text-sm hover:bg-slate-50 transition flex items-center justify-between ${
-                    direction !== "id-sim" ? "font-semibold text-[#8b1e1b]" : "text-slate-700"
+                    sourceLang === "simalungun" ? "font-semibold text-[#8b1e1b]" : "text-slate-700"
                   }`}
                 >
                   <span>Simalungun</span>
-                  {direction !== "id-sim" && <Check className="w-3.5 h-3.5 text-[#8b1e1b]" />}
+                  {sourceLang === "simalungun" && <Check className="w-3.5 h-3.5 text-[#8b1e1b]" />}
                 </button>
                 <button
                   type="button"
                   onClick={() => {
-                    setDirection("id-sim");
+                    setSourceLang("indonesia");
+                    if (targetLang === "indonesia") setTargetLang("simalungun");
                     setIsSourceOpen(false);
                   }}
                   className={`w-full px-3.5 py-2 text-left text-xs sm:text-sm hover:bg-slate-50 transition flex items-center justify-between ${
-                    direction === "id-sim" ? "font-semibold text-[#8b1e1b]" : "text-slate-700"
+                    sourceLang === "indonesia" ? "font-semibold text-[#8b1e1b]" : "text-slate-700"
                   }`}
                 >
                   <span>Indonesia</span>
-                  {direction === "id-sim" && <Check className="w-3.5 h-3.5 text-[#8b1e1b]" />}
+                  {sourceLang === "indonesia" && <Check className="w-3.5 h-3.5 text-[#8b1e1b]" />}
                 </button>
               </div>
             )}
@@ -206,28 +231,33 @@ export function Translator() {
 
             {isTargetOpen && (
               <div className="absolute right-0 mt-1 w-48 bg-white rounded-xl shadow-lg border border-slate-200 py-1.5 z-30 animate-fadeIn">
-                {direction === "id-sim" ? (
+                {sourceLang === "indonesia" ? (
                   <>
                     <button
                       type="button"
                       onClick={() => {
-                        setDirection("id-sim");
+                        setTargetLang("simalungun");
                         setIsTargetOpen(false);
                       }}
-                      className="w-full px-3.5 py-2 text-left text-xs sm:text-sm hover:bg-slate-50 font-semibold text-[#8b1e1b] flex items-center justify-between"
+                      className={`w-full px-3.5 py-2 text-left text-xs sm:text-sm hover:bg-slate-50 flex items-center justify-between ${
+                        targetLang === "simalungun" ? "font-semibold text-[#8b1e1b]" : "text-slate-700"
+                      }`}
                     >
-                      <span>Simalungun</span>
-                      <Check className="w-3.5 h-3.5 text-[#8b1e1b]" />
+                      <span>Simalungun (Latin)</span>
+                      {targetLang === "simalungun" && <Check className="w-3.5 h-3.5 text-[#8b1e1b]" />}
                     </button>
                     <button
                       type="button"
                       onClick={() => {
-                        setDirection("sim-aksara");
+                        setTargetLang("aksara");
                         setIsTargetOpen(false);
                       }}
-                      className="w-full px-3.5 py-2 text-left text-xs sm:text-sm hover:bg-slate-50 text-slate-700 flex items-center justify-between"
+                      className={`w-full px-3.5 py-2 text-left text-xs sm:text-sm hover:bg-slate-50 flex items-center justify-between ${
+                        targetLang === "aksara" ? "font-semibold text-[#8b1e1b]" : "text-slate-700"
+                      }`}
                     >
                       <span>Aksara Simalungun</span>
+                      {targetLang === "aksara" && <Check className="w-3.5 h-3.5 text-[#8b1e1b]" />}
                     </button>
                   </>
                 ) : (
@@ -235,28 +265,28 @@ export function Translator() {
                     <button
                       type="button"
                       onClick={() => {
-                        setDirection("sim-id");
+                        setTargetLang("indonesia");
                         setIsTargetOpen(false);
                       }}
                       className={`w-full px-3.5 py-2 text-left text-xs sm:text-sm hover:bg-slate-50 flex items-center justify-between ${
-                        direction === "sim-id" ? "font-semibold text-[#8b1e1b]" : "text-slate-700"
+                        targetLang === "indonesia" ? "font-semibold text-[#8b1e1b]" : "text-slate-700"
                       }`}
                     >
                       <span>Indonesia</span>
-                      {direction === "sim-id" && <Check className="w-3.5 h-3.5 text-[#8b1e1b]" />}
+                      {targetLang === "indonesia" && <Check className="w-3.5 h-3.5 text-[#8b1e1b]" />}
                     </button>
                     <button
                       type="button"
                       onClick={() => {
-                        setDirection("sim-aksara");
+                        setTargetLang("aksara");
                         setIsTargetOpen(false);
                       }}
                       className={`w-full px-3.5 py-2 text-left text-xs sm:text-sm hover:bg-slate-50 flex items-center justify-between ${
-                        direction === "sim-aksara" ? "font-semibold text-[#8b1e1b]" : "text-slate-700"
+                        targetLang === "aksara" ? "font-semibold text-[#8b1e1b]" : "text-slate-700"
                       }`}
                     >
                       <span>Aksara Simalungun</span>
-                      {direction === "sim-aksara" && <Check className="w-3.5 h-3.5 text-[#8b1e1b]" />}
+                      {targetLang === "aksara" && <Check className="w-3.5 h-3.5 text-[#8b1e1b]" />}
                     </button>
                   </>
                 )}
@@ -297,17 +327,17 @@ export function Translator() {
 
           {/* Right Card: Output Box */}
           <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-2xs border border-slate-200/60 flex flex-col justify-between min-h-[220px] sm:min-h-[250px]">
-            {analysis.aksara ? (
+            {hasOutput ? (
               <>
                 <div className="flex-1 space-y-3">
-                  {/* Aksara Output */}
-                  <div className="font-aksara text-3xl sm:text-4xl text-slate-900 tracking-wider leading-relaxed select-all">
-                    {analysis.aksara}
-                  </div>
-
-                  {/* Latin Output */}
-                  {direction !== "sim-aksara" && (
-                    <div className="text-base sm:text-lg font-medium text-slate-800">
+                  {/* Aksara Output ONLY when user explicitly chose Aksara */}
+                  {targetLang === "aksara" ? (
+                    <div className="font-aksara text-3xl sm:text-5xl text-slate-900 tracking-wider leading-relaxed select-all">
+                      {analysis.aksara}
+                    </div>
+                  ) : (
+                    /* Clean Latin Text Output (Indonesia or Simalungun) */
+                    <div className="text-base sm:text-xl font-medium text-slate-800 leading-relaxed select-all">
                       {analysis.translation}
                     </div>
                   )}
@@ -322,7 +352,7 @@ export function Translator() {
                         ? "Kamus Baku"
                         : analysis.tokens.some((t) => t.provenance === "phrasebook")
                         ? "Frasa Terverifikasi"
-                        : "Ortografi Baku"}
+                        : "Kaidah Baku"}
                     </span>
                     <a
                       href="#lensa-linguistik"
@@ -333,19 +363,22 @@ export function Translator() {
                   </div>
 
                   <div className="flex items-center gap-1.5">
+                    {/* Share Card Modal button only relevant if aksara exists */}
+                    {analysis.aksara && (
+                      <button
+                        type="button"
+                        onClick={() => setIsExportOpen(true)}
+                        className="p-1.5 text-slate-600 hover:text-[#8b1e1b] hover:bg-slate-100 rounded-lg transition"
+                        title="Unduh Kartu Gambar PNG"
+                      >
+                        <Share2 className="w-4 h-4" />
+                      </button>
+                    )}
                     <button
                       type="button"
-                      onClick={() => setIsExportOpen(true)}
+                      onClick={handleCopy}
                       className="p-1.5 text-slate-600 hover:text-[#8b1e1b] hover:bg-slate-100 rounded-lg transition"
-                      title="Unduh Kartu Gambar PNG"
-                    >
-                      <Share2 className="w-4 h-4" />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => handleCopy(analysis.aksara)}
-                      className="p-1.5 text-slate-600 hover:text-[#8b1e1b] hover:bg-slate-100 rounded-lg transition"
-                      title="Salin Aksara"
+                      title={targetLang === "aksara" ? "Salin Aksara" : "Salin Teks Terjemahan"}
                     >
                       {copied ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
                     </button>
