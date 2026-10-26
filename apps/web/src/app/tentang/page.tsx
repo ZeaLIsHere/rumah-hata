@@ -49,14 +49,14 @@ export default function TentangPage() {
     <div className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-12">
       {/* Header */}
       <div className="space-y-3">
-        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#8b1e1b]">
+        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#8b1e1b] dark:text-red-400">
           <ShieldCheck className="w-4 h-4" />
           <span>Transparansi & Metodologi</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight">
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-stone-900 dark:text-white tracking-tight">
           Sumber Rujukan & Kaidah Bahasa
         </h1>
-        <p className="text-stone-700 text-sm sm:text-base leading-relaxed max-w-3xl">
+        <p className="text-stone-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed max-w-3xl">
           Rumah Hata dibangun atas prinsip kejujuran ilmiah: akurasi kebahasaan diutamakan,
           dan setiap kata terhubung dengan kamus dan sumber rujukan yang jelas.
         </p>
@@ -64,34 +64,34 @@ export default function TentangPage() {
 
       {/* Rujukan Pustaka */}
       <section className="space-y-4">
-        <div className="flex items-center gap-2 border-b border-stone-200 pb-2">
-          <BookOpen className="w-5 h-5 text-[#8b1e1b]" />
-          <h2 className="text-xl font-bold text-stone-900">Landasan Rujukan Pustaka</h2>
+        <div className="flex items-center gap-2 border-b border-stone-200 dark:border-slate-800 pb-2">
+          <BookOpen className="w-5 h-5 text-[#8b1e1b] dark:text-red-400" />
+          <h2 className="text-xl font-bold text-stone-900 dark:text-white">Landasan Rujukan Pustaka</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {simalungunSources.map((src: any) => (
             <div
               key={src.id}
-              className="p-5 bg-white rounded-xl border border-stone-200 shadow-2xs space-y-2 flex flex-col justify-between"
+              className="p-5 bg-white dark:bg-[#161a24] rounded-xl border border-stone-200 dark:border-slate-800 shadow-2xs space-y-2 flex flex-col justify-between transition-colors duration-200"
             >
               <div className="space-y-1">
-                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-stone-100 text-stone-700 font-medium">
+                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-stone-100 dark:bg-slate-800 text-stone-700 dark:text-slate-300 font-medium">
                   {src.type} &middot; {src.year}
                 </span>
-                <h3 className="text-base font-bold text-stone-900 leading-snug">{src.title}</h3>
-                <p className="text-xs text-stone-700">Penulis / Institusi: {src.author}</p>
-                {src.publisher && <p className="text-xs text-stone-700">Penerbit: {src.publisher}</p>}
-                <p className="text-xs text-stone-700 pt-1 leading-relaxed">{src.notes}</p>
+                <h3 className="text-base font-bold text-stone-900 dark:text-white leading-snug">{src.title}</h3>
+                <p className="text-xs text-stone-600 dark:text-slate-400">Penulis / Institusi: {src.author}</p>
+                {src.publisher && <p className="text-xs text-stone-600 dark:text-slate-400">Penerbit: {src.publisher}</p>}
+                <p className="text-xs text-stone-700 dark:text-slate-300 pt-1 leading-relaxed">{src.notes}</p>
               </div>
-              <div className="pt-2 border-t border-stone-100 text-[11px] text-stone-700 flex justify-between items-center">
+              <div className="pt-2 border-t border-stone-100 dark:border-slate-800 text-[11px] text-stone-600 dark:text-slate-400 flex justify-between items-center">
                 <span>Lisensi: {src.license}</span>
                 {src.url && (
                   <a
                     href={src.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-[#8b1e1b] hover:underline font-medium"
+                    className="text-[#8b1e1b] dark:text-red-400 hover:underline font-medium"
                   >
                     Dokumen &rarr;
                   </a>
@@ -104,33 +104,33 @@ export default function TentangPage() {
 
       {/* Rekam Keputusan Linguistik (Linguistic Decisions Log) */}
       <section className="space-y-4">
-        <div className="flex items-center gap-2 border-b border-stone-200 pb-2">
-          <Scale className="w-5 h-5 text-[#8b1e1b]" />
-          <h2 className="text-xl font-bold text-stone-900">Catatan Kaidah Ejaan & Aksara</h2>
+        <div className="flex items-center gap-2 border-b border-stone-200 dark:border-slate-800 pb-2">
+          <Scale className="w-5 h-5 text-[#8b1e1b] dark:text-red-400" />
+          <h2 className="text-xl font-bold text-stone-900 dark:text-white">Catatan Kaidah Ejaan & Aksara</h2>
         </div>
-        <p className="text-sm text-stone-700">
+        <p className="text-sm text-stone-700 dark:text-slate-300">
           Setiap pilihan karakter dan kaidah ortografi Batak Simalungun dicatat secara terbuka
           bersama sumber rujukannya untuk memastikan keaslian tulisan.
         </p>
 
         <div className="space-y-3">
           {decisions.map((dec) => (
-            <div key={dec.id} className="p-4 bg-white rounded-xl border border-stone-200 shadow-2xs space-y-2">
+            <div key={dec.id} className="p-4 bg-white dark:bg-[#161a24] rounded-xl border border-stone-200 dark:border-slate-800 shadow-2xs space-y-2 transition-colors duration-200">
               <div className="flex items-center justify-between">
-                <span className="font-mono text-xs font-bold px-2 py-0.5 bg-stone-100 text-stone-800 rounded border border-stone-200">
+                <span className="font-mono text-xs font-bold px-2 py-0.5 bg-stone-100 dark:bg-slate-800 text-stone-800 dark:text-slate-200 rounded border border-stone-200 dark:border-slate-700">
                   {dec.id}
                 </span>
-                <span className="text-xs text-emerald-800 font-medium">Status: Terverifikasi Baku</span>
+                <span className="text-xs text-emerald-800 dark:text-emerald-400 font-medium">Status: Terverifikasi Baku</span>
               </div>
-              <h3 className="text-base font-bold text-stone-900">{dec.topic}</h3>
-              <div className="text-xs sm:text-sm text-stone-800 font-semibold bg-stone-50 p-2.5 rounded-lg border border-stone-100">
+              <h3 className="text-base font-bold text-stone-900 dark:text-white">{dec.topic}</h3>
+              <div className="text-xs sm:text-sm text-stone-800 dark:text-slate-200 font-semibold bg-stone-50 dark:bg-slate-800/60 p-2.5 rounded-lg border border-stone-100 dark:border-slate-700">
                 Keputusan: {dec.decision}
               </div>
-              <p className="text-xs sm:text-sm text-stone-700 leading-relaxed">
-                <span className="font-semibold text-stone-800">Alasan: </span>
+              <p className="text-xs sm:text-sm text-stone-700 dark:text-slate-300 leading-relaxed">
+                <span className="font-semibold text-stone-800 dark:text-slate-200">Alasan: </span>
                 {dec.rationale}
               </p>
-              <div className="text-[11px] text-stone-700 font-mono pt-1">
+              <div className="text-[11px] text-stone-600 dark:text-slate-400 font-mono pt-1">
                 Rujukan: {dec.source}
               </div>
             </div>
@@ -139,12 +139,12 @@ export default function TentangPage() {
       </section>
 
       {/* Komitmen Budaya & Pernyataan Sikap */}
-      <section className="p-6 bg-stone-900 text-stone-100 rounded-2xl space-y-3">
+      <section className="p-6 bg-stone-900 dark:bg-[#161a24] text-stone-100 rounded-2xl space-y-3 border border-transparent dark:border-slate-800 transition-colors duration-200">
         <div className="flex items-center gap-2 text-amber-400 font-bold text-sm">
           <FileText className="w-4 h-4" />
           <span>Pernyataan Etika & Penghormatan Budaya</span>
         </div>
-        <p className="text-sm text-stone-300 leading-relaxed">
+        <p className="text-sm text-stone-300 dark:text-slate-300 leading-relaxed">
           Bahasa dan Aksara Batak Simalungun adalah warisan peradaban leluhur yang sarat nilai spiritual dan adat.
           Platform ini tidak mengarang kaidah, tidak menyamakan varian antar-etnis Batak tanpa bukti,
           dan selalu mencantumkan penanda ketidakpastian apabila sebuah kata belum divalidasi oleh pakar atau penutur asli.

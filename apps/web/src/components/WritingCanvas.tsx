@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import { RotateCcw, Check, Sparkles, PenTool } from "lucide-react";
+import { useTheme } from "./ThemeProvider";
 
 interface PracticeLetter {
   char: string;
@@ -28,12 +29,12 @@ export function WritingCanvas() {
   const [strokeCount, setStrokeCount] = useState(0);
   const [evaluation, setEvaluation] = useState<string | null>(null);
   const [canvasDim, setCanvasDim] = useState<number>(320);
+  const { theme } = useTheme();
 
   // Resize canvas according to container
   const updateDimensions = useCallback(() => {
     if (!containerRef.current) return;
     const containerWidth = containerRef.current.clientWidth;
-    // Calculate square size: fit screen nicely with max 360px
     const dim = Math.min(360, Math.max(260, containerWidth - 32));
     setCanvasDim(dim);
   }, []);
@@ -54,12 +55,14 @@ export function WritingCanvas() {
       canvas.width = dim;
       canvas.height = dim;
 
+      const isDark = document.documentElement.classList.contains("dark");
+
       // Background
-      ctx.fillStyle = "#faf9f6";
+      ctx.fillStyle = isDark ? "#12151c" : "#faf9f6";
       ctx.fillRect(0, 0, dim, dim);
 
       // Guide grid
-      ctx.strokeStyle = "#e7e5e4";
+      ctx.strokeStyle = isDark ? "#283042" : "#e7e5e4";
       ctx.lineWidth = 1;
       ctx.setLineDash([4, 4]);
 
@@ -76,7 +79,7 @@ export function WritingCanvas() {
       ctx.textBaseline = "middle";
       const fontSize = Math.round(dim * 0.5);
       ctx.font = `${fontSize}px 'Noto Sans Batak', 'Plus Jakarta Sans', sans-serif`;
-      ctx.fillStyle = "#e2ded6";
+      ctx.fillStyle = isDark ? "#2d3748" : "#e2ded6";
       ctx.fillText(selectedLetter.char, dim / 2, dim / 2);
     },
     [selectedLetter]
@@ -86,7 +89,7 @@ export function WritingCanvas() {
     drawTemplate(canvasDim);
     setStrokeCount(0);
     setEvaluation(null);
-  }, [selectedLetter, canvasDim, drawTemplate]);
+  }, [selectedLetter, canvasDim, drawTemplate, theme]);
 
   const resetCanvas = () => {
     drawTemplate(canvasDim);
@@ -108,7 +111,8 @@ export function WritingCanvas() {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    ctx.strokeStyle = "#8b1e1b";
+    const isDark = document.documentElement.classList.contains("dark");
+    ctx.strokeStyle = isDark ? "#ef4444" : "#8b1e1b";
     ctx.lineWidth = Math.max(6, Math.round(canvasDim / 35));
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
@@ -154,15 +158,15 @@ export function WritingCanvas() {
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-stone-200 shadow-xs p-4 sm:p-6 space-y-6">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-stone-100 pb-4">
+    <div className="bg-white dark:bg-[#161a24] rounded-2xl border border-stone-200 dark:border-slate-800 shadow-xs p-4 sm:p-6 space-y-6 transition-colors duration-200">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-stone-100 dark:border-slate-800 pb-4">
         <div>
-          <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#8b1e1b]">
+          <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#8b1e1b] dark:text-red-400">
             <PenTool className="w-4 h-4" />
             <span>Kanvas Latihan Aksara</span>
           </div>
-          <h3 className="text-xl font-bold text-stone-900">Latihan Menulis Goresan Aksara</h3>
-          <p className="text-xs text-stone-700">Ikuti garis panduan samar untuk melatih memori motorik bentuk huruf.</p>
+          <h3 className="text-xl font-bold text-stone-900 dark:text-white">Latihan Menulis Goresan Aksara</h3>
+          <p className="text-xs text-stone-700 dark:text-slate-400">Ikuti garis panduan samar untuk melatih memori motorik bentuk huruf.</p>
         </div>
 
         {/* Letter picker chips with accessible touch targets */}
@@ -174,8 +178,8 @@ export function WritingCanvas() {
               onClick={() => setSelectedLetter(letter)}
               className={`min-h-[44px] px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition flex items-center gap-1.5 ${
                 selectedLetter.latin === letter.latin
-                  ? "bg-[#8b1e1b] text-white shadow-xs"
-                  : "bg-stone-100 hover:bg-stone-200 text-stone-800"
+                  ? "bg-[#8b1e1b] dark:bg-[#a62521] text-white shadow-xs"
+                  : "bg-stone-100 dark:bg-slate-800 hover:bg-stone-200 dark:hover:bg-slate-700 text-stone-800 dark:text-slate-200"
               }`}
             >
               <span className="font-aksara text-lg leading-none">{letter.char}</span>
@@ -188,7 +192,7 @@ export function WritingCanvas() {
       <div className="flex flex-col lg:flex-row items-center justify-center gap-6 sm:gap-8">
         {/* Canvas Display with auto-scaled dimension */}
         <div ref={containerRef} className="w-full max-w-[380px] flex flex-col items-center space-y-3">
-          <div className="p-2 bg-[#faf9f6] rounded-2xl border-2 border-stone-300 shadow-inner w-fit">
+          <div className="p-2 bg-[#faf9f6] dark:bg-[#12151c] rounded-2xl border-2 border-stone-300 dark:border-slate-700 shadow-inner w-fit">
             <canvas
               ref={canvasRef}
               onPointerDown={startDrawing}
@@ -196,7 +200,7 @@ export function WritingCanvas() {
               onPointerUp={stopDrawing}
               onPointerCancel={stopDrawing}
               style={{ width: `${canvasDim}px`, height: `${canvasDim}px` }}
-              className="touch-none rounded-xl cursor-crosshair block shadow-xs bg-white"
+              className="touch-none rounded-xl cursor-crosshair block shadow-xs bg-white dark:bg-[#12151c]"
             />
           </div>
 
@@ -204,7 +208,7 @@ export function WritingCanvas() {
             <button
               type="button"
               onClick={resetCanvas}
-              className="min-h-[44px] px-4 py-2 rounded-xl border border-stone-300 text-xs text-stone-700 hover:bg-stone-100 transition flex items-center gap-1.5"
+              className="min-h-[44px] px-4 py-2 rounded-xl border border-stone-300 dark:border-slate-700 text-xs text-stone-700 dark:text-slate-300 hover:bg-stone-100 dark:hover:bg-slate-800 transition flex items-center gap-1.5"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               <span>Bersihkan</span>
@@ -212,7 +216,7 @@ export function WritingCanvas() {
             <button
               type="button"
               onClick={evaluateDrawing}
-              className="min-h-[44px] px-5 py-2 rounded-xl bg-[#8b1e1b] hover:bg-[#6b1412] text-xs text-white font-semibold transition flex items-center gap-1.5 shadow-xs"
+              className="min-h-[44px] px-5 py-2 rounded-xl bg-[#8b1e1b] dark:bg-[#a62521] hover:bg-[#6b1412] text-xs text-white font-semibold transition flex items-center gap-1.5 shadow-xs"
             >
               <Check className="w-3.5 h-3.5" />
               <span>Cek Goresan</span>
@@ -222,9 +226,9 @@ export function WritingCanvas() {
 
         {/* Instructions & Feedback Panel */}
         <div className="w-full lg:max-w-md space-y-4">
-          <div className="p-4 sm:p-5 bg-stone-50 rounded-xl border border-stone-200 text-xs sm:text-sm text-stone-700 space-y-2">
-            <h4 className="font-bold text-stone-900">Petunjuk Menulis:</h4>
-            <ol className="list-decimal list-inside space-y-1.5 text-stone-700">
+          <div className="p-4 sm:p-5 bg-stone-50 dark:bg-slate-800/60 rounded-xl border border-stone-200 dark:border-slate-700 text-xs sm:text-sm text-stone-700 dark:text-slate-300 space-y-2">
+            <h4 className="font-bold text-stone-900 dark:text-white">Petunjuk Menulis:</h4>
+            <ol className="list-decimal list-inside space-y-1.5 text-stone-700 dark:text-slate-300">
               <li>Pilih huruf yang ingin dilatih pada bilah pilihan di atas.</li>
               <li>Goreskan jari atau kursor pada kanvas mengikuti bayangan aksara.</li>
               <li>Tarik garis dari sisi kiri atas ke kanan bawah mengikuti aliran tradisional.</li>
@@ -233,8 +237,8 @@ export function WritingCanvas() {
           </div>
 
           {evaluation && (
-            <div className="p-4 bg-amber-50/70 border border-amber-200 rounded-xl text-xs sm:text-sm text-amber-950 flex items-start gap-2.5 animate-fadeIn">
-              <Sparkles className="w-4 h-4 text-[#8b1e1b] mt-0.5 shrink-0" />
+            <div className="p-4 bg-amber-50/70 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 rounded-xl text-xs sm:text-sm text-amber-950 dark:text-amber-200 flex items-start gap-2.5 animate-fadeIn">
+              <Sparkles className="w-4 h-4 text-[#8b1e1b] dark:text-amber-400 mt-0.5 shrink-0" />
               <div>
                 <div className="font-bold mb-0.5">Umpan Balik:</div>
                 <p className="leading-relaxed">{evaluation}</p>
