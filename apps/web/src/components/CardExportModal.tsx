@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Download, X, Image as ImageIcon, Sparkles, Check } from "lucide-react";
+import { Download, X, Image as ImageIcon, Check } from "lucide-react";
 
 interface CardExportModalProps {
   isOpen: boolean;
@@ -131,7 +131,6 @@ export function CardExportModal({
             </div>
             <div>
               <h3 className="font-bold text-stone-900 text-base">Ekspor Kartu Aksara</h3>
-              <p className="text-xs text-stone-700">Format gambar PNG beresolusi tinggi siap bagikan</p>
             </div>
           </div>
           <button
@@ -152,29 +151,22 @@ export function CardExportModal({
         </div>
 
         {/* Action Controls */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
-          <span className="text-xs text-stone-700 flex items-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5 text-amber-800" />
-            <span>Desain ornamen bingkai terinspirasi laklak pustaha Simalungun</span>
-          </span>
-
-          <div className="flex items-center gap-2 w-full sm:w-auto">
-            <button
-              type="button"
-              onClick={onClose}
-              className="min-h-[44px] flex-1 sm:flex-none px-4 py-2.5 border border-stone-300 text-stone-700 hover:bg-stone-50 text-xs sm:text-sm font-medium rounded-xl transition flex items-center justify-center"
-            >
-              Tutup
-            </button>
-            <button
-              type="button"
-              onClick={handleDownload}
-              className="min-h-[44px] flex-1 sm:flex-none px-5 py-2.5 bg-[#8b1e1b] hover:bg-[#6b1412] text-white text-xs sm:text-sm font-semibold rounded-xl shadow-xs transition flex items-center justify-center gap-1.5"
-            >
-              {downloaded ? <Check className="w-4 h-4 text-emerald-300" /> : <Download className="w-4 h-4" />}
-              <span>{downloaded ? "Tersimpan!" : "Unduh Gambar (PNG)"}</span>
-            </button>
-          </div>
+        <div className="flex items-center justify-end gap-2 pt-2">
+          <button
+            type="button"
+            onClick={onClose}
+            className="min-h-[44px] px-4 py-2.5 border border-stone-300 text-stone-700 hover:bg-stone-50 text-xs sm:text-sm font-medium rounded-xl transition flex items-center justify-center"
+          >
+            Tutup
+          </button>
+          <button
+            type="button"
+            onClick={handleDownload}
+            className="min-h-[44px] px-5 py-2.5 bg-[#8b1e1b] hover:bg-[#6b1412] text-white text-xs sm:text-sm font-semibold rounded-xl shadow-xs transition flex items-center justify-center gap-1.5"
+          >
+            {downloaded ? <Check className="w-4 h-4 text-emerald-300" /> : <Download className="w-4 h-4" />}
+            <span>{downloaded ? "Tersimpan!" : "Unduh Gambar (PNG)"}</span>
+          </button>
         </div>
       </div>
     </div>
