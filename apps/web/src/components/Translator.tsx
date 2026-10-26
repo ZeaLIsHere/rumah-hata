@@ -15,7 +15,6 @@ import {
   RotateCcw,
   BookOpen,
   Layers,
-  Sparkles,
   ShieldCheck,
   AlertCircle,
   Share2
@@ -271,18 +270,6 @@ export function Translator() {
       {/* Lensa Linguistik Container */}
       {analysis.aksara && (
         <section id="lensa-linguistik" className="bg-white rounded-xl border border-stone-200 shadow-sm overflow-hidden mt-8">
-          <div className="bg-stone-50 px-4 py-3 border-b border-stone-200 flex flex-wrap items-center justify-between gap-3">
-            <div className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-[#8b1e1b]" />
-              <h3 className="font-bold text-stone-900 text-sm sm:text-base">
-                Lensa Linguistik: Bedah Bahasa & Aksara
-              </h3>
-            </div>
-            <span className="text-xs text-stone-700">
-              Penjelasan kaidah ejaan, pembagian suku kata, dan struktur kalimat
-            </span>
-          </div>
-
           {/* Lens Tabs */}
           <div className="border-b border-stone-200 px-4 bg-white flex space-x-2 overflow-x-auto">
             <button
@@ -338,10 +325,6 @@ export function Translator() {
             {/* Tab 1: Transliteration steps */}
             {activeTab === "translit" && (
               <div className="space-y-4">
-                <p className="text-xs sm:text-sm text-stone-700">
-                  Setiap suku kata dialihkan ke Aksara Batak Simalungun langkah demi langkah menggunakan kaidah ortografi baku.
-                </p>
-
                 {/* Mobile stacked card view */}
                 <div className="space-y-3 sm:hidden">
                   {analysis.transliterationSteps.map((step) => (
