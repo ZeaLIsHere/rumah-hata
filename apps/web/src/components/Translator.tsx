@@ -110,17 +110,6 @@ export function Translator() {
     }
   };
 
-  // Quick samples
-  const samples = [
-    { label: "Horas bamu", src: "simalungun" as SourceLang, tgt: "indonesia" as TargetLang, text: "Horas bamu" },
-    { label: "Diatei tupa", src: "simalungun" as SourceLang, tgt: "indonesia" as TargetLang, text: "Diatei tupa" },
-    { label: "Habonaron do bona", src: "simalungun" as SourceLang, tgt: "indonesia" as TargetLang, text: "Habonaron do bona" },
-    { label: "Surat Sisimolungun (Aksara)", src: "simalungun" as SourceLang, tgt: "aksara" as TargetLang, text: "Surat Sisimolungun" },
-    { label: "marsimalungun", src: "simalungun" as SourceLang, tgt: "indonesia" as TargetLang, text: "marsimalungun" },
-    { label: "Terima kasih", src: "indonesia" as SourceLang, tgt: "simalungun" as TargetLang, text: "Terima kasih" },
-    { label: "Kebenaran (Aksara)", src: "indonesia" as SourceLang, tgt: "aksara" as TargetLang, text: "Kebenaran" }
-  ];
-
   // Labels for dropdown triggers
   const sourceLabel = sourceLang === "indonesia" ? "Indonesia" : "Simalungun";
   const targetLabel =
@@ -134,25 +123,6 @@ export function Translator() {
 
   return (
     <div className="w-full max-w-5xl mx-auto space-y-4">
-      {/* Quick Samples Chips */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-1 text-xs text-stone-700 dark:text-slate-300">
-        <span className="font-medium whitespace-nowrap text-stone-700 dark:text-slate-300">Coba contoh:</span>
-        {samples.map((s, idx) => (
-          <button
-            key={idx}
-            type="button"
-            onClick={() => {
-              setSourceLang(s.src);
-              setTargetLang(s.tgt);
-              setInputText(s.text);
-            }}
-            className="px-2.5 py-1 bg-stone-100 hover:bg-stone-200 dark:bg-slate-800 dark:hover:bg-slate-700 border border-stone-300 dark:border-slate-700 text-stone-800 dark:text-slate-200 rounded-md whitespace-nowrap transition"
-          >
-            {s.label}
-          </button>
-        ))}
-      </div>
-
       {/* Main Modern Translator Container (Bing / Edge Translator Style) */}
       <div className="bg-[#edf2f7] dark:bg-[#161a24] rounded-3xl p-3 sm:p-5 border border-slate-200/80 dark:border-slate-800 shadow-xs space-y-3 transition-colors duration-200">
         {/* Top Centered Language Selector Bar */}
