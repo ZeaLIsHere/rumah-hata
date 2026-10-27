@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { transliterateLatinToAksara, syllabifyWord } from "@rumah-hata/linguistics";
+import { transliterateLatinToAksara } from "@rumah-hata/linguistics";
 import lexiconJson from "../../../../../../data/simalungun/lexicon.json";
 
 export async function POST(req: Request) {
@@ -11,7 +11,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Teks wajib diisi" }, { status: 400 });
     }
 
-    // Supported OpenAI-compatible keys: OPENCODE_API_KEY, OPENROUTER_API_KEY, OPENAI_API_KEY
+    // Supported keys
     const apiKey =
       process.env.OPENCODE_API_KEY ||
       process.env.OPENROUTER_API_KEY ||
@@ -21,23 +21,37 @@ export async function POST(req: Request) {
       return NextResponse.json(
         {
           available: false,
-          message: "API key server belum dikonfigurasi di environment variable."
+          message: "Kunci API server belum dikonfigurasi di environment variable."
         },
         { status: 200 }
       );
     }
 
+    // Intelligent provider & model auto-detection
+    let defaultBaseUrl = "https://openrouter.ai/api/v1";
+    let defaultModel = "google/gemini-2.0-flash-001";
+
+    if (apiKey.startsWith("sk-or-")) {
+      // Explicit OpenRouter key
+      defaultBaseUrl = "https://openrouter.ai/api/v1";
+      defaultModel = "google/gemini-2.0-flash-001";
+    } else if (apiKey.startsWith("sk-")) {
+      // Standard OpenAI key
+      defaultBaseUrl = "https://api.openai.com/v1";
+      defaultModel = "gpt-4o-mini";
+    }
+
     const baseUrl =
       process.env.OPENCODE_BASE_URL ||
       process.env.OPENAI_BASE_URL ||
-      "https://openrouter.ai/api/v1";
+      defaultBaseUrl;
 
     const model =
       process.env.OPENCODE_MODEL ||
       process.env.OPENAI_MODEL ||
-      "google/gemini-2.0-flash-001";
+      defaultModel;
 
-    // Inject grounding context: send compact dictionary references
+    // Inject grounding context: compact dictionary references
     const dictionaryGroundedContext = (lexiconJson as any[]).map((e) => ({
       lemma: e.lemma,
       glosses: e.glosses,
@@ -48,15 +62,12 @@ export async function POST(req: Request) {
 Prinsip utama:
 1. AKURASI LINGUISTIK: Utamakan kosakata resmi Simalungun yang ada pada kamus acuan yang dilampirkan.
 2. JANGAN MENGARANG kosakata: Jangan menyamakan aturan Simalungun dengan Toba/Karo tanpa bukti.
-3. Jawab HANYA dalam format JSON valid tanpa markdown formatting.
+3. Jawab HANYA dalam format JSON valid tanpa tanda markdown.
 
 Format output JSON:
 {
   "translation": "hasil terjemahan dalam bahasa target",
-  "explanation": "catatan tata bahasa singkat",
-  "tokens": [
-    { "word": "kata", "translation": "makna", "isKnown": true/false }
-  ]
+  "explanation": "catatan tata bahasa singkat"
 }
 
 Kamus Acuan Baku Simalungun:
@@ -85,8 +96,19 @@ ${JSON.stringify(dictionaryGroundedContext)}`;
 
     if (!response.ok) {
       const errText = await response.text();
+      let parsedErr = errText;
+      try {
+        const j = JSON.parse(errText);
+        parsedErr = j.error?.message || j.message || errText;
+      } catch (_) {}
+
       return NextResponse.json(
-        { error: "Gagal memproses terjemahan AI", details: errText },
+        {
+          error: "Penyedia AI menolak permintaan",
+          details: parsedErr,
+          providerUrl: baseUrl,
+          modelUsed: model
+        },
         { status: 502 }
       );
     }
@@ -102,8 +124,7 @@ ${JSON.stringify(dictionaryGroundedContext)}`;
     } catch (e) {
       parsed = {
         translation: rawContent.trim(),
-        explanation: "Terjemahan AI berlandaskan kamus",
-        tokens: []
+        explanation: "Terjemahan AI berlandaskan kamus"
       };
     }
 

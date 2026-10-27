@@ -150,7 +150,8 @@ export function Translator() {
 
       const data = await res.json();
       if (!res.ok) {
-        throw new Error(data.error || "Gagal menghubungi server terjemahan AI.");
+        const detailMsg = data.details ? `${data.error}: ${data.details}` : data.error;
+        throw new Error(detailMsg || "Gagal menghubungi server terjemahan AI.");
       }
 
       if (data.available === false) {
