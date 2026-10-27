@@ -11,8 +11,10 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Teks wajib diisi" }, { status: 400 });
     }
 
-    // Supported keys
+    // Supported keys: DeepSeek, OpenCode, OpenRouter, OpenAI
+    const deepseekKey = process.env.DEEPSEEK_API_KEY;
     const apiKey =
+      deepseekKey ||
       process.env.OPENCODE_API_KEY ||
       process.env.OPENROUTER_API_KEY ||
       process.env.OPENAI_API_KEY;
@@ -28,26 +30,31 @@ export async function POST(req: Request) {
     }
 
     // Intelligent provider & model auto-detection
-    let defaultBaseUrl = "https://openrouter.ai/api/v1";
-    let defaultModel = "google/gemini-2.0-flash-001";
+    let defaultBaseUrl = "https://api.deepseek.com";
+    let defaultModel = "deepseek-chat";
 
-    if (apiKey.startsWith("sk-or-")) {
-      // Explicit OpenRouter key
+    if (deepseekKey || process.env.OPENCODE_BASE_URL?.includes("deepseek")) {
+      defaultBaseUrl = "https://api.deepseek.com";
+      defaultModel = "deepseek-chat";
+    } else if (apiKey.startsWith("sk-or-")) {
       defaultBaseUrl = "https://openrouter.ai/api/v1";
       defaultModel = "google/gemini-2.0-flash-001";
     } else if (apiKey.startsWith("sk-")) {
-      // Standard OpenAI key
+      // If user sets OPENCODE_BASE_URL explicitly to deepseek, it will be overridden below.
+      // Default standard OpenAI
       defaultBaseUrl = "https://api.openai.com/v1";
       defaultModel = "gpt-4o-mini";
     }
 
     const baseUrl =
       process.env.OPENCODE_BASE_URL ||
+      process.env.DEEPSEEK_BASE_URL ||
       process.env.OPENAI_BASE_URL ||
       defaultBaseUrl;
 
     const model =
       process.env.OPENCODE_MODEL ||
+      process.env.DEEPSEEK_MODEL ||
       process.env.OPENAI_MODEL ||
       defaultModel;
 
@@ -78,20 +85,27 @@ ${JSON.stringify(dictionaryGroundedContext)}`;
         ? `Terjemahkan kalimat berikut dari Bahasa Indonesia ke Bahasa Batak Simalungun:\n"${text}"`
         : `Terjemahkan kalimat berikut dari Bahasa Batak Simalungun ke Bahasa Indonesia:\n"${text}"`;
 
+    const requestBody: any = {
+      model,
+      messages: [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: userPrompt }
+      ],
+      temperature: 0.2
+    };
+
+    // DeepSeek natively supports response_format json_object
+    if (baseUrl.includes("deepseek.com")) {
+      requestBody.response_format = { type: "json_object" };
+    }
+
     const response = await fetch(`${baseUrl.replace(/\/$/, "")}/chat/completions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${apiKey}`
       },
-      body: JSON.stringify({
-        model,
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: userPrompt }
-        ],
-        temperature: 0.2
-      })
+      body: JSON.stringify(requestBody)
     });
 
     if (!response.ok) {
