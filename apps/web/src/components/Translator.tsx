@@ -18,7 +18,9 @@ import {
   Layers,
   ShieldCheck,
   AlertCircle,
-  Share2
+  Share2,
+  Sparkles,
+  Loader2
 } from "lucide-react";
 
 type SourceLang = "simalungun" | "indonesia";
@@ -31,6 +33,15 @@ export function Translator() {
   const [copied, setCopied] = useState(false);
   const [isExportOpen, setIsExportOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"translit" | "phonology" | "morphology" | "culture">("translit");
+
+  // AI translation state
+  const [isAiLoading, setIsAiLoading] = useState(false);
+  const [aiResult, setAiResult] = useState<{
+    translation: string;
+    aksara: string;
+    explanation?: string;
+  } | null>(null);
+  const [aiError, setAiError] = useState<string | null>(null);
 
   // Dropdown visibility states
   const [isSourceOpen, setIsSourceOpen] = useState(false);
@@ -51,6 +62,12 @@ export function Translator() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  // Reset AI result when input text changes
+  useEffect(() => {
+    setAiResult(null);
+    setAiError(null);
+  }, [inputText, sourceLang, targetLang]);
 
   // Map source & target to engine Direction
   const direction: Direction = useMemo(() => {
@@ -79,9 +96,14 @@ export function Translator() {
     return analyzeText(inputText, direction, simalungunLexicon, simalungunPhrasebook);
   }, [inputText, direction]);
 
+  // Active translation outputs (takes AI result if active)
+  const currentTranslation = aiResult ? aiResult.translation : analysis.translation;
+  const currentAksara = aiResult ? aiResult.aksara : analysis.aksara;
+  const hasUnknownTokens = analysis.tokens.some((t) => t.provenance === "unknown" || t.provenance === "rule");
+
   // Copy handler aligned with active target selection
   const handleCopy = () => {
-    const textToCopy = targetLang === "aksara" ? analysis.aksara : analysis.translation;
+    const textToCopy = targetLang === "aksara" ? currentAksara : currentTranslation;
     if (!textToCopy) return;
     navigator.clipboard.writeText(textToCopy);
     setCopied(true);
@@ -104,9 +126,47 @@ export function Translator() {
       setSourceLang(nextSource);
       setTargetLang(nextTarget);
 
-      if (analysis.translation && !analysis.translation.startsWith("[")) {
-        setInputText(analysis.translation);
+      if (currentTranslation && !currentTranslation.startsWith("[")) {
+        setInputText(currentTranslation);
       }
+    }
+  };
+
+  // Call AI Endpoint (PRD Tier 3)
+  const handleTranslateWithAi = async () => {
+    if (!inputText.trim() || isAiLoading) return;
+    setIsAiLoading(true);
+    setAiError(null);
+
+    try {
+      const res = await fetch("/api/translate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          text: inputText.trim(),
+          direction: sourceLang === "indonesia" ? "id-sim" : "sim-id"
+        })
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Gagal menghubungi server terjemahan AI.");
+      }
+
+      if (data.available === false) {
+        setAiError(data.message || "Kunci OPENCODE_API_KEY belum dikonfigurasi di server.");
+        return;
+      }
+
+      setAiResult({
+        translation: data.translation,
+        aksara: data.aksara,
+        explanation: data.explanation
+      });
+    } catch (err: any) {
+      setAiError(err.message || "Terjadi kesalahan koneksi.");
+    } finally {
+      setIsAiLoading(false);
     }
   };
 
@@ -119,7 +179,7 @@ export function Translator() {
       ? "Simalungun"
       : "Indonesia";
 
-  const hasOutput = targetLang === "aksara" ? Boolean(analysis.aksara) : Boolean(analysis.translation);
+  const hasOutput = targetLang === "aksara" ? Boolean(currentAksara) : Boolean(currentTranslation);
 
   return (
     <div className="w-full max-w-5xl mx-auto space-y-4">
@@ -305,13 +365,20 @@ export function Translator() {
                   {/* Aksara Output ONLY when user explicitly chose Aksara */}
                   {targetLang === "aksara" ? (
                     <div className="font-aksara text-3xl sm:text-5xl text-slate-900 dark:text-white tracking-wider leading-relaxed select-all">
-                      {analysis.aksara}
+                      {currentAksara}
                     </div>
                   ) : (
                     /* Clean Latin Text Output (Indonesia or Simalungun) */
                     <div className="text-base sm:text-xl font-medium text-slate-800 dark:text-slate-100 leading-relaxed select-all">
-                      {analysis.translation}
+                      {currentTranslation}
                     </div>
+                  )}
+
+                  {/* AI Explanation / Notes if active */}
+                  {aiResult?.explanation && (
+                    <p className="text-xs text-slate-500 dark:text-slate-400 italic">
+                      Catatan AI: {aiResult.explanation}
+                    </p>
                   )}
                 </div>
 
@@ -320,7 +387,9 @@ export function Translator() {
                   <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-300">
                     <ShieldCheck className="w-3.5 h-3.5 text-emerald-700 dark:text-emerald-400 shrink-0" />
                     <span className="font-medium text-slate-700 dark:text-slate-200">
-                      {analysis.tokens.some((t) => t.provenance === "dictionary")
+                      {aiResult
+                        ? "Terjemahan AI Berlandaskan Kamus"
+                        : analysis.tokens.some((t) => t.provenance === "dictionary")
                         ? "Kamus Baku"
                         : analysis.tokens.some((t) => t.provenance === "phrasebook")
                         ? "Frasa Terverifikasi"
@@ -335,9 +404,25 @@ export function Translator() {
                     </a>
                   </div>
 
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1.5">
+                    {/* AI Translation Action Button */}
+                    <button
+                      type="button"
+                      disabled={isAiLoading}
+                      onClick={handleTranslateWithAi}
+                      className="flex items-center gap-1 text-[11px] px-2 py-1 rounded-md bg-stone-100 hover:bg-stone-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-stone-700 dark:text-slate-300 font-medium transition"
+                      title="Terjemahkan kalimat bebas dengan model AI berlandaskan kamus"
+                    >
+                      {isAiLoading ? (
+                        <Loader2 className="w-3.5 h-3.5 animate-spin text-[#8b1e1b] dark:text-red-400" />
+                      ) : (
+                        <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                      )}
+                      <span>AI</span>
+                    </button>
+
                     {/* Share Card Modal button only relevant if aksara exists */}
-                    {analysis.aksara && (
+                    {currentAksara && (
                       <button
                         type="button"
                         onClick={() => setIsExportOpen(true)}
@@ -364,10 +449,21 @@ export function Translator() {
             )}
           </div>
         </div>
+
+        {/* AI Notice / Config Helper if error occurs */}
+        {aiError && (
+          <div className="p-3 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 rounded-xl text-xs text-amber-900 dark:text-amber-200 flex items-center justify-between gap-2 animate-fadeIn">
+            <div className="flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 text-amber-700 shrink-0" />
+              <span>{aiError}</span>
+            </div>
+            <span className="text-[11px] opacity-80">Atur OPENCODE_API_KEY di .env.local atau Vercel</span>
+          </div>
+        )}
       </div>
 
       {/* Lensa Linguistik Container */}
-      {analysis.aksara && (
+      {currentAksara && (
         <section id="lensa-linguistik" className="bg-white dark:bg-[#161a24] rounded-2xl border border-stone-200 dark:border-slate-800 shadow-xs overflow-hidden mt-8 transition-colors duration-200">
           {/* Lens Tabs */}
           <div className="border-b border-stone-200 dark:border-slate-800 px-4 bg-white dark:bg-[#161a24] flex space-x-2 overflow-x-auto">
@@ -635,9 +731,9 @@ export function Translator() {
       <CardExportModal
         isOpen={isExportOpen}
         onClose={() => setIsExportOpen(false)}
-        aksara={analysis.aksara}
+        aksara={currentAksara}
         latin={analysis.latin}
-        translation={analysis.translation}
+        translation={currentTranslation}
       />
     </div>
   );

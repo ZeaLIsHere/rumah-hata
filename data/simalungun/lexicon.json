@@ -5,17 +5,8 @@
     "pos": "intj",
     "glosses": ["selamat", "sejahtera", "halo"],
     "aksara": "\u1BC3\u1BEC\u1BD3\u1BD9\u1BF3",
-    "morphology": {
-      "type": "root",
-      "root": "horas"
-    },
-    "examples": [
-      {
-        "simalungun": "Horas bamu!",
-        "indonesian": "Salam sejahtera untukmu!",
-        "aksara": "\u1BC3\u1BEC\u1BD3\u1BD9\u1BF3 \u1BC5\u1BD5\u1BEE!"
-      }
-    ],
+    "morphology": { "type": "root", "root": "horas" },
+    "examples": [{ "simalungun": "Horas bamu!", "indonesian": "Salam sejahtera untukmu!", "aksara": "\u1BC3\u1BEC\u1BD3\u1BD9\u1BF3 \u1BC5\u1BD5\u1BEE!" }],
     "culturalNote": "Salam khas Batak yang mengandung doa keselamatan, kesehatan, dan berkat rohani maupun jasmani.",
     "sourceIds": ["tarigan-1989"],
     "validation": "expert"
@@ -26,17 +17,8 @@
     "pos": "noun",
     "glosses": ["kata", "bahasa", "ucapan"],
     "aksara": "\u1BC3\u1BD6",
-    "morphology": {
-      "type": "root",
-      "root": "hata"
-    },
-    "examples": [
-      {
-        "simalungun": "Hata Simalungun",
-        "indonesian": "Bahasa Simalungun",
-        "aksara": "\u1BC3\u1BD6 \u1BD9\u1BEA\u1BD5\u1BDF\u1BEE\u1BDD\u1BEE\u1BC9\u1BF3"
-      }
-    ],
+    "morphology": { "type": "root", "root": "hata" },
+    "examples": [{ "simalungun": "Hata Simalungun", "indonesian": "Bahasa Simalungun", "aksara": "\u1BC3\u1BD6 \u1BD9\u1BEA\u1BD5\u1BDF\u1BEE\u1BDD\u1BEE\u1BC9\u1BF3" }],
     "culturalNote": "Hata merujuk pada ujaran bermakna, tutur kata, atau keseluruhan sistem bahasa suatu kelompok.",
     "sourceIds": ["tarigan-1989", "saragih-1989"],
     "validation": "expert"
@@ -47,18 +29,8 @@
     "pos": "pron",
     "glosses": ["saya", "aku"],
     "aksara": "\u1BC1\u1BC3\u1BEE",
-    "morphology": {
-      "type": "root",
-      "root": "ahu"
-    },
-    "examples": [
-      {
-        "simalungun": "Ahu roh",
-        "indonesian": "Saya datang",
-        "aksara": "\u1BC1\u1BC3\u1BEE \u1BD3\u1BEC\u1BF1"
-      }
-    ],
-    "culturalNote": "Pronomina persona pertama tunggal.",
+    "morphology": { "type": "root", "root": "ahu" },
+    "examples": [{ "simalungun": "Ahu roh", "indonesian": "Saya datang", "aksara": "\u1BC1\u1BC3\u1BEE \u1BD3\u1BEC\u1BF1" }],
     "sourceIds": ["tarigan-1989"],
     "validation": "expert"
   },
@@ -66,20 +38,54 @@
     "id": "lex-hamu",
     "lemma": "hamu",
     "pos": "pron",
-    "glosses": ["kamu sekalian", "anda"],
+    "glosses": ["kamu sekalian", "anda", "kamu"],
     "aksara": "\u1BC3\u1BD5\u1BEE",
-    "morphology": {
-      "type": "root",
-      "root": "hamu"
-    },
-    "examples": [
-      {
-        "simalungun": "Horas ma bamu hamu",
-        "indonesian": "Salam sejahtera bagi kalian",
-        "aksara": "\u1BC3\u1BEC\u1BD3\u1BD9\u1BF3 \u1BD5 \u1BC5\u1BD5\u1BEE \u1BC3\u1BD5\u1BEE"
-      }
-    ],
-    "culturalNote": "Bentuk hormat atau jamak untuk persona kedua.",
+    "morphology": { "type": "root", "root": "hamu" },
+    "examples": [{ "simalungun": "Horas ma bamu hamu", "indonesian": "Salam sejahtera bagi kalian", "aksara": "\u1BC3\u1BEC\u1BD3\u1BD9\u1BF3 \u1BD5 \u1BC5\u1BD5\u1BEE \u1BC3\u1BD5\u1BEE" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-hita",
+    "lemma": "hita",
+    "pos": "pron",
+    "glosses": ["kita"],
+    "aksara": "\u1BC3\u1BEA\u1BD6",
+    "morphology": { "type": "root", "root": "hita" },
+    "examples": [{ "simalungun": "Hita mangan", "indonesian": "Kita makan", "aksara": "\u1BC3\u1BEA\u1BD6 \u1BD5\u1BCF\u1BC9\u1BF3" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-hanami",
+    "lemma": "hanami",
+    "pos": "pron",
+    "glosses": ["kami"],
+    "aksara": "\u1BC3\u1BC9\u1BD5\u1BEA",
+    "morphology": { "type": "root", "root": "hanami" },
+    "examples": [{ "simalungun": "Hanami mulak", "indonesian": "Kami pulang", "aksara": "\u1BC3\u1BC9\u1BD5\u1BEA \u1BD5\u1BEE\u1BDF\u1BC3\u1BF3" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-sidea",
+    "lemma": "sidea",
+    "pos": "pron",
+    "glosses": ["mereka"],
+    "aksara": "\u1BD9\u1BEA\u1BD1\u1BE9\u1BC1",
+    "morphology": { "type": "root", "root": "sidea" },
+    "examples": [{ "simalungun": "Sidea roh", "indonesian": "Mereka datang", "aksara": "\u1BD9\u1BEA\u1BD1\u1BE9\u1BC1 \u1BD3\u1BEC\u1BF1" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-ia",
+    "lemma": "ia",
+    "pos": "pron",
+    "glosses": ["dia", "ia"],
+    "aksara": "\u1BE4\u1BC1",
+    "morphology": { "type": "root", "root": "ia" },
+    "examples": [{ "simalungun": "Ia modom", "indonesian": "Dia tidur", "aksara": "\u1BE4\u1BC1 \u1BD5\u1BEC\u1BD1\u1BEC\u1BD5\u1BF3" }],
     "sourceIds": ["tarigan-1989"],
     "validation": "expert"
   },
@@ -87,19 +93,342 @@
     "id": "lex-bamu",
     "lemma": "bamu",
     "pos": "prep",
-    "glosses": ["kepadamu", "untukmu"],
+    "glosses": ["kepadamu", "untukmu", "padamu"],
     "aksara": "\u1BC5\u1BD5\u1BEE",
-    "morphology": {
-      "type": "root",
-      "root": "bamu"
-    },
-    "examples": [
-      {
-        "simalungun": "Horas bamu",
-        "indonesian": "Salam bagimu",
-        "aksara": "\u1BC3\u1BEC\u1BD3\u1BD9\u1BF3 \u1BC5\u1BD5\u1BEE"
-      }
-    ],
+    "morphology": { "type": "root", "root": "bamu" },
+    "examples": [{ "simalungun": "Horas bamu", "indonesian": "Salam bagimu", "aksara": "\u1BC3\u1BEC\u1BD3\u1BD9\u1BF3 \u1BC5\u1BD5\u1BEE" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-bangku",
+    "lemma": "bangku",
+    "pos": "prep",
+    "glosses": ["kepadaku", "untukku", "padaku"],
+    "aksara": "\u1BC5\u1BF0\u1BC3\u1BEE",
+    "morphology": { "type": "root", "root": "bangku" },
+    "examples": [{ "simalungun": "Bere bangku", "indonesian": "Beri kepadaku", "aksara": "\u1BC5\u1BE9\u1BD3\u1BE9 \u1BC5\u1BF0\u1BC3\u1BEE" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-sada",
+    "lemma": "sada",
+    "pos": "num",
+    "glosses": ["satu"],
+    "aksara": "\u1BD9\u1BD1",
+    "morphology": { "type": "root", "root": "sada" },
+    "examples": [{ "simalungun": "Sada ari", "indonesian": "Satu hari", "aksara": "\u1BD9\u1BD1 \u1BC1\u1BD3\u1BEA" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-dua",
+    "lemma": "dua",
+    "pos": "num",
+    "glosses": ["dua"],
+    "aksara": "\u1BD1\u1BEE\u1BC1",
+    "morphology": { "type": "root", "root": "dua" },
+    "examples": [{ "simalungun": "Dua halak", "indonesian": "Dua orang", "aksara": "\u1BD1\u1BEE\u1BC1 \u1BC3\u1BDF\u1BC3\u1BF3" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-tolu",
+    "lemma": "tolu",
+    "pos": "num",
+    "glosses": ["tiga"],
+    "aksara": "\u1BD6\u1BEC\u1BDF\u1BEE",
+    "morphology": { "type": "root", "root": "tolu" },
+    "examples": [{ "simalungun": "Tolu Sahundulan", "indonesian": "Tiga pilar kekerabatan adat Simalungun", "aksara": "\u1BD6\u1BEC\u1BDF\u1BEE \u1BD9\u1BC3\u1BEE\u1BC9\u1BD1\u1BEE\u1BDF\u1BC9\u1BF3" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-opat",
+    "lemma": "opat",
+    "pos": "num",
+    "glosses": ["empat"],
+    "aksara": "\u1BC1\u1BEC\u1BC8\u1BD6\u1BF3",
+    "morphology": { "type": "root", "root": "opat" },
+    "examples": [{ "simalungun": "Opat suhi", "indonesian": "Empat penjuru", "aksara": "\u1BC1\u1BEC\u1BC8\u1BD6\u1BF3 \u1BD9\u1BEF\u1BC3\u1BEA" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-lima",
+    "lemma": "lima",
+    "pos": "num",
+    "glosses": ["lima"],
+    "aksara": "\u1BDF\u1BEA\u1BD5",
+    "morphology": { "type": "root", "root": "lima" },
+    "examples": [{ "simalungun": "Lima halak", "indonesian": "Lima orang", "aksara": "\u1BDF\u1BEA\u1BD5 \u1BC3\u1BDF\u1BC3\u1BF3" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-onom",
+    "lemma": "onom",
+    "pos": "num",
+    "glosses": ["enam"],
+    "aksara": "\u1BC1\u1BEC\u1BC9\u1BEC\u1BD5\u1BF3",
+    "morphology": { "type": "root", "root": "onom" },
+    "examples": [{ "simalungun": "Onom bulan", "indonesian": "Enam bulan", "aksara": "\u1BC1\u1BEC\u1BC9\u1BEC\u1BD5\u1BF3 \u1BC5\u1BEE\u1BDF\u1BC9\u1BF3" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-pitu",
+    "lemma": "pitu",
+    "pos": "num",
+    "glosses": ["tujuh"],
+    "aksara": "\u1BC8\u1BEA\u1BD6\u1BEE",
+    "morphology": { "type": "root", "root": "pitu" },
+    "examples": [{ "simalungun": "Pitu ari", "indonesian": "Tujuh hari", "aksara": "\u1BC8\u1BEA\u1BD6\u1BEE \u1BC1\u1BD3\u1BEA" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-ualu",
+    "lemma": "ualu",
+    "pos": "num",
+    "glosses": ["delapan"],
+    "aksara": "\u1BE5\u1BC1\u1BDF\u1BEE",
+    "morphology": { "type": "root", "root": "ualu" },
+    "examples": [{ "simalungun": "Ualu taun", "indonesian": "Delapan tahun", "aksara": "\u1BE5\u1BC1\u1BDF\u1BEE \u1BD6\u1BC1\u1BEE\u1BC9\u1BF3" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-sia",
+    "lemma": "sia",
+    "pos": "num",
+    "glosses": ["sembilan"],
+    "aksara": "\u1BD9\u1BEA\u1BC1",
+    "morphology": { "type": "root", "root": "sia" },
+    "examples": [{ "simalungun": "Sia halak", "indonesian": "Sembilan orang", "aksara": "\u1BD9\u1BEA\u1BC1 \u1BC3\u1BDF\u1BC3\u1BF3" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-sapuluh",
+    "lemma": "sapuluh",
+    "pos": "num",
+    "glosses": ["sepuluh"],
+    "aksara": "\u1BD9\u1BC8\u1BEE\u1BDF\u1BEE\u1BF1",
+    "morphology": { "type": "root", "root": "sapuluh" },
+    "examples": [{ "simalungun": "Sapuluh ari", "indonesian": "Sepuluh hari", "aksara": "\u1BD9\u1BC8\u1BEE\u1BDF\u1BEE\u1BF1 \u1BC1\u1BD3\u1BEA" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-jabu",
+    "lemma": "jabu",
+    "pos": "noun",
+    "glosses": ["rumah"],
+    "aksara": "\u1BD0\u1BC5\u1BEE",
+    "morphology": { "type": "root", "root": "jabu" },
+    "examples": [{ "simalungun": "Jabu bolon", "indonesian": "Rumah besar (adat)", "aksara": "\u1BD0\u1BC5\u1BEE \u1BC5\u1BEC\u1BDF\u1BEC\u1BC9\u1BF3" }],
+    "culturalNote": "Pusat kehidupan keluarga batih dan tata krama adat Batak.",
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-huta",
+    "lemma": "huta",
+    "pos": "noun",
+    "glosses": ["kampung", "desa"],
+    "aksara": "\u1BC3\u1BEE\u1BD6",
+    "morphology": { "type": "root", "root": "huta" },
+    "examples": [{ "simalungun": "Huta nami", "indonesian": "Kampung kami", "aksara": "\u1BC3\u1BEE\u1BD6 \u1BC9\u1BD5\u1BEA" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-tanoh",
+    "lemma": "tanoh",
+    "pos": "noun",
+    "glosses": ["tanah", "bumi", "negeri"],
+    "aksara": "\u1BD6\u1BC9\u1BEC\u1BF1",
+    "morphology": { "type": "root", "root": "tanoh" },
+    "examples": [{ "simalungun": "Tanoh Simalungun", "indonesian": "Tanah Simalungun", "aksara": "\u1BD6\u1BC9\u1BEC\u1BF1 \u1BD9\u1BEA\u1BD5\u1BDF\u1BEE\u1BDD\u1BEE\u1BC9\u1BF3" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-laho",
+    "lemma": "laho",
+    "pos": "verb",
+    "glosses": ["pergi", "berangkat"],
+    "aksara": "\u1BDF\u1BC3\u1BEC",
+    "morphology": { "type": "root", "root": "laho" },
+    "examples": [{ "simalungun": "Ahu laho hu huta", "indonesian": "Saya pergi ke kampung", "aksara": "\u1BC1\u1BC3\u1BEE \u1BDF\u1BC3\u1BEC \u1BC3\u1BEE \u1BC3\u1BEE\u1BD6" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-roh",
+    "lemma": "roh",
+    "pos": "verb",
+    "glosses": ["datang", "tiba"],
+    "aksara": "\u1BD3\u1BEC\u1BF1",
+    "morphology": { "type": "root", "root": "roh" },
+    "examples": [{ "simalungun": "Sidea roh", "indonesian": "Mereka datang", "aksara": "\u1BD9\u1BEA\u1BD1\u1BE9\u1BC1 \u1BD3\u1BEC\u1BF1" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-mulak",
+    "lemma": "mulak",
+    "pos": "verb",
+    "glosses": ["pulang", "kembali"],
+    "aksara": "\u1BD5\u1BEE\u1BDF\u1BC3\u1BF3",
+    "morphology": { "type": "root", "root": "mulak" },
+    "examples": [{ "simalungun": "Mulak hu jabu", "indonesian": "Pulang ke rumah", "aksara": "\u1BD5\u1BEE\u1BDF\u1BC3\u1BF3 \u1BC3\u1BEE \u1BD0\u1BC5\u1BEE" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-modom",
+    "lemma": "modom",
+    "pos": "verb",
+    "glosses": ["tidur"],
+    "aksara": "\u1BD5\u1BEC\u1BD1\u1BEC\u1BD5\u1BF3",
+    "morphology": { "type": "root", "root": "modom" },
+    "examples": [{ "simalungun": "Ahu modom", "indonesian": "Saya tidur", "aksara": "\u1BC1\u1BC3\u1BEE \u1BD5\u1BEC\u1BD1\u1BEC\u1BD5\u1BF3" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-hundul",
+    "lemma": "hundul",
+    "pos": "verb",
+    "glosses": ["duduk"],
+    "aksara": "\u1BC3\u1BEE\u1BC9\u1BD1\u1BEE\u1BDF\u1BF3",
+    "morphology": { "type": "root", "root": "hundul" },
+    "examples": [{ "simalungun": "Hundul i jabu", "indonesian": "Duduk di rumah", "aksara": "\u1BC3\u1BEE\u1BC9\u1BD1\u1BEE\u1BDF\u1BF3 \u1BE4 \u1BD0\u1BC5\u1BEE" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-jongjong",
+    "lemma": "jongjong",
+    "pos": "verb",
+    "glosses": ["berdiri"],
+    "aksara": "\u1BD0\u1BEC\u1BF0\u1BD0\u1BEC\u1BF0",
+    "morphology": { "type": "root", "root": "jongjong" },
+    "examples": [{ "simalungun": "Jongjong ia", "indonesian": "Dia berdiri", "aksara": "\u1BD0\u1BEC\u1BF0\u1BD0\u1BEC\u1BF0 \u1BE4\u1BC1" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-dear",
+    "lemma": "dear",
+    "pos": "adj",
+    "glosses": ["baik", "bagus", "elok"],
+    "aksara": "\u1BD1\u1BE9\u1BC1\u1BD3\u1BF3",
+    "morphology": { "type": "root", "root": "dear" },
+    "examples": [{ "simalungun": "Dear do uhur", "indonesian": "Hatinya baik", "aksara": "\u1BD1\u1BE9\u1BC1\u1BD3\u1BF3 \u1BD1\u1BEC \u1BE5\u1BC3\u1BEE\u1BD3\u1BF3" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-bolon",
+    "lemma": "bolon",
+    "pos": "adj",
+    "glosses": ["besar", "agung"],
+    "aksara": "\u1BC5\u1BEC\u1BDF\u1BEC\u1BC9\u1BF3",
+    "morphology": { "type": "root", "root": "bolon" },
+    "examples": [{ "simalungun": "Horja bolon", "indonesian": "Pesta adat besar", "aksara": "\u1BC3\u1BEC\u1BD3\u1BF3\u1BD0 \u1BC5\u1BEC\u1BDF\u1BEC\u1BC9\u1BF3" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-etek",
+    "lemma": "etek",
+    "pos": "adj",
+    "glosses": ["kecil"],
+    "aksara": "\u1BC1\u1BE9\u1BD6\u1BE9\u1BC3\u1BF3",
+    "morphology": { "type": "root", "root": "etek" },
+    "examples": [{ "simalungun": "Huta na etek", "indonesian": "Kampung yang kecil", "aksara": "\u1BC3\u1BEE\u1BD6 \u1BC9 \u1BC1\u1BE9\u1BD6\u1BE9\u1BC3\u1BF3" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-sonang",
+    "lemma": "sonang",
+    "pos": "adj",
+    "glosses": ["senang", "tenang", "damai"],
+    "aksara": "\u1BD9\u1BEC\u1BC9\u1BF0",
+    "morphology": { "type": "root", "root": "sonang" },
+    "examples": [{ "simalungun": "Sonang uhur", "indonesian": "Hati senang/damai", "aksara": "\u1BD9\u1BEC\u1BC9\u1BF0 \u1BE5\u1BC3\u1BEE\u1BD3\u1BF3" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-holong",
+    "lemma": "holong",
+    "pos": "noun",
+    "glosses": ["kasih", "cinta", "sayang"],
+    "aksara": "\u1BC3\u1BEC\u1BDF\u1BEC\u1BF0",
+    "morphology": { "type": "root", "root": "holong" },
+    "examples": [{ "simalungun": "Holong ni atei", "indonesian": "Kasih sayang dari dalam hati", "aksara": "\u1BC3\u1BEC\u1BDF\u1BEC\u1BF0 \u1BC9\u1BEA \u1BC1\u1BD6\u1BE9\u1BEA" }],
+    "culturalNote": "Nilai kasih dan empati tertinggi dalam pergaulan masyarakat Batak.",
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-ari",
+    "lemma": "ari",
+    "pos": "noun",
+    "glosses": ["hari", "matahari", "cuaca"],
+    "aksara": "\u1BC1\u1BD3\u1BEA",
+    "morphology": { "type": "root", "root": "ari" },
+    "examples": [{ "simalungun": "Torang ari", "indonesian": "Hari sudah terang", "aksara": "\u1BD6\u1BEC\u1BD3\u1BF0 \u1BC1\u1BD3\u1BEA" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-torang",
+    "lemma": "torang",
+    "pos": "adj",
+    "glosses": ["terang", "jelas", "siang"],
+    "aksara": "\u1BD6\u1BEC\u1BD3\u1BF0",
+    "morphology": { "type": "root", "root": "torang" },
+    "examples": [{ "simalungun": "Torang do ari", "indonesian": "Harinya cerah/terang", "aksara": "\u1BD6\u1BEC\u1BD3\u1BF0 \u1BD1\u1BEC \u1BC1\u1BD3\u1BEA" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-aha",
+    "lemma": "aha",
+    "pos": "pron",
+    "glosses": ["apa"],
+    "aksara": "\u1BC1\u1BC3",
+    "morphology": { "type": "root", "root": "aha" },
+    "examples": [{ "simalungun": "Aha barita?", "indonesian": "Apa kabar?", "aksara": "\u1BC1\u1BC3 \u1BC5\u1BD3\u1BEA\u1BD6?" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-ise",
+    "lemma": "ise",
+    "pos": "pron",
+    "glosses": ["siapa"],
+    "aksara": "\u1BE4\u1BD9\u1BE9",
+    "morphology": { "type": "root", "root": "ise" },
+    "examples": [{ "simalungun": "Ise goranmu?", "indonesian": "Siapa namamu?", "aksara": "\u1BE4\u1BD9\u1BE9 \u1BCF\u1BEC\u1BD3\u1BC9\u1BD5\u1BEE?" }],
+    "sourceIds": ["tarigan-1989"],
+    "validation": "expert"
+  },
+  {
+    "id": "lex-ija",
+    "lemma": "ija",
+    "pos": "adv",
+    "glosses": ["mana", "di mana"],
+    "aksara": "\u1BE4\u1BD0",
+    "morphology": { "type": "root", "root": "ija" },
+    "examples": [{ "simalungun": "Ija jabumu?", "indonesian": "Di mana rumahmu?", "aksara": "\u1BE4\u1BD0 \u1BD0\u1BC5\u1BEE\u1BD5\u1BEE?" }],
     "sourceIds": ["tarigan-1989"],
     "validation": "expert"
   },
@@ -109,17 +438,8 @@
     "pos": "propn",
     "glosses": ["Simalungun"],
     "aksara": "\u1BD9\u1BEA\u1BD5\u1BDF\u1BEE\u1BDD\u1BEE\u1BC9\u1BF3",
-    "morphology": {
-      "type": "root",
-      "root": "simalungun"
-    },
-    "examples": [
-      {
-        "simalungun": "Tanoh Simalungun",
-        "indonesian": "Tanah Simalungun",
-        "aksara": "\u1BD6\u1BC9\u1BEC\u1BF1 \u1BD9\u1BEA\u1BD5\u1BDF\u1BEE\u1BDD\u1BEE\u1BC9\u1BF3"
-      }
-    ],
+    "morphology": { "type": "root", "root": "simalungun" },
+    "examples": [{ "simalungun": "Tanoh Simalungun", "indonesian": "Tanah Simalungun", "aksara": "\u1BD6\u1BC9\u1BEC\u1BF1 \u1BD9\u1BEA\u1BD5\u1BDF\u1BEE\u1BDD\u1BEE\u1BC9\u1BF3" }],
     "culturalNote": "Suku dan wilayah budaya Batak Simalungun di Sumatera Utara dengan ibu kota Raya.",
     "sourceIds": ["tarigan-1989"],
     "validation": "expert"
@@ -130,17 +450,8 @@
     "pos": "noun",
     "glosses": ["ibu", "bunda"],
     "aksara": "\u1BE4\u1BC9\u1BF0",
-    "morphology": {
-      "type": "root",
-      "root": "inang"
-    },
-    "examples": [
-      {
-        "simalungun": "Inang nami",
-        "indonesian": "Ibu kami",
-        "aksara": "\u1BE4\u1BC9\u1BF0 \u1BC9\u1BD5\u1BEA"
-      }
-    ],
+    "morphology": { "type": "root", "root": "inang" },
+    "examples": [{ "simalungun": "Inang nami", "indonesian": "Ibu kami", "aksara": "\u1BE4\u1BC9\u1BF0 \u1BC9\u1BD5\u1BEA" }],
     "culturalNote": "Panggilan penuh hormat kepada ibu kandung atau wanita yang dituakan.",
     "sourceIds": ["tarigan-1989"],
     "validation": "expert"
@@ -151,17 +462,8 @@
     "pos": "noun",
     "glosses": ["ayah", "bapak"],
     "aksara": "\u1BC5\u1BC8",
-    "morphology": {
-      "type": "root",
-      "root": "bapa"
-    },
-    "examples": [
-      {
-        "simalungun": "Bapa nami",
-        "indonesian": "Ayah kami",
-        "aksara": "\u1BC5\u1BC8 \u1BC9\u1BD5\u1BEA"
-      }
-    ],
+    "morphology": { "type": "root", "root": "bapa" },
+    "examples": [{ "simalungun": "Bapa nami", "indonesian": "Ayah kami", "aksara": "\u1BC5\u1BC8 \u1BC9\u1BD5\u1BEA" }],
     "culturalNote": "Panggilan untuk ayah dan pria segenerasi ayah dalam struktur kekerabatan.",
     "sourceIds": ["tarigan-1989"],
     "validation": "expert"
@@ -172,17 +474,8 @@
     "pos": "verb",
     "glosses": ["makan"],
     "aksara": "\u1BD5\u1BCF\u1BC9\u1BF3",
-    "morphology": {
-      "type": "root",
-      "root": "mangan"
-    },
-    "examples": [
-      {
-        "simalungun": "Ahu mangan",
-        "indonesian": "Saya makan",
-        "aksara": "\u1BC1\u1BC3\u1BEE \u1BD5\u1BCF\u1BC9\u1BF3"
-      }
-    ],
+    "morphology": { "type": "root", "root": "mangan" },
+    "examples": [{ "simalungun": "Ahu mangan", "indonesian": "Saya makan", "aksara": "\u1BC1\u1BC3\u1BEE \u1BD5\u1BCF\u1BC9\u1BF3" }],
     "sourceIds": ["tarigan-1989"],
     "validation": "expert"
   },
@@ -192,17 +485,8 @@
     "pos": "verb",
     "glosses": ["minum"],
     "aksara": "\u1BD5\u1BEA\u1BD5\u1BEE\u1BD5\u1BF3",
-    "morphology": {
-      "type": "root",
-      "root": "minum"
-    },
-    "examples": [
-      {
-        "simalungun": "Ahu minum bah",
-        "indonesian": "Saya minum air",
-        "aksara": "\u1BC1\u1BC3\u1BEE \u1BD5\u1BEA\u1BD5\u1BEE\u1BD5\u1BF3 \u1BC5\u1BF1"
-      }
-    ],
+    "morphology": { "type": "root", "root": "minum" },
+    "examples": [{ "simalungun": "Ahu minum bah", "indonesian": "Saya minum air", "aksara": "\u1BC1\u1BC3\u1BEE \u1BD5\u1BEA\u1BD5\u1BEE\u1BD5\u1BF3 \u1BC5\u1BF1" }],
     "sourceIds": ["tarigan-1989"],
     "validation": "expert"
   },
@@ -212,17 +496,8 @@
     "pos": "noun",
     "glosses": ["air", "sungai"],
     "aksara": "\u1BC5\u1BF1",
-    "morphology": {
-      "type": "root",
-      "root": "bah"
-    },
-    "examples": [
-      {
-        "simalungun": "Bah Bolon",
-        "indonesian": "Sungai Besar (Bah Bolon)",
-        "aksara": "\u1BC5\u1BF1 \u1BC5\u1BEC\u1BDF\u1BEC\u1BC9\u1BF3"
-      }
-    ],
+    "morphology": { "type": "root", "root": "bah" },
+    "examples": [{ "simalungun": "Bah Bolon", "indonesian": "Sungai Besar (Bah Bolon)", "aksara": "\u1BC5\u1BF1 \u1BC5\u1BEC\u1BDF\u1BEC\u1BC9\u1BF3" }],
     "culturalNote": "Kata 'bah' merujuk air tawar atau sungai, lazim menjadi nama sungai utama di Simalungun.",
     "sourceIds": ["tarigan-1989"],
     "validation": "expert"
@@ -233,17 +508,8 @@
     "pos": "adj",
     "glosses": ["makmur", "sejahtera", "berkecukupan"],
     "aksara": "\u1BD1\u1BEE\u1BD5",
-    "morphology": {
-      "type": "root",
-      "root": "duma"
-    },
-    "examples": [
-      {
-        "simalungun": "Gabe duma",
-        "indonesian": "Menjadi makmur",
-        "aksara": "\u1BCF\u1BC5\u1BE9 \u1BD1\u1BEE\u1BD5"
-      }
-    ],
+    "morphology": { "type": "root", "root": "duma" },
+    "examples": [{ "simalungun": "Gabe duma", "indonesian": "Menjadi makmur", "aksara": "\u1BCF\u1BC5\u1BE9 \u1BD1\u1BEE\u1BD5" }],
     "sourceIds": ["tarigan-1989"],
     "validation": "expert"
   },
@@ -253,17 +519,8 @@
     "pos": "noun",
     "glosses": ["hati", "perasaan", "pikiran", "kehendak"],
     "aksara": "\u1BE5\u1BC3\u1BEE\u1BD3\u1BF3",
-    "morphology": {
-      "type": "root",
-      "root": "uhur"
-    },
-    "examples": [
-      {
-        "simalungun": "Sonang uhur",
-        "indonesian": "Hati senang / damai",
-        "aksara": "\u1BD9\u1BEC\u1BC9\u1BF0 \u1BE5\u1BC3\u1BEE\u1BD3\u1BF3"
-      }
-    ],
+    "morphology": { "type": "root", "root": "uhur" },
+    "examples": [{ "simalungun": "Sonang uhur", "indonesian": "Hati senang / damai", "aksara": "\u1BD9\u1BEC\u1BC9\u1BF0 \u1BE5\u1BC3\u1BEE\u1BD3\u1BF3" }],
     "culturalNote": "Pusat batin, rasa moral, dan ketulusan dalam filsafat Batak Simalungun.",
     "sourceIds": ["tarigan-1989"],
     "validation": "expert"
@@ -274,17 +531,8 @@
     "pos": "noun",
     "glosses": ["pangkal", "asal", "pokok", "dasar"],
     "aksara": "\u1BC5\u1BEC\u1BC9",
-    "morphology": {
-      "type": "root",
-      "root": "bona"
-    },
-    "examples": [
-      {
-        "simalungun": "Bona ni hata",
-        "indonesian": "Pokok pembicaraan",
-        "aksara": "\u1BC5\u1BEC\u1BC9 \u1BC9\u1BEA \u1BC3\u1BD6"
-      }
-    ],
+    "morphology": { "type": "root", "root": "bona" },
+    "examples": [{ "simalungun": "Bona ni hata", "indonesian": "Pokok pembicaraan", "aksara": "\u1BC5\u1BEC\u1BC9 \u1BC9\u1BEA \u1BC3\u1BD6" }],
     "sourceIds": ["tarigan-1989"],
     "validation": "expert"
   },
@@ -294,17 +542,8 @@
     "pos": "adj",
     "glosses": ["benar", "lurus", "jujur"],
     "aksara": "\u1BC5\u1BEC\u1BC9\u1BD3\u1BF3",
-    "morphology": {
-      "type": "root",
-      "root": "bonar"
-    },
-    "examples": [
-      {
-        "simalungun": "Uhur na bonar",
-        "indonesian": "Hati yang jujur/benar",
-        "aksara": "\u1BE5\u1BC3\u1BEE\u1BD3\u1BF3 \u1BC9 \u1BC5\u1BEC\u1BC9\u1BD3\u1BF3"
-      }
-    ],
+    "morphology": { "type": "root", "root": "bonar" },
+    "examples": [{ "simalungun": "Uhur na bonar", "indonesian": "Hati yang jujur/benar", "aksara": "\u1BE5\u1BC3\u1BEE\u1BD3\u1BF3 \u1BC9 \u1BC5\u1BEC\u1BC9\u1BD3\u1BF3" }],
     "sourceIds": ["tarigan-1989"],
     "validation": "expert"
   },
@@ -314,18 +553,8 @@
     "pos": "noun",
     "glosses": ["kebenaran", "kejujuran", "keadilan"],
     "aksara": "\u1BC3\u1BC5\u1BEC\u1BC9\u1BD3\u1BEC\u1BC9\u1BF3",
-    "morphology": {
-      "type": "derived",
-      "root": "bonar",
-      "affixes": ["ha-...-on"]
-    },
-    "examples": [
-      {
-        "simalungun": "Habonaron do bona",
-        "indonesian": "Kebenaran adalah pangkal/dasar segalanya (falsafah Simalungun)",
-        "aksara": "\u1BC3\u1BC5\u1BEC\u1BC9\u1BD3\u1BEC\u1BC9\u1BF3 \u1BD1\u1BEC \u1BC5\u1BEC\u1BC9"
-      }
-    ],
+    "morphology": { "type": "derived", "root": "bonar", "affixes": ["ha-...-on"] },
+    "examples": [{ "simalungun": "Habonaron do bona", "indonesian": "Kebenaran adalah pangkal/dasar segalanya (falsafah Simalungun)", "aksara": "\u1BC3\u1BC5\u1BEC\u1BC9\u1BD3\u1BEC\u1BC9\u1BF3 \u1BD1\u1BEC \u1BC5\u1BEC\u1BC9" }],
     "culturalNote": "Semboyan luhur masyarakat Simalungun: 'Habonaron Do Bona' (Kebenaran adalah dasar utama).",
     "sourceIds": ["tarigan-1989"],
     "validation": "expert"
@@ -336,17 +565,8 @@
     "pos": "phrase",
     "glosses": ["terima kasih"],
     "aksara": "\u1BD1\u1BEA\u1BC1\u1BD6\u1BE9\u1BEA \u1BD6\u1BEE\u1BC8",
-    "morphology": {
-      "type": "compound",
-      "root": "diatei tupa"
-    },
-    "examples": [
-      {
-        "simalungun": "Diatei tupa bamu",
-        "indonesian": "Terima kasih kepadamu",
-        "aksara": "\u1BD1\u1BEA\u1BC1\u1BD6\u1BE9\u1BEA \u1BD6\u1BEE\u1BC8 \u1BC5\u1BD5\u1BEE"
-      }
-    ],
+    "morphology": { "type": "compound", "root": "diatei tupa" },
+    "examples": [{ "simalungun": "Diatei tupa bamu", "indonesian": "Terima kasih kepadamu", "aksara": "\u1BD1\u1BEA\u1BC1\u1BD6\u1BE9\u1BEA \u1BD6\u1BEE\u1BC8 \u1BC5\u1BD5\u1BEE" }],
     "culturalNote": "Ungkapan terima kasih baku dalam bahasa Simalungun, berarti 'layak/pantas di hati'.",
     "sourceIds": ["tarigan-1989"],
     "validation": "expert"
@@ -357,17 +577,8 @@
     "pos": "noun",
     "glosses": ["pesta adat", "upacara adat", "pekerjaan"],
     "aksara": "\u1BC3\u1BEC\u1BD3\u1BF3\u1BD0",
-    "morphology": {
-      "type": "root",
-      "root": "horja"
-    },
-    "examples": [
-      {
-        "simalungun": "Horja bolon",
-        "indonesian": "Pesta adat besar",
-        "aksara": "\u1BC3\u1BEC\u1BD3\u1BF3\u1BD0 \u1BC5\u1BEC\u1BDF\u1BEC\u1BC9\u1BF3"
-      }
-    ],
+    "morphology": { "type": "root", "root": "horja" },
+    "examples": [{ "simalungun": "Horja bolon", "indonesian": "Pesta adat besar", "aksara": "\u1BC3\u1BEC\u1BD3\u1BF3\u1BD0 \u1BC5\u1BEC\u1BDF\u1BEC\u1BC9\u1BF3" }],
     "culturalNote": "Upacara adat bersama komunitas yang melibatkan tiga pilar kekerabatan (Tolu Sahundulan).",
     "sourceIds": ["tarigan-1989"],
     "validation": "expert"
@@ -377,18 +588,9 @@
     "lemma": "surat",
     "pos": "noun",
     "glosses": ["surat", "tulisan", "aksara"],
-    "aksara": "\u1BD9\u1BEE\u1BD3\u1BD6\u1BF3",
-    "morphology": {
-      "type": "root",
-      "root": "surat"
-    },
-    "examples": [
-      {
-        "simalungun": "Surat Sisimolungun",
-        "indonesian": "Aksara Simalungun",
-        "aksara": "\u1BD9\u1BEE\u1BD3\u1BD6\u1BF3 \u1BD9\u1BEA\u1BD9\u1BEA\u1BD5\u1BEC\u1BDF\u1BEE\u1BDD\u1BEE\u1BC9\u1BF3"
-      }
-    ],
+    "aksara": "\u1BD9\u1BEF\u1BD3\u1BD6\u1BF3",
+    "morphology": { "type": "root", "root": "surat" },
+    "examples": [{ "simalungun": "Surat Sisimolungun", "indonesian": "Aksara Simalungun", "aksara": "\u1BD9\u1BEE\u1BD3\u1BD6\u1BF3 \u1BD9\u1BEA\u1BD9\u1BEA\u1BD5\u1BEC\u1BDF\u1BEE\u1BDD\u1BEE\u1BC9\u1BF3" }],
     "culturalNote": "Kata surat dalam kebudayaan Batak merujuk pada sistem aksara asli dan dokumen tertulis.",
     "sourceIds": ["tarigan-1989", "kozok-1999"],
     "validation": "expert"
@@ -398,18 +600,9 @@
     "lemma": "pustaha",
     "pos": "noun",
     "glosses": ["kitab kuno", "naskah kulit kayu"],
-    "aksara": "\u1BC8\u1BD9\u1BF3\u1BD6\u1BC3",
-    "morphology": {
-      "type": "root",
-      "root": "pustaha"
-    },
-    "examples": [
-      {
-        "simalungun": "Pustaha hadatuan",
-        "indonesian": "Kitab ilmu pengobatan dan kearifan kuno",
-        "aksara": "\u1BC8\u1BD9\u1BF3\u1BD6\u1BC3 \u1BC3\u1BD1\u1BD6\u1BEE\u1BC1\u1BC9\u1BF3"
-      }
-    ],
+    "aksara": "\u1BC8\u1BEE\u1BD9\u1BF3\u1BD6\u1BC3",
+    "morphology": { "type": "root", "root": "pustaha" },
+    "examples": [{ "simalungun": "Pustaha hadatuan", "indonesian": "Kitab ilmu pengobatan dan kearifan kuno", "aksara": "\u1BC8\u1BD9\u1BF3\u1BD6\u1BC3 \u1BC3\u1BD1\u1BD6\u1BEE\u1BC1\u1BC9\u1BF3" }],
     "culturalNote": "Naskah lipat dari kulit kayu alim (gaharu) berisi catatan pengobatan, ramalan bintang, dan silsilah.",
     "sourceIds": ["kozok-1999"],
     "validation": "expert"
@@ -420,40 +613,10 @@
     "pos": "noun",
     "glosses": ["kulit kayu", "media tulis pustaha"],
     "aksara": "\u1BDF\u1BC3\u1BF3\u1BDF\u1BC3\u1BF3",
-    "morphology": {
-      "type": "root",
-      "root": "laklak"
-    },
-    "examples": [
-      {
-        "simalungun": "Manurat bani laklak",
-        "indonesian": "Menulis di atas kulit kayu",
-        "aksara": "\u1BD5\u1BC9\u1BEE\u1BD3\u1BD6\u1BF3 \u1BC5\u1BC9\u1BEA \u1BDF\u1BC3\u1BF3\u1BDF\u1BC3\u1BF3"
-      }
-    ],
+    "morphology": { "type": "root", "root": "laklak" },
+    "examples": [{ "simalungun": "Manurat bani laklak", "indonesian": "Menulis di atas kulit kayu", "aksara": "\u1BD5\u1BC9\u1BEE\u1BD3\u1BD6\u1BF3 \u1BC5\u1BC9\u1BEA \u1BDF\u1BC3\u1BF3\u1BDF\u1BC3\u1BF3" }],
     "culturalNote": "Kulit pohon gaharu yang dihaluskan menjadi lembaran panjang sebagai media utama aksara Batak tradisional.",
     "sourceIds": ["kozok-1999"],
-    "validation": "expert"
-  },
-  {
-    "id": "lex-tolu",
-    "lemma": "tolu",
-    "pos": "num",
-    "glosses": ["tiga"],
-    "aksara": "\u1BD6\u1BEC\u1BDF\u1BEE",
-    "morphology": {
-      "type": "root",
-      "root": "tolu"
-    },
-    "examples": [
-      {
-        "simalungun": "Tolu Sahundulan",
-        "indonesian": "Tiga pilar kekerabatan adat Simalungun",
-        "aksara": "\u1BD6\u1BEC\u1BDF\u1BEE \u1BD9\u1BC3\u1BEE\u1BC9\u1BD1\u1BEE\u1BDF\u1BC9\u1BF3"
-      }
-    ],
-    "culturalNote": "Tolu Sahundulan adalah falsafah sistem kekerabatan Simalungun: Tondui, Sanina, dan Boru.",
-    "sourceIds": ["tarigan-1989"],
     "validation": "expert"
   },
   {
@@ -462,18 +625,8 @@
     "pos": "noun",
     "glosses": ["kedudukan", "tempat duduk bersama"],
     "aksara": "\u1BD9\u1BC3\u1BEE\u1BC9\u1BD1\u1BEE\u1BDF\u1BC9\u1BF3",
-    "morphology": {
-      "type": "derived",
-      "root": "hundul",
-      "affixes": ["sa-...-an"]
-    },
-    "examples": [
-      {
-        "simalungun": "Tolu Sahundulan",
-        "indonesian": "Tiga pilar tempat duduk bersama",
-        "aksara": "\u1BD6\u1BEC\u1BDF\u1BEE \u1BD9\u1BC3\u1BEE\u1BC9\u1BD1\u1BEE\u1BDF\u1BC9\u1BF3"
-      }
-    ],
+    "morphology": { "type": "derived", "root": "hundul", "affixes": ["sa-...-an"] },
+    "examples": [{ "simalungun": "Tolu Sahundulan", "indonesian": "Tiga pilar tempat duduk bersama", "aksara": "\u1BD6\u1BEC\u1BDF\u1BEE \u1BD9\u1BC3\u1BEE\u1BC9\u1BD1\u1BEE\u1BDF\u1BC9\u1BF3" }],
     "sourceIds": ["tarigan-1989"],
     "validation": "expert"
   },
@@ -483,18 +636,8 @@
     "pos": "noun",
     "glosses": ["juru bicara adat", "penutur bahasa"],
     "aksara": "\u1BC8\u1BD3\u1BF3\u1BC3\u1BD6",
-    "morphology": {
-      "type": "derived",
-      "root": "hata",
-      "affixes": ["par-"]
-    },
-    "examples": [
-      {
-        "simalungun": "Parhata ni horja",
-        "indonesian": "Juru bicara dalam upacara pesta adat",
-        "aksara": "\u1BC8\u1BD3\u1BF3\u1BC3\u1BD6 \u1BC9\u1BEA \u1BC3\u1BEC\u1BD3\u1BF3\u1BD0"
-      }
-    ],
+    "morphology": { "type": "derived", "root": "hata", "affixes": ["par-"] },
+    "examples": [{ "simalungun": "Parhata ni horja", "indonesian": "Juru bicara dalam upacara pesta adat", "aksara": "\u1BC8\u1BD3\u1BF3\u1BC3\u1BD6 \u1BC9\u1BEA \u1BC3\u1BEC\u1BD3\u1BF3\u1BD0" }],
     "culturalNote": "Tokoh adat yang mahir bertutur kata dalam upacara resmi perkawinan atau kematian.",
     "sourceIds": ["tarigan-1989"],
     "validation": "expert"
