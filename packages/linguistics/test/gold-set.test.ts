@@ -68,4 +68,10 @@ describe("Simalungun Morphology & Analyzer Suite", () => {
     expect(analysis.tokens[0].validation).toBe("expert");
     expect(analysis.notes.some((n) => n.kind === "morphology")).toBe(true);
   });
+
+  it("preserves numbers and special symbols in translation output", () => {
+    const analysis = analyzeText("horas 123 !@#", "sim-id", lexicon, phrasebook);
+    expect(analysis.translation).toContain("123");
+    expect(analysis.translation).toContain("!@#");
+  });
 });

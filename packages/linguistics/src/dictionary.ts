@@ -107,8 +107,18 @@ export function analyzeText(
   const glossWords: string[] = [];
 
   for (const rawToken of rawTokens) {
-    if (/^\s+$/.test(rawToken)) continue;
-    if (/^[^\p{L}]+$/u.test(rawToken)) continue;
+    if (/^\s+$/.test(rawToken)) {
+      translatedWords.push(rawToken);
+      continue;
+    }
+
+    // Pass through non-letter tokens (numbers, punctuation, symbols like -=+!@#$%, 123)
+    if (/^[^\p{L}]+$/u.test(rawToken)) {
+      latinWords.push(rawToken);
+      translatedWords.push(rawToken);
+      glossWords.push(rawToken);
+      continue;
+    }
 
     const lower = rawToken.toLowerCase();
     latinWords.push(rawToken);
@@ -221,13 +231,13 @@ export function analyzeText(
   let finalTranslation = "";
 
   if (direction === "id-sim") {
-    finalLatin = translatedWords.join(" ");
+    finalLatin = translatedWords.join("");
     finalAksara = transliterateLatinToAksara(finalLatin).aksara;
     finalTranslation = finalLatin;
   } else if (direction === "sim-id") {
     finalLatin = cleanInput;
     finalAksara = transliterateLatinToAksara(cleanInput).aksara;
-    finalTranslation = translatedWords.join(" ");
+    finalTranslation = translatedWords.join("");
   } else {
     // sim-aksara
     finalLatin = cleanInput;
