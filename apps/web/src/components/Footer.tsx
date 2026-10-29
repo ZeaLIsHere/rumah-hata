@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export function Footer() {
   return (
@@ -6,7 +7,14 @@ export function Footer() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           <div>
-            <div className="flex items-center gap-2 mb-3">
+            <div className="flex items-center gap-2.5 mb-3">
+              <Image
+                src="/logo.png"
+                alt="Logo Rumah Hata"
+                width={28}
+                height={28}
+                className="w-7 h-7 object-contain"
+              />
               <span className="font-semibold text-[#1d1d1f] dark:text-white text-base">Rumah Hata</span>
               <span className="text-[11px] bg-white dark:bg-black/40 text-[#7a7a7a] px-2 py-0.5 rounded-full border border-black/[0.06] dark:border-white/[0.08]">
                 Simalungun
