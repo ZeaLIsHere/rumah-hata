@@ -25,7 +25,7 @@ export async function POST(req: Request) {
       return NextResponse.json(
         {
           available: false,
-          message: "Kunci API server belum dikonfigurasi di environment variable."
+          message: "Terjadi kesalahan, coba hubungi admin."
         },
         { status: 200 }
       );
@@ -40,7 +40,7 @@ export async function POST(req: Request) {
       defaultModel = "deepseek-chat";
     } else if (apiKey.startsWith("sk-or-")) {
       defaultBaseUrl = "https://openrouter.ai/api/v1";
-      defaultModel = "google/gemini-2.0-flash-001";
+      defaultModel = "google/gemini-3.8-flash-001";
     } else if (apiKey.startsWith("sk-")) {
       // If user sets OPENCODE_BASE_URL explicitly to deepseek, it will be overridden below.
       // Default standard OpenAI
