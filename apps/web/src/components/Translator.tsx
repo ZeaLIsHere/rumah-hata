@@ -29,7 +29,7 @@ type TargetLang = "indonesia" | "simalungun" | "aksara";
 export function Translator() {
   const [sourceLang, setSourceLang] = useState<SourceLang>("simalungun");
   const [targetLang, setTargetLang] = useState<TargetLang>("indonesia");
-  const [inputText, setInputText] = useState("Horas bamu");
+  const [inputText, setInputText] = useState("");
   const [copied, setCopied] = useState(false);
   const [isExportOpen, setIsExportOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"translit" | "phonology" | "morphology" | "culture">("translit");
