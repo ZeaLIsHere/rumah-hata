@@ -14,14 +14,7 @@ export const metadata: Metadata = {
     "Surat Sisimolungun",
     "Kamus Simalungun",
     "Transliterasi Batak"
-  ],
-  icons: {
-    icon: [
-      { url: "/icon.png", type: "image/png" },
-      { url: "/logo.png", type: "image/png" }
-    ],
-    apple: "/logo.png"
-  }
+  ]
 };
 
 export default function RootLayout({
