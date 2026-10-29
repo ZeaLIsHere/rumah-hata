@@ -16,7 +16,6 @@ import {
   RotateCcw,
   BookOpen,
   Layers,
-  ShieldCheck,
   AlertCircle,
   Share2,
   Sparkles,
@@ -389,23 +388,13 @@ export function Translator() {
                 </div>
 
                 {/* Bottom Output Action Row */}
-                <div className="min-h-7 flex flex-wrap items-center justify-between text-[11px] sm:text-[12px] text-[#7a7a7a] pt-1 gap-1">
-                  <div className="flex items-center gap-1 text-[#7a7a7a]">
-                    <ShieldCheck className="w-3.5 h-3.5 text-[#0066cc] dark:text-[#2997ff] shrink-0" />
-                    <span className="font-normal text-[#1d1d1f] dark:text-[#f5f5f7]">
-                      {aiResult
-                        ? "Terjemahan AI"
-                        : analysis.tokens.some((t) => t.provenance === "dictionary")
-                        ? "Kamus Baku"
-                        : analysis.tokens.some((t) => t.provenance === "phrasebook")
-                        ? "Frasa Terverifikasi"
-                        : "Kaidah Baku"}
-                    </span>
+                <div className="min-h-7 flex items-center justify-between text-[11px] sm:text-[12px] text-[#7a7a7a] pt-1">
+                  <div>
                     <a
                       href="#lensa-linguistik"
-                      className="text-[#0066cc] dark:text-[#2997ff] hover:underline font-normal ml-1 inline-flex items-center gap-0.5"
+                      className="text-[#0066cc] dark:text-[#2997ff] hover:underline font-normal inline-flex items-center gap-0.5 text-xs"
                     >
-                      <span>Bedah</span>
+                      <span>Bedah Bahasa</span>
                       <span>&darr;</span>
                     </a>
                   </div>
