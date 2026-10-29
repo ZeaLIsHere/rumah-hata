@@ -15,31 +15,28 @@ export function Navbar() {
     { href: "/belajar", label: "Belajar Aksara", icon: Sparkles },
     { href: "/latihan", label: "Latihan", icon: GraduationCap },
     { href: "/kontribusi", label: "Kontribusi", icon: Users },
-    { href: "/tentang", label: "Sumber & Catatan", icon: Info }
+    { href: "/tentang", label: "Catatan Ejaan", icon: Info }
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-[#fdfbf7]/95 dark:bg-[#12151c]/95 backdrop-blur border-b border-stone-200 dark:border-slate-800 transition-colors duration-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+    <header className="sticky top-0 z-50 bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-black/[0.06] dark:border-white/[0.08] transition-colors duration-200">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="flex items-center justify-between h-12 sm:h-14">
           {/* Logo / Brand */}
-          <Link href="/" className="flex items-center space-x-3 group">
-            <div className="w-10 h-10 rounded-lg bg-[#8b1e1b] dark:bg-[#a62521] text-white flex items-center justify-center font-bold text-xl font-aksara shadow-xs group-hover:bg-[#6b1412] transition">
+          <Link href="/" className="flex items-center space-x-2.5 group">
+            <span className="w-8 h-8 rounded-full bg-[#1d1d1f] dark:bg-white text-white dark:text-[#1d1d1f] flex items-center justify-center font-bold text-base font-aksara transition group-hover:scale-95 duration-200">
               ᯃ
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-bold text-lg text-stone-900 dark:text-white tracking-tight">Rumah Hata</span>
-              </div>
-              <p className="text-xs text-stone-600 dark:text-slate-400 hidden sm:block">
-                Lensa Linguistik Bahasa & Aksara Simalungun
-              </p>
+            </span>
+            <div className="flex items-baseline gap-1.5">
+              <span className="font-semibold text-base sm:text-lg text-[#1d1d1f] dark:text-white tracking-tight">
+                Rumah Hata
+              </span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1">
-            <nav className="flex items-center space-x-1 mr-2">
+            <nav className="flex items-center space-x-1 mr-3">
               {navLinks.map((link) => {
                 const Icon = link.icon;
                 const isActive = pathname === link.href;
@@ -47,57 +44,57 @@ export function Navbar() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`flex items-center gap-2 px-3.5 py-2 rounded-md text-sm font-medium transition ${
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition duration-200 ${
                       isActive
-                        ? "bg-[#8b1e1b] dark:bg-[#a62521] text-white shadow-xs"
-                        : "text-stone-700 dark:text-slate-300 hover:text-stone-950 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-slate-800"
+                        ? "bg-[#0066cc] text-white"
+                        : "text-[#1d1d1f]/80 dark:text-[#f5f5f7]/80 hover:text-[#1d1d1f] dark:hover:text-white hover:bg-black/[0.04] dark:hover:bg-white/[0.06]"
                     }`}
                   >
-                    <Icon className="w-4 h-4" />
+                    <Icon className="w-3.5 h-3.5" />
                     <span>{link.label}</span>
                   </Link>
                 );
               })}
             </nav>
 
-            {/* Dark Mode Toggle Button */}
+            {/* Apple Style Dark Mode Toggle Button */}
             <button
               type="button"
               onClick={toggleTheme}
               aria-label="Ganti mode tampilan"
-              className="min-h-[40px] min-w-[40px] p-2 rounded-lg text-stone-600 dark:text-slate-300 hover:bg-stone-100 dark:hover:bg-slate-800 transition flex items-center justify-center border border-stone-200 dark:border-slate-700"
+              className="w-8 h-8 rounded-full flex items-center justify-center text-[#1d1d1f] dark:text-[#f5f5f7] hover:bg-black/[0.05] dark:hover:bg-white/[0.08] transition duration-200"
               title={theme === "dark" ? "Mode Terang" : "Mode Gelap"}
             >
               {theme === "dark" ? (
-                <Sun className="w-4 h-4 text-amber-400" />
+                <Sun className="w-4 h-4 text-[#2997ff]" />
               ) : (
-                <Moon className="w-4 h-4 text-stone-700" />
+                <Moon className="w-4 h-4 text-[#1d1d1f]" />
               )}
             </button>
           </div>
 
-          {/* Mobile Right Bar: Theme Toggle */}
+          {/* Mobile Right Bar */}
           <div className="md:hidden flex items-center">
             <button
               type="button"
               onClick={toggleTheme}
               aria-label="Ganti mode tampilan"
-              className="min-h-[44px] min-w-[44px] p-2.5 rounded-lg text-stone-600 dark:text-slate-300 hover:bg-stone-100 dark:hover:bg-slate-800 transition flex items-center justify-center"
+              className="w-9 h-9 rounded-full flex items-center justify-center text-[#1d1d1f] dark:text-[#f5f5f7] hover:bg-black/[0.05] dark:hover:bg-white/[0.08] transition"
               title={theme === "dark" ? "Mode Terang" : "Mode Gelap"}
             >
               {theme === "dark" ? (
-                <Sun className="w-5 h-5 text-amber-400" />
+                <Sun className="w-4 h-4 text-[#2997ff]" />
               ) : (
-                <Moon className="w-5 h-5 text-stone-700" />
+                <Moon className="w-4 h-4 text-[#1d1d1f]" />
               )}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Navigation bar at top */}
-      <div className="md:hidden border-t border-stone-200 dark:border-slate-800 bg-white/95 dark:bg-[#12151c]/95 overflow-x-auto">
-        <div className="flex px-2 py-1.5 space-x-1 min-w-max">
+      {/* Mobile Navigation bar */}
+      <div className="md:hidden border-t border-black/[0.04] dark:border-white/[0.06] bg-white/90 dark:bg-black/90 overflow-x-auto">
+        <div className="flex px-3 py-1.5 space-x-1.5 min-w-max">
           {navLinks.map((link) => {
             const Icon = link.icon;
             const isActive = pathname === link.href;
@@ -105,13 +102,13 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`min-h-[44px] flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition ${
+                className={`min-h-[40px] flex items-center gap-1 px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition ${
                   isActive
-                    ? "bg-[#8b1e1b] dark:bg-[#a62521] text-white shadow-xs"
-                    : "text-stone-700 dark:text-slate-300 hover:bg-stone-100 dark:hover:bg-slate-800"
+                    ? "bg-[#0066cc] text-white"
+                    : "text-[#1d1d1f]/80 dark:text-[#f5f5f7]/80 hover:bg-black/[0.04] dark:hover:bg-white/[0.06]"
                 }`}
               >
-                <Icon className="w-4 h-4" />
+                <Icon className="w-3.5 h-3.5" />
                 <span>{link.label}</span>
               </Link>
             );

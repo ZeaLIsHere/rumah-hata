@@ -1,5 +1,5 @@
 import { simalungunSources } from "@/lib/data";
-import { BookOpen, ShieldCheck, Scale, FileText } from "lucide-react";
+import { BookOpen, Scale } from "lucide-react";
 
 export default function TentangPage() {
   const decisions = [
@@ -46,54 +46,50 @@ export default function TentangPage() {
   ];
 
   return (
-    <div className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-12">
+    <div className="py-12 sm:py-20 px-4 sm:px-6 max-w-5xl mx-auto space-y-16">
       {/* Header */}
-      <div className="space-y-3">
-        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#8b1e1b] dark:text-red-400">
-          <ShieldCheck className="w-4 h-4" />
-          <span>Transparansi & Metodologi</span>
-        </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-stone-900 dark:text-white tracking-tight">
-          Sumber Rujukan & Kaidah Bahasa
+      <div className="text-center max-w-2xl mx-auto space-y-3">
+        <h1 className="text-4xl sm:text-[48px] font-semibold text-[#1d1d1f] dark:text-white tracking-[-0.025em] leading-tight">
+          Kaidah & Metodologi
         </h1>
-        <p className="text-stone-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed max-w-3xl">
-          Rumah Hata dibangun atas prinsip kejujuran ilmiah: akurasi kebahasaan diutamakan,
-          dan setiap kata terhubung dengan kamus dan sumber rujukan yang jelas.
+        <p className="text-[17px] text-[#7a7a7a] dark:text-[#a1a1a6]">
+          Setiap transliterasi dan leksikon berlandaskan sumber kepustakaan resmi.
         </p>
       </div>
 
-      {/* Rujukan Pustaka */}
-      <section className="space-y-4">
-        <div className="flex items-center gap-2 border-b border-stone-200 dark:border-slate-800 pb-2">
-          <BookOpen className="w-5 h-5 text-[#8b1e1b] dark:text-red-400" />
-          <h2 className="text-xl font-bold text-stone-900 dark:text-white">Landasan Rujukan Pustaka</h2>
+      {/* Rujukan Pustaka Grid */}
+      <section className="space-y-6">
+        <div className="flex items-center gap-2 border-b border-black/[0.06] dark:border-white/[0.08] pb-3">
+          <BookOpen className="w-5 h-5 text-[#0066cc] dark:text-[#2997ff]" />
+          <h2 className="text-[21px] font-semibold text-[#1d1d1f] dark:text-white">Rujukan Kepustakaan</h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {simalungunSources.map((src: any) => (
             <div
               key={src.id}
-              className="p-5 bg-white dark:bg-[#161a24] rounded-xl border border-stone-200 dark:border-slate-800 shadow-2xs space-y-2 flex flex-col justify-between transition-colors duration-200"
+              className="p-6 bg-[#f5f5f7] dark:bg-[#161617] rounded-[18px] border border-black/[0.06] dark:border-white/[0.08] space-y-3 flex flex-col justify-between transition-colors duration-200"
             >
-              <div className="space-y-1">
-                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-stone-100 dark:bg-slate-800 text-stone-700 dark:text-slate-300 font-medium">
+              <div className="space-y-1.5">
+                <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-white dark:bg-[#272729] text-[#7a7a7a] border border-black/[0.04] dark:border-white/[0.06]">
                   {src.type} &middot; {src.year}
                 </span>
-                <h3 className="text-base font-bold text-stone-900 dark:text-white leading-snug">{src.title}</h3>
-                <p className="text-xs text-stone-600 dark:text-slate-400">Penulis / Institusi: {src.author}</p>
-                {src.publisher && <p className="text-xs text-stone-600 dark:text-slate-400">Penerbit: {src.publisher}</p>}
-                <p className="text-xs text-stone-700 dark:text-slate-300 pt-1 leading-relaxed">{src.notes}</p>
+                <h3 className="text-[17px] font-semibold text-[#1d1d1f] dark:text-white leading-snug">{src.title}</h3>
+                <p className="text-[13px] text-[#7a7a7a]">Penulis: {src.author}</p>
+                {src.publisher && <p className="text-[13px] text-[#7a7a7a]">Penerbit: {src.publisher}</p>}
+                <p className="text-[14px] text-[#7a7a7a] dark:text-[#a1a1a6] pt-1 leading-relaxed">{src.notes}</p>
               </div>
-              <div className="pt-2 border-t border-stone-100 dark:border-slate-800 text-[11px] text-stone-600 dark:text-slate-400 flex justify-between items-center">
+              <div className="pt-3 border-t border-black/[0.04] dark:border-white/[0.06] text-[12px] text-[#7a7a7a] flex justify-between items-center">
                 <span>Lisensi: {src.license}</span>
                 {src.url && (
                   <a
                     href={src.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-[#8b1e1b] dark:text-red-400 hover:underline font-medium"
+                    className="text-[#0066cc] dark:text-[#2997ff] hover:underline font-normal inline-flex items-center gap-1"
                   >
-                    Dokumen &rarr;
+                    <span>Dokumen</span>
+                    <span>&rarr;</span>
                   </a>
                 )}
               </div>
@@ -102,57 +98,35 @@ export default function TentangPage() {
         </div>
       </section>
 
-      {/* Rekam Keputusan Linguistik (Linguistic Decisions Log) */}
-      <section className="space-y-4">
-        <div className="flex items-center gap-2 border-b border-stone-200 dark:border-slate-800 pb-2">
-          <Scale className="w-5 h-5 text-[#8b1e1b] dark:text-red-400" />
-          <h2 className="text-xl font-bold text-stone-900 dark:text-white">Catatan Kaidah Ejaan & Aksara</h2>
+      {/* Rekam Keputusan Ortografi */}
+      <section className="space-y-6">
+        <div className="flex items-center gap-2 border-b border-black/[0.06] dark:border-white/[0.08] pb-3">
+          <Scale className="w-5 h-5 text-[#0066cc] dark:text-[#2997ff]" />
+          <h2 className="text-[21px] font-semibold text-[#1d1d1f] dark:text-white">Keputusan Ortografi</h2>
         </div>
-        <p className="text-sm text-stone-700 dark:text-slate-300">
-          Setiap pilihan karakter dan kaidah ortografi Batak Simalungun dicatat secara terbuka
-          bersama sumber rujukannya untuk memastikan keaslian tulisan.
-        </p>
 
-        <div className="space-y-3">
+        <div className="space-y-4">
           {decisions.map((dec) => (
-            <div key={dec.id} className="p-4 bg-white dark:bg-[#161a24] rounded-xl border border-stone-200 dark:border-slate-800 shadow-2xs space-y-2 transition-colors duration-200">
+            <div key={dec.id} className="p-6 bg-[#f5f5f7] dark:bg-[#161617] rounded-[18px] border border-black/[0.06] dark:border-white/[0.08] space-y-2.5 transition-colors duration-200">
               <div className="flex items-center justify-between">
-                <span className="font-mono text-xs font-bold px-2 py-0.5 bg-stone-100 dark:bg-slate-800 text-stone-800 dark:text-slate-200 rounded border border-stone-200 dark:border-slate-700">
+                <span className="font-mono text-[11px] font-semibold px-2 py-0.5 bg-white dark:bg-[#272729] text-[#1d1d1f] dark:text-white rounded-full border border-black/[0.04] dark:border-white/[0.06]">
                   {dec.id}
                 </span>
-                <span className="text-xs text-emerald-800 dark:text-emerald-400 font-medium">Status: Terverifikasi Baku</span>
+                <span className="text-[12px] text-[#0066cc] dark:text-[#2997ff] font-medium">Baku</span>
               </div>
-              <h3 className="text-base font-bold text-stone-900 dark:text-white">{dec.topic}</h3>
-              <div className="text-xs sm:text-sm text-stone-800 dark:text-slate-200 font-semibold bg-stone-50 dark:bg-slate-800/60 p-2.5 rounded-lg border border-stone-100 dark:border-slate-700">
+              <h3 className="text-[17px] font-semibold text-[#1d1d1f] dark:text-white">{dec.topic}</h3>
+              <div className="text-[14px] text-[#1d1d1f] dark:text-white bg-white dark:bg-[#272729] p-3 rounded-[12px] border border-black/[0.04] dark:border-white/[0.06]">
                 Keputusan: {dec.decision}
               </div>
-              <p className="text-xs sm:text-sm text-stone-700 dark:text-slate-300 leading-relaxed">
-                <span className="font-semibold text-stone-800 dark:text-slate-200">Alasan: </span>
+              <p className="text-[14px] text-[#7a7a7a] dark:text-[#a1a1a6] leading-relaxed">
                 {dec.rationale}
               </p>
-              <div className="text-[11px] text-stone-600 dark:text-slate-400 font-mono pt-1">
+              <div className="text-[12px] text-[#7a7a7a] font-mono pt-1">
                 Rujukan: {dec.source}
               </div>
             </div>
           ))}
         </div>
-      </section>
-
-      {/* Komitmen Budaya & Pernyataan Sikap */}
-      <section className="p-6 bg-stone-900 dark:bg-[#161a24] text-stone-100 rounded-2xl space-y-3 border border-transparent dark:border-slate-800 transition-colors duration-200">
-        <div className="flex items-center gap-2 text-amber-400 font-bold text-sm">
-          <FileText className="w-4 h-4" />
-          <span>Pernyataan Etika & Penghormatan Budaya</span>
-        </div>
-        <p className="text-sm text-stone-300 dark:text-slate-300 leading-relaxed">
-          Bahasa dan Aksara Batak Simalungun adalah warisan peradaban leluhur yang sarat nilai spiritual dan adat.
-          Platform ini tidak mengarang kaidah, tidak menyamakan varian antar-etnis Batak tanpa bukti,
-          dan selalu mencantumkan penanda ketidakpastian apabila sebuah kata belum divalidasi oleh pakar atau penutur asli.
-        </p>
-        <p className="text-xs text-stone-400 italic">
-          Bila menemukan kekeliruan ortografi atau leksikon, pembaca dipersilakan melaporkan catatan perbaikan
-          melalui repositori proyek atau forum pengkaji budaya Batak.
-        </p>
       </section>
     </div>
   );

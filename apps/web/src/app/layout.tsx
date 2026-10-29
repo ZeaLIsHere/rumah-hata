@@ -7,14 +7,13 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 export const metadata: Metadata = {
   title: "Rumah Hata: Belajar Terjemahan & Aksara Batak Simalungun",
   description:
-    "Rumah belajar terjemahan Indonesia ⇄ Simalungun ⇄ Aksara Batak Simalungun dengan Lensa Linguistik ilmiah, deterministik, dan berlandaskan sumber baku.",
+    "Platform presisi terjemahan dan alih aksara Batak Simalungun dengan Lensa Linguistik berbasis kaidah ortografi baku.",
   keywords: [
     "Simalungun",
     "Aksara Batak",
     "Surat Sisimolungun",
     "Kamus Simalungun",
-    "Transliterasi Batak",
-    "Lensa Linguistik"
+    "Transliterasi Batak"
   ]
 };
 
@@ -41,7 +40,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen flex flex-col bg-[#faf9f6] text-stone-900 dark:bg-[#0c0e12] dark:text-slate-100 antialiased selection:bg-[#8b1e1b] selection:text-white transition-colors duration-200">
+      <body className="min-h-screen flex flex-col bg-white text-[#1d1d1f] dark:bg-black dark:text-[#f5f5f7] antialiased selection:bg-[#0066cc] selection:text-white transition-colors duration-200">
         <ThemeProvider>
           <Navbar />
           <main className="flex-1">{children}</main>

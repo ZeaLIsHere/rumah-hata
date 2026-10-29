@@ -39,11 +39,11 @@ export function CardExportModal({
     ctx.fillRect(0, 0, width, height);
 
     // Cultural border framing
-    ctx.strokeStyle = "#8b1e1b";
+    ctx.strokeStyle = "#1d1d1f";
     ctx.lineWidth = 14;
     ctx.strokeRect(20, 20, width - 40, height - 40);
 
-    ctx.strokeStyle = "#18181b";
+    ctx.strokeStyle = "#0066cc";
     ctx.lineWidth = 2;
     ctx.strokeRect(34, 34, width - 68, height - 68);
 
@@ -54,19 +54,19 @@ export function CardExportModal({
       [42, height - 66],
       [width - 66, height - 66]
     ];
-    ctx.fillStyle = "#8b1e1b";
+    ctx.fillStyle = "#0066cc";
     for (const [cx, cy] of corners) {
       ctx.fillRect(cx, cy, 24, 24);
     }
 
     // Top Header
     ctx.textAlign = "center";
-    ctx.fillStyle = "#6b1412";
-    ctx.font = "bold 18px 'Plus Jakarta Sans', system-ui, sans-serif";
+    ctx.fillStyle = "#1d1d1f";
+    ctx.font = "bold 18px 'SF Pro Display', 'Inter', system-ui, sans-serif";
     ctx.fillText("RUMAH HATA \u2022 SURAT SISIMOLUNGUN", width / 2, 85);
 
-    ctx.fillStyle = "#78716c";
-    ctx.font = "14px 'Plus Jakarta Sans', system-ui, sans-serif";
+    ctx.fillStyle = "#7a7a7a";
+    ctx.font = "14px 'SF Pro Text', 'Inter', system-ui, sans-serif";
     ctx.fillText("Aksara Batak Simalungun \u2022 Sumatera Utara", width / 2, 110);
 
     // Divider line
@@ -78,25 +78,25 @@ export function CardExportModal({
     ctx.stroke();
 
     // Centerpiece Aksara
-    ctx.fillStyle = "#18181b";
-    ctx.font = "64px 'Noto Sans Batak', 'Plus Jakarta Sans', sans-serif";
+    ctx.fillStyle = "#1d1d1f";
+    ctx.font = "64px 'Noto Sans Batak', 'SF Pro Display', sans-serif";
     ctx.fillText(aksara, width / 2, 260);
 
     // Latin
-    ctx.fillStyle = "#8b1e1b";
-    ctx.font = "bold 26px 'Plus Jakarta Sans', system-ui, sans-serif";
+    ctx.fillStyle = "#0066cc";
+    ctx.font = "bold 26px 'SF Pro Display', 'Inter', system-ui, sans-serif";
     ctx.fillText(latin, width / 2, 340);
 
     // Indonesian Meaning
     if (translation && translation !== latin) {
       ctx.fillStyle = "#44403c";
-      ctx.font = "italic 20px 'Plus Jakarta Sans', system-ui, sans-serif";
+      ctx.font = "italic 20px 'SF Pro Text', 'Inter', system-ui, sans-serif";
       ctx.fillText(`\u201C${translation}\u201D`, width / 2, 385);
     }
 
     // Footer
     ctx.fillStyle = "#a8a29e";
-    ctx.font = "13px 'Plus Jakarta Sans', system-ui, sans-serif";
+    ctx.font = "13px 'SF Pro Text', 'Inter', system-ui, sans-serif";
     ctx.fillText("Habonaron Do Bona \u2022 Kebenaran Adalah Pangkal Segala Sesuatu", width / 2, 530);
   }, [isOpen, aksara, latin, translation]);
 
@@ -120,51 +120,51 @@ export function CardExportModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/60 dark:bg-black/80 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-white dark:bg-[#161a24] rounded-2xl max-w-2xl w-full border border-stone-200 dark:border-slate-800 shadow-xl overflow-hidden space-y-4 p-5 sm:p-6 animate-fadeIn transition-colors duration-200">
+    <div className="fixed inset-0 z-50 bg-black/50 dark:bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+      <div className="bg-white dark:bg-[#161617] rounded-[24px] max-w-2xl w-full border border-black/[0.08] dark:border-white/[0.1] shadow-2xl overflow-hidden space-y-4 p-6 sm:p-8 animate-fadeIn transition-colors duration-200">
         {/* Modal Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-stone-100 dark:border-slate-800">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-red-50 dark:bg-red-950/50 text-[#8b1e1b] dark:text-red-400 flex items-center justify-center font-bold">
+        <div className="flex items-center justify-between pb-3 border-b border-black/[0.06] dark:border-white/[0.08]">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-full bg-[#f5f5f7] dark:bg-[#272729] text-[#0066cc] dark:text-[#2997ff] flex items-center justify-center">
               <ImageIcon className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="font-bold text-stone-900 dark:text-white text-base">Ekspor Kartu Aksara</h3>
+              <h3 className="font-semibold text-[#1d1d1f] dark:text-white text-[17px]">Ekspor Kartu Aksara</h3>
             </div>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="p-1 text-stone-400 hover:text-stone-700 dark:hover:text-slate-200 rounded-lg hover:bg-stone-100 dark:hover:bg-slate-800 transition"
+            className="w-8 h-8 rounded-full flex items-center justify-center text-[#7a7a7a] hover:text-[#1d1d1f] dark:hover:text-white hover:bg-black/[0.04] dark:hover:bg-white/[0.06] transition"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Canvas Preview Container */}
-        <div className="rounded-xl overflow-hidden border border-stone-200 dark:border-slate-800 bg-stone-50 dark:bg-[#12151c] flex items-center justify-center p-2 shadow-inner">
+        <div className="rounded-[18px] overflow-hidden border border-black/[0.06] dark:border-white/[0.08] bg-[#f5f5f7] dark:bg-black p-3 flex items-center justify-center">
           <canvas
             ref={canvasRef}
-            className="w-full h-auto max-h-[340px] object-contain rounded-lg shadow-xs"
+            className="w-full h-auto max-h-[340px] object-contain rounded-[14px]"
           />
         </div>
 
         {/* Action Controls */}
-        <div className="flex items-center justify-end gap-2 pt-2">
+        <div className="flex items-center justify-end gap-2.5 pt-2">
           <button
             type="button"
             onClick={onClose}
-            className="min-h-[44px] px-4 py-2.5 border border-stone-300 dark:border-slate-700 text-stone-700 dark:text-slate-300 hover:bg-stone-50 dark:hover:bg-slate-800 text-xs sm:text-sm font-medium rounded-xl transition flex items-center justify-center"
+            className="px-5 py-2.5 rounded-full border border-black/[0.08] dark:border-white/[0.1] text-[#1d1d1f] dark:text-[#f5f5f7] hover:bg-black/[0.04] dark:hover:bg-white/[0.06] text-[13px] font-medium transition active:scale-95"
           >
             Tutup
           </button>
           <button
             type="button"
             onClick={handleDownload}
-            className="min-h-[44px] px-5 py-2.5 bg-[#8b1e1b] dark:bg-[#a62521] hover:bg-[#6b1412] text-white text-xs sm:text-sm font-semibold rounded-xl shadow-xs transition flex items-center justify-center gap-1.5"
+            className="px-6 py-2.5 rounded-full bg-[#0066cc] hover:bg-[#0071e3] text-white text-[13px] font-medium transition active:scale-95 flex items-center justify-center gap-1.5"
           >
-            {downloaded ? <Check className="w-4 h-4 text-emerald-300" /> : <Download className="w-4 h-4" />}
-            <span>{downloaded ? "Tersimpan!" : "Unduh Gambar (PNG)"}</span>
+            {downloaded ? <Check className="w-4 h-4 text-white" /> : <Download className="w-4 h-4" />}
+            <span>{downloaded ? "Tersimpan" : "Unduh Gambar"}</span>
           </button>
         </div>
       </div>

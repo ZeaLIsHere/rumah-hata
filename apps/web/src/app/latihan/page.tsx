@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { GraduationCap, CheckCircle2, XCircle, RotateCcw, ArrowRight, Award } from "lucide-react";
+import { CheckCircle2, XCircle, RotateCcw, ArrowRight, Award } from "lucide-react";
 
 interface Question {
   id: number;
@@ -147,7 +147,6 @@ const INITIAL_QUESTIONS: Question[] = [
 function shuffleQuestionOptions(questions: Question[]): Question[] {
   return questions.map((q) => {
     const correctOptionText = q.options[q.correctIndex];
-    // Fisher-Yates shuffle
     const shuffled = [...q.options];
     for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -201,51 +200,46 @@ export default function LatihanPage() {
   };
 
   return (
-    <div className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto space-y-8">
+    <div className="py-12 sm:py-20 px-4 sm:px-6 max-w-3xl mx-auto space-y-10">
       {/* Header */}
-      <div className="space-y-2 text-center sm:text-left">
-        <div className="flex items-center justify-center sm:justify-start gap-2 text-xs font-bold uppercase tracking-wider text-[#8b1e1b] dark:text-red-400">
-          <GraduationCap className="w-4 h-4" />
-          <span>Kuis Interaktif</span>
-        </div>
-        <h1 className="text-3xl font-extrabold text-stone-900 dark:text-white tracking-tight">
-          Latihan Aksara & Bahasa Simalungun
+      <div className="text-center space-y-3">
+        <h1 className="text-4xl sm:text-[48px] font-semibold text-[#1d1d1f] dark:text-white tracking-[-0.025em] leading-tight">
+          Latihan Interaktif
         </h1>
-        <p className="text-stone-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
-          Uji pemahaman membaca aksara, kaidah ortografis, dan falsafah bahasa.
-          Setiap jawaban dilengkapi penjelasan langsung.
+        <p className="text-[17px] text-[#7a7a7a] dark:text-[#a1a1a6]">
+          Uji pemahaman membaca aksara, kaidah ortografis, dan falsafah bahasa Simalungun.
         </p>
       </div>
 
       {!quizFinished ? (
-        <div className="bg-white dark:bg-[#161a24] rounded-2xl border border-stone-200 dark:border-slate-800 shadow-sm p-6 sm:p-8 space-y-6 transition-colors duration-200">
+        <div className="bg-[#f5f5f7] dark:bg-[#161617] rounded-[24px] border border-black/[0.06] dark:border-white/[0.08] p-6 sm:p-8 space-y-6 transition-colors duration-200">
           {/* Progress bar */}
           <div className="space-y-2">
-            <div className="flex justify-between text-xs text-stone-600 dark:text-slate-400 font-medium">
+            <div className="flex justify-between text-[13px] text-[#7a7a7a] font-normal">
               <span>Pertanyaan {currentIndex + 1} dari {questions.length}</span>
               <span>Skor: {score}</span>
             </div>
-            <div className="w-full bg-stone-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
+            <div className="w-full bg-white dark:bg-[#272729] rounded-full h-1.5 overflow-hidden">
               <div
-                className="bg-[#8b1e1b] dark:bg-[#a62521] h-full transition-all duration-300"
+                className="bg-[#0066cc] dark:bg-[#2997ff] h-full transition-all duration-300"
                 style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }}
               />
             </div>
           </div>
 
-          {/* Question Box */}
-          <div className="space-y-3">
-            <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-stone-100 dark:bg-slate-800 text-stone-700 dark:text-slate-300 border border-stone-200 dark:border-slate-700 inline-block">
-              Kategori: {currentQ.category}
+          {/* Question Box inside white card */}
+          <div className="bg-white dark:bg-[#272729] p-6 rounded-[18px] border border-black/[0.06] dark:border-white/[0.08] space-y-3">
+            <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-[#f5f5f7] dark:bg-black/30 text-[#7a7a7a] inline-block border border-black/[0.04] dark:border-white/[0.06]">
+              {currentQ.category}
             </span>
-            <h2 className="text-lg sm:text-xl font-bold text-stone-900 dark:text-white leading-snug">
+            <h2 className="text-[19px] sm:text-[21px] font-semibold text-[#1d1d1f] dark:text-white leading-snug">
               {currentQ.prompt}
             </h2>
 
             {/* Optional Glyph display */}
             {currentQ.glyphPrompt && (
-              <div className="py-6 px-4 bg-[#faf9f6] dark:bg-[#12151c] border border-stone-200 dark:border-slate-800 rounded-xl text-center">
-                <span className="font-aksara text-4xl sm:text-5xl text-[#8b1e1b] dark:text-red-400 tracking-wider select-all">
+              <div className="py-6 px-4 bg-[#f5f5f7] dark:bg-[#161617] rounded-[14px] text-center border border-black/[0.04] dark:border-white/[0.06]">
+                <span className="font-aksara text-4xl sm:text-5xl text-[#0066cc] dark:text-[#2997ff] tracking-wider select-all">
                   {currentQ.glyphPrompt}
                 </span>
               </div>
@@ -255,15 +249,15 @@ export default function LatihanPage() {
           {/* Options Grid */}
           <div className="space-y-2.5">
             {currentQ.options.map((opt, idx) => {
-              let optStyle = "bg-stone-50 dark:bg-slate-800/60 border-stone-200 dark:border-slate-700 text-stone-900 dark:text-slate-100 hover:bg-stone-100 dark:hover:bg-slate-800";
+              let optStyle = "bg-white dark:bg-[#272729] border-black/[0.06] dark:border-white/[0.08] text-[#1d1d1f] dark:text-white hover:border-black/20 dark:hover:border-white/20";
 
               if (isAnswered) {
                 if (idx === currentQ.correctIndex) {
-                  optStyle = "bg-emerald-50 dark:bg-emerald-950/50 border-emerald-500 text-emerald-950 dark:text-emerald-200 font-semibold";
+                  optStyle = "bg-emerald-50 dark:bg-emerald-950/40 border-emerald-500 text-emerald-950 dark:text-emerald-200 font-medium";
                 } else if (idx === selectedOption) {
-                  optStyle = "bg-rose-50 dark:bg-rose-950/50 border-rose-500 text-rose-950 dark:text-rose-200";
+                  optStyle = "bg-rose-50 dark:bg-rose-950/40 border-rose-500 text-rose-950 dark:text-rose-200";
                 } else {
-                  optStyle = "bg-stone-50 dark:bg-slate-800/30 border-stone-200 dark:border-slate-800 text-stone-400 dark:text-slate-600 opacity-60";
+                  optStyle = "bg-white/40 dark:bg-[#272729]/40 border-black/[0.04] dark:border-white/[0.06] text-[#7a7a7a] opacity-50";
                 }
               }
 
@@ -275,10 +269,10 @@ export default function LatihanPage() {
                   type="button"
                   disabled={isAnswered}
                   onClick={() => handleSelect(idx)}
-                  className={`w-full p-4 rounded-xl border text-left text-sm sm:text-base transition flex items-center justify-between gap-3 ${optStyle}`}
+                  className={`w-full p-4 rounded-[14px] border text-left text-[15px] sm:text-[16px] transition flex items-center justify-between gap-3 active:scale-[0.99] duration-150 ${optStyle}`}
                 >
                   <div className="flex items-center gap-3">
-                    <span className="w-7 h-7 rounded-lg bg-stone-200/70 dark:bg-slate-700 text-stone-700 dark:text-slate-200 text-xs font-bold flex items-center justify-center shrink-0">
+                    <span className="w-7 h-7 rounded-full bg-[#f5f5f7] dark:bg-black/30 text-[#7a7a7a] text-[12px] font-semibold flex items-center justify-center shrink-0 border border-black/[0.04] dark:border-white/[0.06]">
                       {optionLetter}
                     </span>
                     <span className={opt.startsWith("\u1BC0") || (opt.length <= 4 && /[\u1BC0-\u1BFF]/.test(opt)) ? "font-aksara text-2xl" : ""}>
@@ -298,16 +292,16 @@ export default function LatihanPage() {
 
           {/* Explanation Box */}
           {isAnswered && (
-            <div className="p-4 rounded-xl bg-stone-50 dark:bg-slate-800/60 border border-stone-200 dark:border-slate-700 text-xs sm:text-sm text-stone-800 dark:text-slate-200 space-y-1 animate-fadeIn">
-              <div className="font-bold text-stone-900 dark:text-white flex items-center gap-1.5">
+            <div className="p-5 rounded-[16px] bg-white dark:bg-[#272729] border border-black/[0.06] dark:border-white/[0.08] text-[14px] text-[#1d1d1f] dark:text-[#f5f5f7] space-y-1 animate-fadeIn">
+              <div className="font-semibold text-[15px] flex items-center gap-1.5">
                 {selectedOption === currentQ.correctIndex ? (
-                  <span className="text-emerald-700 dark:text-emerald-400">Tepat sekali!</span>
+                  <span className="text-emerald-600 dark:text-emerald-400">Tepat sekali</span>
                 ) : (
-                  <span className="text-rose-700 dark:text-rose-400">Belum tepat.</span>
+                  <span className="text-rose-600 dark:text-rose-400">Belum tepat</span>
                 )}
-                <span>Penjelasan:</span>
+                <span>&middot; Penjelasan:</span>
               </div>
-              <p className="leading-relaxed text-stone-700 dark:text-slate-300">{currentQ.explanation}</p>
+              <p className="leading-relaxed text-[#7a7a7a] dark:text-[#a1a1a6] text-[13px]">{currentQ.explanation}</p>
             </div>
           )}
 
@@ -317,9 +311,9 @@ export default function LatihanPage() {
               <button
                 type="button"
                 onClick={handleNext}
-                className="px-5 py-2.5 rounded-lg bg-[#8b1e1b] dark:bg-[#a62521] hover:bg-[#6b1412] text-white text-sm font-semibold transition flex items-center gap-2"
+                className="px-6 py-2.5 rounded-full bg-[#0066cc] hover:bg-[#0071e3] text-white text-[14px] font-normal transition duration-200 flex items-center gap-2 active:scale-95"
               >
-                <span>{currentIndex + 1 === questions.length ? "Lihat Skor Akhir" : "Soal Berikutnya"}</span>
+                <span>{currentIndex + 1 === questions.length ? "Lihat Skor" : "Lanjut"}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
@@ -327,35 +321,35 @@ export default function LatihanPage() {
         </div>
       ) : (
         /* Quiz Completed Screen */
-        <div className="bg-white dark:bg-[#161a24] rounded-2xl border border-stone-200 dark:border-slate-800 shadow-sm p-8 text-center space-y-6 transition-colors duration-200">
-          <div className="w-16 h-16 rounded-full bg-amber-50 dark:bg-amber-950/50 text-amber-800 dark:text-amber-400 flex items-center justify-center mx-auto">
-            <Award className="w-8 h-8" />
+        <div className="bg-[#f5f5f7] dark:bg-[#161617] rounded-[24px] border border-black/[0.06] dark:border-white/[0.08] p-8 text-center space-y-6 transition-colors duration-200">
+          <div className="w-14 h-14 rounded-full bg-white dark:bg-[#272729] text-[#0066cc] dark:text-[#2997ff] flex items-center justify-center mx-auto border border-black/[0.06] dark:border-white/[0.08]">
+            <Award className="w-7 h-7" />
           </div>
 
-          <div className="space-y-2">
-            <h2 className="text-2xl font-bold text-stone-900 dark:text-white">Sesi Latihan Selesai!</h2>
-            <p className="text-stone-700 dark:text-slate-400 text-sm">
-              Anda telah menyelesaikan {questions.length} pertanyaan kuis.
+          <div className="space-y-1.5">
+            <h2 className="text-2xl font-semibold text-[#1d1d1f] dark:text-white">Latihan Selesai</h2>
+            <p className="text-[#7a7a7a] text-[15px]">
+              Anda telah menyelesaikan {questions.length} pertanyaan.
             </p>
           </div>
 
-          <div className="py-6 px-4 bg-stone-50 dark:bg-slate-800/60 rounded-xl border border-stone-200 dark:border-slate-700 max-w-sm mx-auto">
-            <div className="text-xs text-stone-600 dark:text-slate-400 uppercase font-bold tracking-wider mb-1">Skor Akhir</div>
-            <div className="text-4xl font-extrabold text-[#8b1e1b] dark:text-red-400">
+          <div className="py-6 px-6 bg-white dark:bg-[#272729] rounded-[18px] border border-black/[0.06] dark:border-white/[0.08] max-w-xs mx-auto">
+            <div className="text-[12px] text-[#7a7a7a] uppercase font-semibold tracking-wider mb-1">Skor Akhir</div>
+            <div className="text-4xl font-semibold text-[#0066cc] dark:text-[#2997ff]">
               {score} / {questions.length}
             </div>
-            <p className="text-xs text-stone-600 dark:text-slate-400 mt-2">
+            <p className="text-[13px] text-[#7a7a7a] mt-2">
               {score >= 8
-                ? "Luar biasa! Pemahaman kaidah aksara dan bahasa Anda sangat baik."
-                : "Bagus! Terus berlatih untuk memperkuat penguasaan kaidah ortografi."}
+                ? "Luar biasa! Pemahaman Anda sangat baik."
+                : "Bagus! Terus berlatih untuk mengasah penguasaan kaidah ortografi."}
             </p>
           </div>
 
-          <div className="flex justify-center gap-3">
+          <div className="flex justify-center">
             <button
               type="button"
               onClick={restartQuiz}
-              className="px-5 py-2.5 rounded-lg bg-[#8b1e1b] dark:bg-[#a62521] hover:bg-[#6b1412] text-white text-sm font-semibold transition flex items-center gap-2"
+              className="px-6 py-2.5 rounded-full bg-[#0066cc] hover:bg-[#0071e3] text-white text-[14px] font-normal transition duration-200 flex items-center gap-2 active:scale-95"
             >
               <RotateCcw className="w-4 h-4" />
               <span>Ulangi Kuis</span>

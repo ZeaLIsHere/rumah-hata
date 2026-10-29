@@ -1,98 +1,123 @@
 import { Translator } from "@/components/Translator";
 import Link from "next/link";
-import { BookOpen, Sparkles, GraduationCap } from "lucide-react";
+import { BookOpen, Sparkles, GraduationCap, ArrowRight } from "lucide-react";
 
 export default function HomePage() {
   return (
-    <div className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
-      {/* Hero Header */}
-      <div className="text-center max-w-3xl mx-auto space-y-3">
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-stone-900 dark:text-white tracking-tight leading-tight">
+    <div className="space-y-16 sm:space-y-24">
+      {/* Museum Gallery Hero */}
+      <section className="pt-12 sm:pt-20 px-4 sm:px-6 max-w-5xl mx-auto text-center space-y-4">
+        <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-semibold text-[#1d1d1f] dark:text-white tracking-[-0.025em] leading-[1.08]">
           Penerjemah & Lensa Linguistik{" "}
-          <span className="text-[#8b1e1b] dark:text-red-400">Batak Simalungun</span>
+          <span className="text-[#0066cc] dark:text-[#2997ff] block sm:inline">
+            Batak Simalungun
+          </span>
         </h1>
-        <p className="text-base sm:text-lg text-stone-700 dark:text-slate-300 leading-relaxed">
-          Terjemahkan kata atau kalimat antara Bahasa Indonesia dan Bahasa Simalungun,
-          lengkap dengan alih aksara Surat Sisimolungun dan penjelasan linguistik mendalam.
+        <p className="text-[19px] sm:text-[21px] text-[#7a7a7a] dark:text-[#a1a1a6] font-normal max-w-2xl mx-auto leading-relaxed">
+          Terjemahan presisi kata dan kalimat, alih aksara Surat Sisimolungun, dan bedah linguistik terbuka.
         </p>
-      </div>
 
-      {/* Main Translator Core Component */}
-      <Translator />
-
-      {/* Feature Pillar Highlights */}
-      <section className="pt-8 border-t border-stone-200 dark:border-slate-800">
-        <div className="text-center mb-8">
-          <h2 className="text-xl font-bold text-stone-900 dark:text-white">
-            Mengapa Rumah Hata Berbeda?
-          </h2>
-          <p className="text-sm text-stone-700 dark:text-slate-400 mt-1">
-            Menghubungkan teknologi komputasi bahasa dengan keaslian budaya lokal.
-          </p>
+        {/* Primary Action Pills */}
+        <div className="pt-2 flex items-center justify-center gap-3">
+          <Link
+            href="/belajar"
+            className="inline-flex items-center gap-1.5 px-6 py-2.5 rounded-full bg-[#0066cc] hover:bg-[#0071e3] active:scale-95 text-white text-[15px] font-normal transition duration-200"
+          >
+            <span>Mulai Belajar</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+          <Link
+            href="/kamus"
+            className="inline-flex items-center gap-1.5 px-6 py-2.5 rounded-full bg-[#f5f5f7] dark:bg-[#272729] hover:bg-[#e8e8ed] dark:hover:bg-[#333336] active:scale-95 text-[#0066cc] dark:text-[#2997ff] text-[15px] font-normal transition duration-200"
+          >
+            <span>Buka Kamus</span>
+          </Link>
         </div>
+      </section>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="p-5 bg-white dark:bg-[#161a24] rounded-xl border border-stone-200 dark:border-slate-800 shadow-2xs space-y-2 transition-colors duration-200">
-            <div className="w-9 h-9 rounded-lg bg-red-50 dark:bg-red-950/50 text-[#8b1e1b] dark:text-red-400 flex items-center justify-center font-bold">
-              <Sparkles className="w-5 h-5" />
+      {/* Main Translator Section */}
+      <section className="px-4 sm:px-6 max-w-5xl mx-auto">
+        <Translator />
+      </section>
+
+      {/* Alternating Feature Tiles: Apple Store Utility Card Pattern */}
+      <section className="border-t border-black/[0.06] dark:border-white/[0.08] bg-[#f5f5f7] dark:bg-[#161617] py-16 sm:py-24 transition-colors duration-200">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 space-y-12">
+          <div className="text-center max-w-xl mx-auto space-y-2">
+            <h2 className="text-3xl sm:text-[40px] font-semibold text-[#1d1d1f] dark:text-white tracking-[-0.025em] leading-tight">
+              Kecermatan Berbahasa
+            </h2>
+            <p className="text-[17px] text-[#7a7a7a] dark:text-[#a1a1a6]">
+              Setiap hasil terjemahan dibangun dengan standar tata bahasa yang dapat diuji.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Tile 1 */}
+            <div className="p-8 bg-white dark:bg-[#272729] rounded-[18px] border border-black/[0.06] dark:border-white/[0.08] flex flex-col justify-between space-y-6 transition duration-200">
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-full bg-[#f5f5f7] dark:bg-[#1d1d1f] flex items-center justify-center text-[#0066cc] dark:text-[#2997ff]">
+                  <Sparkles className="w-5 h-5" />
+                </div>
+                <h3 className="text-[21px] font-semibold text-[#1d1d1f] dark:text-white tracking-tight">
+                  Alih Aksara Berkaidah
+                </h3>
+                <p className="text-[15px] text-[#7a7a7a] dark:text-[#a1a1a6] leading-relaxed">
+                  Alih aksara Surat Sisimolungun berjalan secara deterministik mengikuti blok Unicode resmi U+1BC0–U+1BFF.
+                </p>
+              </div>
+              <Link
+                href="/belajar"
+                className="text-[15px] text-[#0066cc] dark:text-[#2997ff] hover:underline inline-flex items-center gap-1 font-normal"
+              >
+                <span>Lihat bagan huruf</span>
+                <span>&rarr;</span>
+              </Link>
             </div>
-            <h3 className="font-bold text-stone-900 dark:text-white text-base">
-              Alih Aksara Akurat
-            </h3>
-            <p className="text-sm text-stone-700 dark:text-slate-300 leading-relaxed">
-              Setiap huruf dan suku kata dialihkan ke Surat Sisimolungun berdasarkan
-              aturan ejaan asli dan standar resmi tulisan Batak.
-            </p>
-          </div>
 
-          <div className="p-5 bg-white dark:bg-[#161a24] rounded-xl border border-stone-200 dark:border-slate-800 shadow-2xs space-y-2 transition-colors duration-200">
-            <div className="w-9 h-9 rounded-lg bg-amber-50 dark:bg-amber-950/50 text-amber-800 dark:text-amber-400 flex items-center justify-center font-bold">
-              <BookOpen className="w-5 h-5" />
+            {/* Tile 2 */}
+            <div className="p-8 bg-white dark:bg-[#272729] rounded-[18px] border border-black/[0.06] dark:border-white/[0.08] flex flex-col justify-between space-y-6 transition duration-200">
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-full bg-[#f5f5f7] dark:bg-[#1d1d1f] flex items-center justify-center text-[#0066cc] dark:text-[#2997ff]">
+                  <BookOpen className="w-5 h-5" />
+                </div>
+                <h3 className="text-[21px] font-semibold text-[#1d1d1f] dark:text-white tracking-tight">
+                  Lensa Linguistik
+                </h3>
+                <p className="text-[15px] text-[#7a7a7a] dark:text-[#a1a1a6] leading-relaxed">
+                  Pahami pembagian suku kata, analisis morfem, serta makna budaya dari leksikon baku Simalungun.
+                </p>
+              </div>
+              <Link
+                href="/kamus"
+                className="text-[15px] text-[#0066cc] dark:text-[#2997ff] hover:underline inline-flex items-center gap-1 font-normal"
+              >
+                <span>Jelajahi leksikon</span>
+                <span>&rarr;</span>
+              </Link>
             </div>
-            <h3 className="font-bold text-stone-900 dark:text-white text-base">
-              Bedah Bahasa & Aksara
-            </h3>
-            <p className="text-sm text-stone-700 dark:text-slate-300 leading-relaxed">
-              Pahami alasan di balik setiap kata: pemisahan suku kata, akar kata,
-              hingga makna adat dan filosofi luhur yang menyertai kata.
-            </p>
-          </div>
 
-          <div className="p-5 bg-white dark:bg-[#161a24] rounded-xl border border-stone-200 dark:border-slate-800 shadow-2xs space-y-2 transition-colors duration-200">
-            <div className="w-9 h-9 rounded-lg bg-emerald-50 dark:bg-emerald-950/50 text-emerald-800 dark:text-emerald-400 flex items-center justify-center font-bold">
-              <GraduationCap className="w-5 h-5" />
+            {/* Tile 3 */}
+            <div className="p-8 bg-white dark:bg-[#272729] rounded-[18px] border border-black/[0.06] dark:border-white/[0.08] flex flex-col justify-between space-y-6 transition duration-200">
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-full bg-[#f5f5f7] dark:bg-[#1d1d1f] flex items-center justify-center text-[#0066cc] dark:text-[#2997ff]">
+                  <GraduationCap className="w-5 h-5" />
+                </div>
+                <h3 className="text-[21px] font-semibold text-[#1d1d1f] dark:text-white tracking-tight">
+                  Latihan Mandiri
+                </h3>
+                <p className="text-[15px] text-[#7a7a7a] dark:text-[#a1a1a6] leading-relaxed">
+                  Kuis membaca aksara dan kanvas interaktif untuk melatih goresan pena aksara secara bertahap.
+                </p>
+              </div>
+              <Link
+                href="/latihan"
+                className="text-[15px] text-[#0066cc] dark:text-[#2997ff] hover:underline inline-flex items-center gap-1 font-normal"
+              >
+                <span>Mulai kuis</span>
+                <span>&rarr;</span>
+              </Link>
             </div>
-            <h3 className="font-bold text-stone-900 dark:text-white text-base">
-              Pembelajaran Bertahap
-            </h3>
-            <p className="text-sm text-stone-700 dark:text-slate-300 leading-relaxed">
-              Dilengkapi modul belajar aksara mandiri, bagan interaktif huruf dasar (ina ni surat),
-              dan kuis latihan dengan umpan balik ilmiah langsung.
-            </p>
-          </div>
-        </div>
-
-        {/* Quick link banner to learning modules */}
-        <div className="mt-8 p-6 bg-stone-900 dark:bg-[#161a24] text-stone-100 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 border border-transparent dark:border-slate-800 transition-colors duration-200">
-          <div className="space-y-1 text-center sm:text-left">
-            <h4 className="font-bold text-lg text-white">Ingin menguasai Surat Sisimolungun dari dasar?</h4>
-            <p className="text-sm text-stone-300 dark:text-slate-400">
-              Mulai dari pengenalan huruf induk, tanda vokal, hingga latihan membaca kalimat.
-            </p>
-          </div>
-          <div className="flex gap-3">
-            <Link
-              href="/belajar"
-              className="px-4 py-2.5 rounded-lg bg-[#8b1e1b] dark:bg-[#a62521] hover:bg-[#6b1412] text-white text-sm font-semibold transition"
-            >
-              Belajar Aksara
-            </Link>
-            <Link
-              href="/latihan"
-              className="px-4 py-2.5 rounded-lg bg-stone-800 dark:bg-slate-800 hover:bg-stone-700 text-stone-200 text-sm font-medium border border-stone-700 dark:border-slate-700 transition"
-            >
-              Mulai Kuis
-            </Link>
           </div>
         </div>
       </section>

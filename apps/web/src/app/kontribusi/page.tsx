@@ -85,19 +85,14 @@ export default function KontribusiPage() {
   };
 
   return (
-    <div className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-10">
+    <div className="py-12 sm:py-20 px-4 sm:px-6 max-w-5xl mx-auto space-y-10">
       {/* Header */}
-      <div className="space-y-2">
-        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#8b1e1b] dark:text-red-400">
-          <Users className="w-4 h-4" />
-          <span>Partisipasi Komunitas</span>
-        </div>
-        <h1 className="text-3xl font-extrabold text-stone-900 dark:text-white tracking-tight">
-          Usulan & Validasi Komunitas
+      <div className="text-center max-w-2xl mx-auto space-y-3">
+        <h1 className="text-4xl sm:text-[48px] font-semibold text-[#1d1d1f] dark:text-white tracking-[-0.025em] leading-tight">
+          Kontribusi Komunitas
         </h1>
-        <p className="text-stone-700 dark:text-slate-300 text-sm sm:text-base max-w-3xl leading-relaxed">
-          Bantu memperkaya leksikon bahasa Batak Simalungun. Setiap usulan kata baru dicatat dengan status
-          <span className="font-semibold text-amber-800 dark:text-amber-400"> unverified</span> hingga diverifikasi oleh penutur asli atau pakar bahasa.
+        <p className="text-[17px] text-[#7a7a7a] dark:text-[#a1a1a6]">
+          Bantu perkaya kosakata bahasa Batak Simalungun melalui usulan terverifikasi.
         </p>
       </div>
 
@@ -106,16 +101,16 @@ export default function KontribusiPage() {
         <div className="lg:col-span-2">
           <form
             onSubmit={handleSubmit}
-            className="bg-white dark:bg-[#161a24] p-6 sm:p-8 rounded-2xl border border-stone-200 dark:border-slate-800 shadow-2xs space-y-5 transition-colors duration-200"
+            className="bg-[#f5f5f7] dark:bg-[#161617] p-8 rounded-[24px] border border-black/[0.06] dark:border-white/[0.08] space-y-5 transition-colors duration-200"
           >
-            <div className="border-b border-stone-100 dark:border-slate-800 pb-3">
-              <h2 className="text-lg font-bold text-stone-900 dark:text-white">Form Usulan Kata Baru</h2>
-              <p className="text-xs text-stone-600 dark:text-slate-400">Wajib mencantumkan sumber rujukan atau penutur yang dapat dihubungi.</p>
+            <div className="border-b border-black/[0.06] dark:border-white/[0.08] pb-3">
+              <h2 className="text-[19px] font-semibold text-[#1d1d1f] dark:text-white">Usul Kata Baru</h2>
+              <p className="text-[13px] text-[#7a7a7a]">Cantumkan sumber buku atau penutur yang dapat dikonfirmasi.</p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-stone-700 dark:text-slate-300 mb-1">
+                <label className="block text-[13px] font-medium text-[#1d1d1f] dark:text-white mb-1.5">
                   Kata Simalungun (Latin) *
                 </label>
                 <input
@@ -123,16 +118,16 @@ export default function KontribusiPage() {
                   required
                   value={lemma}
                   onChange={(e) => setLemma(e.target.value)}
-                  placeholder="Contoh: torang, boru, sinabul..."
-                  className="w-full px-3.5 py-2 rounded-lg border border-stone-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm text-stone-900 dark:text-white focus:outline-none focus:border-[#8b1e1b] dark:focus:border-red-500 placeholder:text-stone-400 dark:placeholder:text-slate-500"
+                  placeholder="Contoh: torang, sinabul..."
+                  className="w-full px-4 h-11 rounded-[12px] border border-black/[0.06] dark:border-white/[0.08] bg-white dark:bg-[#272729] text-[15px] text-[#1d1d1f] dark:text-white focus:outline-none focus:border-[#0066cc] dark:focus:border-[#2997ff] placeholder:text-[#7a7a7a]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-stone-700 dark:text-slate-300 mb-1">
-                  Pratinjau Aksara Otomatis
+                <label className="block text-[13px] font-medium text-[#1d1d1f] dark:text-white mb-1.5">
+                  Pratinjau Aksara
                 </label>
-                <div className="w-full h-10 px-3.5 flex items-center bg-stone-50 dark:bg-slate-900 border border-stone-200 dark:border-slate-700 rounded-lg font-aksara text-2xl text-[#8b1e1b] dark:text-red-400">
+                <div className="w-full h-11 px-4 flex items-center bg-white dark:bg-[#272729] border border-black/[0.06] dark:border-white/[0.08] rounded-[12px] font-aksara text-2xl text-[#0066cc] dark:text-[#2997ff]">
                   {previewAksara || "-"}
                 </div>
               </div>
@@ -140,7 +135,7 @@ export default function KontribusiPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-stone-700 dark:text-slate-300 mb-1">
+                <label className="block text-[13px] font-medium text-[#1d1d1f] dark:text-white mb-1.5">
                   Arti Bahasa Indonesia *
                 </label>
                 <input
@@ -148,19 +143,19 @@ export default function KontribusiPage() {
                   required
                   value={gloss}
                   onChange={(e) => setGloss(e.target.value)}
-                  placeholder="Contoh: terang, jelas, perempuan..."
-                  className="w-full px-3.5 py-2 rounded-lg border border-stone-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm text-stone-900 dark:text-white focus:outline-none focus:border-[#8b1e1b] dark:focus:border-red-500 placeholder:text-stone-400 dark:placeholder:text-slate-500"
+                  placeholder="Contoh: terang, juru bicara..."
+                  className="w-full px-4 h-11 rounded-[12px] border border-black/[0.06] dark:border-white/[0.08] bg-white dark:bg-[#272729] text-[15px] text-[#1d1d1f] dark:text-white focus:outline-none focus:border-[#0066cc] dark:focus:border-[#2997ff] placeholder:text-[#7a7a7a]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-stone-700 dark:text-slate-300 mb-1">
+                <label className="block text-[13px] font-medium text-[#1d1d1f] dark:text-white mb-1.5">
                   Kelas Kata
                 </label>
                 <select
                   value={pos}
                   onChange={(e) => setPos(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-lg border border-stone-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm text-stone-900 dark:text-white focus:outline-none focus:border-[#8b1e1b] dark:focus:border-red-500"
+                  className="w-full px-4 h-11 rounded-[12px] border border-black/[0.06] dark:border-white/[0.08] bg-white dark:bg-[#272729] text-[15px] text-[#1d1d1f] dark:text-white focus:outline-none focus:border-[#0066cc] dark:focus:border-[#2997ff]"
                 >
                   <option value="noun">Nomina (Kata Benda)</option>
                   <option value="verb">Verba (Kata Kerja)</option>
@@ -173,94 +168,88 @@ export default function KontribusiPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-stone-700 dark:text-slate-300 mb-1">
-                Contoh Kalimat Penggunaan
+              <label className="block text-[13px] font-medium text-[#1d1d1f] dark:text-white mb-1.5">
+                Contoh Kalimat
               </label>
               <input
                 type="text"
                 value={example}
                 onChange={(e) => setExample(e.target.value)}
-                placeholder="Contoh: Torang do ari (Harinya cerah)..."
-                className="w-full px-3.5 py-2 rounded-lg border border-stone-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm text-stone-900 dark:text-white focus:outline-none focus:border-[#8b1e1b] dark:focus:border-red-500 placeholder:text-stone-400 dark:placeholder:text-slate-500"
+                placeholder="Contoh: Torang do ari..."
+                className="w-full px-4 h-11 rounded-[12px] border border-black/[0.06] dark:border-white/[0.08] bg-white dark:bg-[#272729] text-[15px] text-[#1d1d1f] dark:text-white focus:outline-none focus:border-[#0066cc] dark:focus:border-[#2997ff] placeholder:text-[#7a7a7a]"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-stone-700 dark:text-slate-300 mb-1">
-                Sumber / Narasumber Rujukan *
+              <label className="block text-[13px] font-medium text-[#1d1d1f] dark:text-white mb-1.5">
+                Sumber Rujukan *
               </label>
               <input
                 type="text"
                 required
                 value={source}
                 onChange={(e) => setSource(e.target.value)}
-                placeholder="Judul buku, artikel, nama narasumber penutur, atau kampung asal..."
-                className="w-full px-3.5 py-2 rounded-lg border border-stone-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm text-stone-900 dark:text-white focus:outline-none focus:border-[#8b1e1b] dark:focus:border-red-500 placeholder:text-stone-400 dark:placeholder:text-slate-500"
+                placeholder="Judul kamus, artikel, atau nama penutur..."
+                className="w-full px-4 h-11 rounded-[12px] border border-black/[0.06] dark:border-white/[0.08] bg-white dark:bg-[#272729] text-[15px] text-[#1d1d1f] dark:text-white focus:outline-none focus:border-[#0066cc] dark:focus:border-[#2997ff] placeholder:text-[#7a7a7a]"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-stone-700 dark:text-slate-300 mb-1">
-                Catatan Budaya / Konteks Tambahan
+              <label className="block text-[13px] font-medium text-[#1d1d1f] dark:text-white mb-1.5">
+                Catatan Konteks
               </label>
               <textarea
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 rows={2}
-                placeholder="Konteks adat, tingkat tutur, atau perbedaannya dengan dialek lain..."
-                className="w-full px-3.5 py-2 rounded-lg border border-stone-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm text-stone-900 dark:text-white focus:outline-none focus:border-[#8b1e1b] dark:focus:border-red-500 placeholder:text-stone-400 dark:placeholder:text-slate-500"
+                placeholder="Konteks adat atau perbedaan tingkat tutur..."
+                className="w-full px-4 py-3 rounded-[12px] border border-black/[0.06] dark:border-white/[0.08] bg-white dark:bg-[#272729] text-[15px] text-[#1d1d1f] dark:text-white focus:outline-none focus:border-[#0066cc] dark:focus:border-[#2997ff] placeholder:text-[#7a7a7a]"
               />
             </div>
 
             {justSubmitted && (
-              <div className="p-3 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 rounded-lg text-emerald-800 dark:text-emerald-300 text-xs flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                <span>Usulan berhasil disimpan ke antrean lokal berstatus unverified.</span>
+              <div className="p-4 bg-white dark:bg-[#272729] border border-emerald-500/30 rounded-[14px] text-emerald-700 dark:text-emerald-400 text-[13px] flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 shrink-0" />
+                <span>Usulan tersimpan di antrean kurasi.</span>
               </div>
             )}
 
             <div className="flex justify-end pt-2">
               <button
                 type="submit"
-                className="px-5 py-2.5 rounded-lg bg-[#8b1e1b] dark:bg-[#a62521] hover:bg-[#6b1412] text-white text-sm font-semibold transition flex items-center gap-2"
+                className="px-6 py-2.5 rounded-full bg-[#0066cc] hover:bg-[#0071e3] text-white text-[14px] font-normal transition duration-200 flex items-center gap-2 active:scale-95"
               >
-                <Send className="w-4 h-4" />
-                <span>Kirim Usulan Kata</span>
+                <Send className="w-3.5 h-3.5" />
+                <span>Kirim Usulan</span>
               </button>
             </div>
           </form>
         </div>
 
-        {/* Info & Queue Sidebar */}
+        {/* Sidebar */}
         <div className="space-y-6">
-          <div className="bg-white dark:bg-[#161a24] p-5 rounded-2xl border border-stone-200 dark:border-slate-800 shadow-2xs space-y-4 transition-colors duration-200">
-            <div className="flex items-center gap-2 font-bold text-stone-900 dark:text-white text-sm">
-              <ShieldCheck className="w-4 h-4 text-[#8b1e1b] dark:text-red-400" />
-              <span>Bagaimana Usulan Diverifikasi?</span>
-            </div>
-            <p className="text-xs text-stone-700 dark:text-slate-300 leading-relaxed">
-              Setiap kata yang diusulkan tidak langsung masuk ke kamus baku.
-              Validator linguistik akan memeriksa kecocokan fonologi dan etimologi sebelum dinaikkan ke status
-              <span className="font-semibold text-emerald-800 dark:text-emerald-400"> community</span> atau <span className="font-semibold text-emerald-800 dark:text-emerald-400">expert</span>.
+          <div className="bg-[#f5f5f7] dark:bg-[#161617] p-6 rounded-[24px] border border-black/[0.06] dark:border-white/[0.08] space-y-3 transition-colors duration-200">
+            <h3 className="font-semibold text-[#1d1d1f] dark:text-white text-[15px]">Prinsip Validasi</h3>
+            <p className="text-[14px] text-[#7a7a7a] leading-relaxed">
+              Setiap kata akan diverifikasi oleh validator pakar bahasa sebelum dimasukkan ke dalam leksikon baku.
             </p>
           </div>
 
           {/* Local Queue List */}
-          <div className="bg-white dark:bg-[#161a24] p-5 rounded-2xl border border-stone-200 dark:border-slate-800 shadow-2xs space-y-4 transition-colors duration-200">
+          <div className="bg-[#f5f5f7] dark:bg-[#161617] p-6 rounded-[24px] border border-black/[0.06] dark:border-white/[0.08] space-y-4 transition-colors duration-200">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="font-bold text-stone-900 dark:text-white text-sm">Antrean Usulan Anda</h3>
-                <span className="text-[11px] text-stone-600 dark:text-slate-400">{submittedList.length} usulan tersimpan</span>
+                <h3 className="font-semibold text-[#1d1d1f] dark:text-white text-[15px]">Antrean Usulan</h3>
+                <span className="text-[12px] text-[#7a7a7a]">{submittedList.length} tersimpan</span>
               </div>
               {submittedList.length > 0 && (
                 <button
                   type="button"
                   onClick={handleExportJSON}
-                  className="px-2.5 py-1 text-xs text-[#8b1e1b] dark:text-red-400 border border-stone-200 dark:border-slate-700 rounded-lg hover:bg-stone-50 dark:hover:bg-slate-800 transition flex items-center gap-1 font-medium"
-                  title="Unduh file JSON untuk review tim pengembang"
+                  className="px-3 py-1 text-[12px] text-[#0066cc] dark:text-[#2997ff] border border-black/[0.06] dark:border-white/[0.08] bg-white dark:bg-[#272729] rounded-full hover:border-black/20 transition flex items-center gap-1 font-normal"
                 >
-                  <Download className="w-3.5 h-3.5" />
-                  <span>Ekspor JSON</span>
+                  <Download className="w-3 h-3" />
+                  <span>Ekspor</span>
                 </button>
               )}
             </div>
@@ -268,22 +257,21 @@ export default function KontribusiPage() {
             {submittedList.length > 0 ? (
               <div className="space-y-2.5 max-h-80 overflow-y-auto pr-1">
                 {submittedList.map((item) => (
-                  <div key={item.id} className="p-3 bg-stone-50 dark:bg-slate-900 border border-stone-200 dark:border-slate-800 rounded-xl space-y-1">
+                  <div key={item.id} className="p-4 bg-white dark:bg-[#272729] border border-black/[0.06] dark:border-white/[0.08] rounded-[14px] space-y-1">
                     <div className="flex items-center justify-between">
-                      <span className="font-bold text-stone-900 dark:text-white text-sm capitalize">{item.lemma}</span>
-                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
+                      <span className="font-medium text-[#1d1d1f] dark:text-white text-[14px] capitalize">{item.lemma}</span>
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#f5f5f7] dark:bg-black/30 text-[#7a7a7a]">
                         {item.validation}
                       </span>
                     </div>
-                    <div className="font-aksara text-base text-[#8b1e1b] dark:text-red-400">{item.aksara}</div>
-                    <div className="text-xs text-stone-700 dark:text-slate-300">Arti: {item.gloss}</div>
-                    <div className="text-[10px] text-stone-600 dark:text-slate-400 font-mono">Sumber: {item.source}</div>
+                    <div className="font-aksara text-base text-[#0066cc] dark:text-[#2997ff]">{item.aksara}</div>
+                    <div className="text-[12px] text-[#7a7a7a]">Arti: {item.gloss}</div>
                   </div>
                 ))}
               </div>
             ) : (
-              <div className="text-center py-6 text-xs text-stone-600 dark:text-slate-400 italic border border-dashed border-stone-200 dark:border-slate-800 rounded-xl">
-                Belum ada usulan kata yang dikirim pada sesi ini.
+              <div className="text-center py-8 text-[13px] text-[#7a7a7a] italic border border-dashed border-black/[0.08] dark:border-white/[0.1] rounded-[16px]">
+                Belum ada usulan kata pada sesi ini.
               </div>
             )}
           </div>

@@ -58,11 +58,11 @@ export function WritingCanvas() {
       const isDark = document.documentElement.classList.contains("dark");
 
       // Background
-      ctx.fillStyle = isDark ? "#12151c" : "#faf9f6";
+      ctx.fillStyle = isDark ? "#1d1d1f" : "#ffffff";
       ctx.fillRect(0, 0, dim, dim);
 
       // Guide grid
-      ctx.strokeStyle = isDark ? "#283042" : "#e7e5e4";
+      ctx.strokeStyle = isDark ? "#2a2a2c" : "#f0f0f0";
       ctx.lineWidth = 1;
       ctx.setLineDash([4, 4]);
 
@@ -79,7 +79,7 @@ export function WritingCanvas() {
       ctx.textBaseline = "middle";
       const fontSize = Math.round(dim * 0.5);
       ctx.font = `${fontSize}px 'Noto Sans Batak', 'Plus Jakarta Sans', sans-serif`;
-      ctx.fillStyle = isDark ? "#2d3748" : "#e2ded6";
+      ctx.fillStyle = isDark ? "#333336" : "#e0e0e0";
       ctx.fillText(selectedLetter.char, dim / 2, dim / 2);
     },
     [selectedLetter]
@@ -111,8 +111,7 @@ export function WritingCanvas() {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    const isDark = document.documentElement.classList.contains("dark");
-    ctx.strokeStyle = isDark ? "#ef4444" : "#8b1e1b";
+    ctx.strokeStyle = "#0066cc";
     ctx.lineWidth = Math.max(6, Math.round(canvasDim / 35));
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
@@ -147,52 +146,48 @@ export function WritingCanvas() {
 
   const evaluateDrawing = () => {
     if (strokeCount === 0) {
-      setEvaluation("Kanvas masih kosong. Goreskan jari atau kursor mengikuti panduan aksara.");
+      setEvaluation("Kanvas masih kosong. Goreskan jari atau kursor mengikuti bayangan aksara.");
       return;
     }
     if (strokeCount < 2) {
       setEvaluation("Bagus! Teruskan latihan untuk membentuk kelenturan goresan alami.");
     } else {
-      setEvaluation("Bentuk aksara telah terbentuk dengan baik. Goresan tegas dan proporsional!");
+      setEvaluation("Bentuk aksara terbentuk dengan baik. Goresan tegas dan proporsional!");
     }
   };
 
   return (
-    <div className="bg-white dark:bg-[#161a24] rounded-2xl border border-stone-200 dark:border-slate-800 shadow-xs p-4 sm:p-6 space-y-6 transition-colors duration-200">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-stone-100 dark:border-slate-800 pb-4">
+    <div className="bg-[#f5f5f7] dark:bg-[#161617] rounded-[24px] border border-black/[0.06] dark:border-white/[0.08] p-6 sm:p-8 space-y-6 transition-colors duration-200">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-black/[0.06] dark:border-white/[0.08] pb-5">
         <div>
-          <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#8b1e1b] dark:text-red-400">
-            <PenTool className="w-4 h-4" />
-            <span>Kanvas Latihan Aksara</span>
-          </div>
-          <h3 className="text-xl font-bold text-stone-900 dark:text-white">Latihan Menulis Goresan Aksara</h3>
-          <p className="text-xs text-stone-700 dark:text-slate-400">Ikuti garis panduan samar untuk melatih memori motorik bentuk huruf.</p>
+          <h3 className="text-[21px] font-semibold text-[#1d1d1f] dark:text-white">Latihan Goresan Aksara</h3>
+          <p className="text-[14px] text-[#7a7a7a]">Ikuti garis panduan untuk melatih ingatan motorik bentuk huruf.</p>
         </div>
 
-        {/* Letter picker chips with accessible touch targets */}
+        {/* Letter picker chips */}
         <div className="flex items-center gap-1.5 overflow-x-auto max-w-full pb-1">
           {PRACTICE_LETTERS.map((letter) => (
             <button
               key={letter.latin}
               type="button"
               onClick={() => setSelectedLetter(letter)}
-              className={`min-h-[44px] px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition flex items-center gap-1.5 ${
+              className={`px-4 py-2 rounded-full text-[13px] font-medium whitespace-nowrap transition duration-200 flex items-center gap-1.5 active:scale-95 ${
                 selectedLetter.latin === letter.latin
-                  ? "bg-[#8b1e1b] dark:bg-[#a62521] text-white shadow-xs"
-                  : "bg-stone-100 dark:bg-slate-800 hover:bg-stone-200 dark:hover:bg-slate-700 text-stone-800 dark:text-slate-200"
+                  ? "bg-[#0066cc] text-white"
+                  : "bg-white dark:bg-[#272729] text-[#1d1d1f] dark:text-[#f5f5f7] border border-black/[0.06] dark:border-white/[0.08]"
               }`}
             >
-              <span className="font-aksara text-lg leading-none">{letter.char}</span>
+              <span className="font-aksara text-base">{letter.char}</span>
               <span>{letter.latin}</span>
             </button>
           ))}
         </div>
       </div>
 
-      <div className="flex flex-col lg:flex-row items-center justify-center gap-6 sm:gap-8">
-        {/* Canvas Display with auto-scaled dimension */}
-        <div ref={containerRef} className="w-full max-w-[380px] flex flex-col items-center space-y-3">
-          <div className="p-2 bg-[#faf9f6] dark:bg-[#12151c] rounded-2xl border-2 border-stone-300 dark:border-slate-700 shadow-inner w-fit">
+      <div className="flex flex-col lg:flex-row items-center justify-center gap-8">
+        {/* Canvas Display */}
+        <div ref={containerRef} className="w-full max-w-[380px] flex flex-col items-center space-y-4">
+          <div className="p-3 bg-white dark:bg-[#272729] rounded-[20px] border border-black/[0.06] dark:border-white/[0.08] w-fit shadow-xs">
             <canvas
               ref={canvasRef}
               onPointerDown={startDrawing}
@@ -200,7 +195,7 @@ export function WritingCanvas() {
               onPointerUp={stopDrawing}
               onPointerCancel={stopDrawing}
               style={{ width: `${canvasDim}px`, height: `${canvasDim}px` }}
-              className="touch-none rounded-xl cursor-crosshair block shadow-xs bg-white dark:bg-[#12151c]"
+              className="touch-none rounded-[14px] cursor-crosshair block bg-white dark:bg-[#1d1d1f]"
             />
           </div>
 
@@ -208,7 +203,7 @@ export function WritingCanvas() {
             <button
               type="button"
               onClick={resetCanvas}
-              className="min-h-[44px] px-4 py-2 rounded-xl border border-stone-300 dark:border-slate-700 text-xs text-stone-700 dark:text-slate-300 hover:bg-stone-100 dark:hover:bg-slate-800 transition flex items-center gap-1.5"
+              className="px-5 py-2.5 rounded-full bg-white dark:bg-[#272729] text-[13px] text-[#1d1d1f] dark:text-[#f5f5f7] border border-black/[0.06] dark:border-white/[0.08] hover:border-black/20 dark:hover:border-white/20 transition active:scale-95 flex items-center gap-1.5"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               <span>Bersihkan</span>
@@ -216,7 +211,7 @@ export function WritingCanvas() {
             <button
               type="button"
               onClick={evaluateDrawing}
-              className="min-h-[44px] px-5 py-2 rounded-xl bg-[#8b1e1b] dark:bg-[#a62521] hover:bg-[#6b1412] text-xs text-white font-semibold transition flex items-center gap-1.5 shadow-xs"
+              className="px-6 py-2.5 rounded-full bg-[#0066cc] hover:bg-[#0071e3] text-[13px] text-white font-medium transition active:scale-95 flex items-center gap-1.5"
             >
               <Check className="w-3.5 h-3.5" />
               <span>Cek Goresan</span>
@@ -226,22 +221,22 @@ export function WritingCanvas() {
 
         {/* Instructions & Feedback Panel */}
         <div className="w-full lg:max-w-md space-y-4">
-          <div className="p-4 sm:p-5 bg-stone-50 dark:bg-slate-800/60 rounded-xl border border-stone-200 dark:border-slate-700 text-xs sm:text-sm text-stone-700 dark:text-slate-300 space-y-2">
-            <h4 className="font-bold text-stone-900 dark:text-white">Petunjuk Menulis:</h4>
-            <ol className="list-decimal list-inside space-y-1.5 text-stone-700 dark:text-slate-300">
-              <li>Pilih huruf yang ingin dilatih pada bilah pilihan di atas.</li>
-              <li>Goreskan jari atau kursor pada kanvas mengikuti bayangan aksara.</li>
-              <li>Tarik garis dari sisi kiri atas ke kanan bawah mengikuti aliran tradisional.</li>
-              <li>Tekan tombol &ldquo;Cek Goresan&rdquo; untuk memeriksa kelengkapan bentuk.</li>
+          <div className="p-6 bg-white dark:bg-[#272729] rounded-[18px] border border-black/[0.06] dark:border-white/[0.08] text-[14px] text-[#7a7a7a] dark:text-[#a1a1a6] space-y-2.5">
+            <h4 className="font-semibold text-[#1d1d1f] dark:text-white text-[15px]">Panduan Menulis:</h4>
+            <ol className="list-decimal list-inside space-y-1.5">
+              <li>Pilih huruf yang ingin dilatih pada bilah di atas.</li>
+              <li>Goreskan jari atau stylus mengikuti bayangan aksara.</li>
+              <li>Tarik garis dari sisi kiri atas ke kanan bawah.</li>
+              <li>Tekan tombol &ldquo;Cek Goresan&rdquo; untuk memeriksa hasil.</li>
             </ol>
           </div>
 
           {evaluation && (
-            <div className="p-4 bg-amber-50/70 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 rounded-xl text-xs sm:text-sm text-amber-950 dark:text-amber-200 flex items-start gap-2.5 animate-fadeIn">
-              <Sparkles className="w-4 h-4 text-[#8b1e1b] dark:text-amber-400 mt-0.5 shrink-0" />
+            <div className="p-5 bg-white dark:bg-[#272729] border border-[#0066cc]/30 dark:border-[#2997ff]/30 rounded-[18px] text-[14px] text-[#1d1d1f] dark:text-white flex items-start gap-3 animate-fadeIn">
+              <Sparkles className="w-4 h-4 text-[#0066cc] dark:text-[#2997ff] mt-0.5 shrink-0" />
               <div>
-                <div className="font-bold mb-0.5">Umpan Balik:</div>
-                <p className="leading-relaxed">{evaluation}</p>
+                <div className="font-semibold mb-0.5">Umpan Balik:</div>
+                <p className="text-[13px] text-[#7a7a7a] dark:text-[#a1a1a6] leading-relaxed">{evaluation}</p>
               </div>
             </div>
           )}

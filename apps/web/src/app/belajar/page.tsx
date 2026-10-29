@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { simalungunAksaraRules } from "@/lib/data";
 import { WritingCanvas } from "@/components/WritingCanvas";
-import { Sparkles, Info, Volume2, BookOpen, Layers, PenTool, CheckCircle } from "lucide-react";
+import { Info, Volume2, BookOpen, Layers, PenTool, CheckCircle } from "lucide-react";
 
 export default function BelajarPage() {
   const [activeView, setActiveView] = useState<"bagan" | "modul" | "kanvas">("bagan");
@@ -27,7 +27,7 @@ export default function BelajarPage() {
     {
       level: 1,
       title: "Tingkat 1: Huruf Induk (Ina ni Surat)",
-      description: "Mengenal 19 aksara dasar pembawa bunyi vokal bawaan /a/.",
+      description: "19 aksara dasar pembawa bunyi vokal bawaan /a/.",
       lessons: [
         { title: "Konsonan Utama", content: "Aksara Batak adalah sistem abugida. Setiap konsonan seperti Ha (ᯃ), Ba (ᯅ), Pa (ᯈ) secara alami dibaca dengan vokal /a/ tanpa tambahan tanda." },
         { title: "Vokal Mandiri", content: "Vokal yang berdiri sendiri di awal suku kata ditulis dengan aksara vokal tersendiri: A (ᯁ), I (ᯤ), U (ᯥ)." }
@@ -65,60 +65,55 @@ export default function BelajarPage() {
   ];
 
   return (
-    <div className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8">
+    <div className="py-12 sm:py-20 px-4 sm:px-6 max-w-5xl mx-auto space-y-10">
       {/* Header */}
-      <div className="space-y-2">
-        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#8b1e1b] dark:text-red-400">
-          <Sparkles className="w-4 h-4" />
-          <span>Surat Sisimolungun</span>
-        </div>
-        <h1 className="text-3xl font-extrabold text-stone-900 dark:text-white tracking-tight">
-          Pusat Pembelajaran Aksara Simalungun
+      <div className="text-center max-w-2xl mx-auto space-y-3">
+        <h1 className="text-4xl sm:text-[48px] font-semibold text-[#1d1d1f] dark:text-white tracking-[-0.025em] leading-tight">
+          Surat Sisimolungun
         </h1>
-        <p className="text-stone-700 dark:text-slate-300 text-sm sm:text-base max-w-3xl leading-relaxed">
-          Kuasai sistem tulisan asli Batak Simalungun secara ilmiah dan terstruktur melalui bagan interaktif,
-          kurikulum belajar bertahap, dan kanvas latihan motorik goresan pena.
+        <p className="text-[17px] text-[#7a7a7a] dark:text-[#a1a1a6]">
+          Pelajari sistem abugida aksara Batak Simalungun melalui kurikulum terstruktur.
         </p>
       </div>
 
-      {/* Main Mode Navigation Tabs */}
-      <div className="flex items-center gap-2 border-b border-stone-200 dark:border-slate-800 pb-3 overflow-x-auto">
+      {/* Mode Navigation Pills */}
+      <div className="flex items-center justify-center gap-2 overflow-x-auto pb-2">
         <button
           type="button"
           onClick={() => setActiveView("bagan")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition ${
+          className={`px-5 py-2 rounded-full text-[14px] font-medium whitespace-nowrap transition duration-200 flex items-center gap-1.5 ${
             activeView === "bagan"
-              ? "bg-[#8b1e1b] dark:bg-[#a62521] text-white shadow-xs"
-              : "text-stone-700 dark:text-slate-300 hover:bg-stone-100 dark:hover:bg-slate-800"
+              ? "bg-[#0066cc] text-white"
+              : "bg-[#f5f5f7] dark:bg-[#272729] text-[#1d1d1f] dark:text-[#f5f5f7] hover:bg-[#e8e8ed] dark:hover:bg-[#333336]"
           }`}
         >
-          <Layers className="w-4 h-4" />
-          <span>Bagan Huruf & Diakritik</span>
+          <Layers className="w-3.5 h-3.5" />
+          <span>Bagan Huruf</span>
         </button>
 
         <button
           type="button"
           onClick={() => setActiveView("modul")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition ${
+          className={`px-5 py-2 rounded-full text-[14px] font-medium whitespace-nowrap transition duration-200 flex items-center gap-1.5 ${
             activeView === "modul"
-              ? "bg-[#8b1e1b] dark:bg-[#a62521] text-white shadow-xs"
-              : "text-stone-700 dark:text-slate-300 hover:bg-stone-100 dark:hover:bg-slate-800"
+              ? "bg-[#0066cc] text-white"
+              : "bg-[#f5f5f7] dark:bg-[#272729] text-[#1d1d1f] dark:text-[#f5f5f7] hover:bg-[#e8e8ed] dark:hover:bg-[#333336]"
           }`}
         >
-          <BookOpen className="w-4 h-4" />
+          <BookOpen className="w-3.5 h-3.5" />
           <span>Modul Bertahap</span>
         </button>
 
         <button
           type="button"
           onClick={() => setActiveView("kanvas")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition ${
+          className={`px-5 py-2 rounded-full text-[14px] font-medium whitespace-nowrap transition duration-200 flex items-center gap-1.5 ${
             activeView === "kanvas"
-              ? "bg-[#8b1e1b] dark:bg-[#a62521] text-white shadow-xs"
-              : "text-stone-700 dark:text-slate-300 hover:bg-stone-100 dark:hover:bg-slate-800"
+              ? "bg-[#0066cc] text-white"
+              : "bg-[#f5f5f7] dark:bg-[#272729] text-[#1d1d1f] dark:text-[#f5f5f7] hover:bg-[#e8e8ed] dark:hover:bg-[#333336]"
           }`}
         >
-          <PenTool className="w-4 h-4" />
+          <PenTool className="w-3.5 h-3.5" />
           <span>Latihan Menulis</span>
         </button>
       </div>
@@ -128,18 +123,18 @@ export default function BelajarPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-8">
             {/* Ina ni Surat */}
-            <div className="bg-white dark:bg-[#161a24] p-6 rounded-2xl border border-stone-200 dark:border-slate-800 shadow-2xs space-y-4 transition-colors duration-200">
-              <div className="flex items-center justify-between border-b border-stone-100 dark:border-slate-800 pb-3">
+            <div className="bg-[#f5f5f7] dark:bg-[#161617] p-6 rounded-[24px] border border-black/[0.06] dark:border-white/[0.08] space-y-4 transition-colors duration-200">
+              <div className="flex items-center justify-between border-b border-black/[0.06] dark:border-white/[0.08] pb-3">
                 <div>
-                  <h2 className="text-lg font-bold text-stone-900 dark:text-white">Ina ni Surat (Huruf Induk)</h2>
-                  <p className="text-xs text-stone-600 dark:text-slate-400">19 aksara dasar pembawa vokal inheren /a/</p>
+                  <h2 className="text-[19px] font-semibold text-[#1d1d1f] dark:text-white">Ina ni Surat (19 Huruf Induk)</h2>
+                  <p className="text-[13px] text-[#7a7a7a]">Vokal inheren /a/</p>
                 </div>
-                <span className="text-xs bg-stone-100 dark:bg-slate-800 px-2 py-0.5 rounded text-stone-700 dark:text-slate-300 font-mono">
-                  {simalungunAksaraRules.inaNiSurat.length} Huruf
+                <span className="text-[12px] bg-white dark:bg-[#272729] px-2.5 py-0.5 rounded-full text-[#7a7a7a] border border-black/[0.06] dark:border-white/[0.08]">
+                  19 Huruf
                 </span>
               </div>
 
-              <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 gap-3">
+              <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 gap-2.5">
                 {simalungunAksaraRules.inaNiSurat.map((letter: any) => {
                   const isSelected = selectedLetter.char === letter.char;
                   return (
@@ -155,14 +150,14 @@ export default function BelajarPage() {
                           description: `Aksara dasar '${letter.latin}' pembawa vokal inheren /a/. Posisi grafis: ${letter.pos}.`
                         })
                       }
-                      className={`p-3 rounded-xl border text-center transition flex flex-col items-center justify-center gap-1 min-h-[90px] ${
+                      className={`p-3 rounded-[14px] border text-center transition flex flex-col items-center justify-center gap-1 min-h-[85px] active:scale-95 duration-200 ${
                         isSelected
-                          ? "bg-[#8b1e1b] dark:bg-[#a62521] text-white border-[#8b1e1b] dark:border-red-500 shadow-sm"
-                          : "bg-stone-50 dark:bg-slate-800/60 border-stone-200 dark:border-slate-700 text-stone-900 dark:text-white hover:bg-stone-100 dark:hover:bg-slate-800"
+                          ? "bg-[#0066cc] text-white border-transparent"
+                          : "bg-white dark:bg-[#272729] border-black/[0.06] dark:border-white/[0.08] text-[#1d1d1f] dark:text-white hover:border-black/20 dark:hover:border-white/20"
                       }`}
                     >
                       <span className="font-aksara text-3xl leading-none">{letter.char}</span>
-                      <span className={`text-xs font-semibold ${isSelected ? "text-white" : "text-stone-700 dark:text-slate-300"}`}>
+                      <span className={`text-[12px] font-medium ${isSelected ? "text-white" : "text-[#7a7a7a]"}`}>
                         {letter.latin}
                       </span>
                     </button>
@@ -172,18 +167,18 @@ export default function BelajarPage() {
             </div>
 
             {/* Anak ni Surat */}
-            <div className="bg-white dark:bg-[#161a24] p-6 rounded-2xl border border-stone-200 dark:border-slate-800 shadow-2xs space-y-4 transition-colors duration-200">
-              <div className="flex items-center justify-between border-b border-stone-100 dark:border-slate-800 pb-3">
+            <div className="bg-[#f5f5f7] dark:bg-[#161617] p-6 rounded-[24px] border border-black/[0.06] dark:border-white/[0.08] space-y-4 transition-colors duration-200">
+              <div className="flex items-center justify-between border-b border-black/[0.06] dark:border-white/[0.08] pb-3">
                 <div>
-                  <h2 className="text-lg font-bold text-stone-900 dark:text-white">Anak ni Surat (Diakritik Vokal & Konsonan)</h2>
-                  <p className="text-xs text-stone-600 dark:text-slate-400">Diakritik pengubah bunyi vokal dan penutup suku kata</p>
+                  <h2 className="text-[19px] font-semibold text-[#1d1d1f] dark:text-white">Anak ni Surat (Diakritik)</h2>
+                  <p className="text-[13px] text-[#7a7a7a]">Tanda vokal & konsonan akhir</p>
                 </div>
-                <span className="text-xs bg-stone-100 dark:bg-slate-800 px-2 py-0.5 rounded text-stone-700 dark:text-slate-300 font-mono">
+                <span className="text-[12px] bg-white dark:bg-[#272729] px-2.5 py-0.5 rounded-full text-[#7a7a7a] border border-black/[0.06] dark:border-white/[0.08]">
                   Diakritik
                 </span>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                 {simalungunAksaraRules.anakNiSurat.map((diac: any) => {
                   const isSelected = selectedLetter.char === diac.char;
                   const sampleChar = diac.vowel === "u_sa" ? "\u1BD9" : "\u1BC5";
@@ -200,26 +195,26 @@ export default function BelajarPage() {
                           description: diac.description
                         })
                       }
-                      className={`p-3 rounded-xl border text-left transition flex flex-col justify-between min-h-[100px] ${
+                      className={`p-3.5 rounded-[14px] border text-left transition flex flex-col justify-between min-h-[96px] active:scale-95 duration-200 ${
                         isSelected
-                          ? "bg-[#8b1e1b] dark:bg-[#a62521] text-white border-[#8b1e1b] dark:border-red-500 shadow-sm"
-                          : "bg-stone-50 dark:bg-slate-800/60 border-stone-200 dark:border-slate-700 text-stone-900 dark:text-white hover:bg-stone-100 dark:hover:bg-slate-800"
+                          ? "bg-[#0066cc] text-white border-transparent"
+                          : "bg-white dark:bg-[#272729] border-black/[0.06] dark:border-white/[0.08] text-[#1d1d1f] dark:text-white hover:border-black/20 dark:hover:border-white/20"
                       }`}
                     >
                       <div className="flex items-center justify-between">
-                        <span className="font-aksara text-3xl leading-none">
+                        <span className="font-aksara text-2xl leading-none">
                           {sampleChar}{diac.char}
                         </span>
-                        <span className={`text-[11px] font-mono ${isSelected ? "text-red-100" : "text-stone-600 dark:text-slate-400"}`}>
+                        <span className={`text-[10px] font-mono ${isSelected ? "text-white/80" : "text-[#7a7a7a]"}`}>
                           {diac.unicode}
                         </span>
                       </div>
                       <div>
-                        <div className={`text-xs font-bold ${isSelected ? "text-white" : "text-stone-900 dark:text-white"}`}>
+                        <div className={`text-[13px] font-medium ${isSelected ? "text-white" : "text-[#1d1d1f] dark:text-white"}`}>
                           {diac.name}
                         </div>
-                        <div className={`text-[11px] ${isSelected ? "text-red-100" : "text-stone-600 dark:text-slate-400"}`}>
-                          Bunyi: {diac.vowel || diac.consonant}
+                        <div className={`text-[11px] ${isSelected ? "text-white/80" : "text-[#7a7a7a]"}`}>
+                          {diac.vowel || diac.consonant}
                         </div>
                       </div>
                     </button>
@@ -238,26 +233,26 @@ export default function BelajarPage() {
                       description: simalungunAksaraRules.virama.description
                     })
                   }
-                  className={`p-3 rounded-xl border text-left transition flex flex-col justify-between min-h-[100px] ${
+                  className={`p-3.5 rounded-[14px] border text-left transition flex flex-col justify-between min-h-[96px] active:scale-95 duration-200 ${
                     selectedLetter.char === simalungunAksaraRules.virama.char
-                      ? "bg-[#8b1e1b] dark:bg-[#a62521] text-white border-[#8b1e1b] dark:border-red-500 shadow-sm"
-                      : "bg-stone-50 dark:bg-slate-800/60 border-stone-200 dark:border-slate-700 text-stone-900 dark:text-white hover:bg-stone-100 dark:hover:bg-slate-800"
+                      ? "bg-[#0066cc] text-white border-transparent"
+                      : "bg-white dark:bg-[#272729] border-black/[0.06] dark:border-white/[0.08] text-[#1d1d1f] dark:text-white hover:border-black/20 dark:hover:border-white/20"
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-aksara text-3xl leading-none">
+                    <span className="font-aksara text-2xl leading-none">
                       ᯖ{simalungunAksaraRules.virama.char}
                     </span>
-                    <span className="text-[11px] font-mono opacity-80">
+                    <span className="text-[10px] font-mono opacity-80">
                       {simalungunAksaraRules.virama.unicode}
                     </span>
                   </div>
                   <div>
-                    <div className="text-xs font-bold">
+                    <div className="text-[13px] font-medium">
                       {simalungunAksaraRules.virama.name}
                     </div>
                     <div className="text-[11px] opacity-80">
-                      Pemati vokal /a/
+                      Pemati vokal
                     </div>
                   </div>
                 </button>
@@ -265,77 +260,73 @@ export default function BelajarPage() {
             </div>
           </div>
 
-          {/* Letter Inspector */}
+          {/* Letter Inspector (Apple Spec Card) */}
           <div className="space-y-4">
-            <div className="bg-white dark:bg-[#161a24] p-6 rounded-2xl border border-stone-200 dark:border-slate-800 shadow-xs sticky top-24 space-y-6 transition-colors duration-200">
-              <div className="border-b border-stone-100 dark:border-slate-800 pb-4">
-                <div className="text-xs font-bold uppercase tracking-wider text-stone-600 dark:text-slate-400 mb-1">
-                  Detail Huruf Terpilih
+            <div className="bg-[#f5f5f7] dark:bg-[#161617] p-6 rounded-[24px] border border-black/[0.06] dark:border-white/[0.08] sticky top-20 space-y-6 transition-colors duration-200">
+              <div className="border-b border-black/[0.06] dark:border-white/[0.08] pb-4">
+                <div className="text-[11px] font-semibold uppercase tracking-wider text-[#7a7a7a] mb-1">
+                  Huruf Terpilih
                 </div>
-                <h3 className="text-2xl font-bold text-stone-900 dark:text-white">{selectedLetter.name}</h3>
+                <h3 className="text-2xl font-semibold text-[#1d1d1f] dark:text-white">{selectedLetter.name}</h3>
               </div>
 
-              <div className="h-36 bg-[#faf9f6] dark:bg-[#12151c] rounded-xl border border-stone-200 dark:border-slate-800 flex items-center justify-center font-aksara text-7xl text-[#8b1e1b] dark:text-red-400 select-all shadow-inner">
+              {/* Big Glyph Display */}
+              <div className="h-32 bg-white dark:bg-[#272729] rounded-[18px] border border-black/[0.06] dark:border-white/[0.08] flex items-center justify-center font-aksara text-6xl text-[#0066cc] dark:text-[#2997ff] select-all">
                 {selectedLetter.char}
               </div>
 
-              <div className="space-y-3 text-sm">
-                <div className="flex justify-between py-1.5 border-b border-stone-100 dark:border-slate-800">
-                  <span className="text-stone-600 dark:text-slate-400">Padanan Latin:</span>
-                  <span className="font-bold text-stone-900 dark:text-white">{selectedLetter.latin}</span>
+              <div className="space-y-2.5 text-[14px]">
+                <div className="flex justify-between py-1 border-b border-black/[0.04] dark:border-white/[0.06]">
+                  <span className="text-[#7a7a7a]">Padanan Latin:</span>
+                  <span className="font-medium text-[#1d1d1f] dark:text-white">{selectedLetter.latin}</span>
                 </div>
-                <div className="flex justify-between py-1.5 border-b border-stone-100 dark:border-slate-800">
-                  <span className="text-stone-600 dark:text-slate-400">Kode Unicode:</span>
-                  <span className="font-mono text-stone-900 dark:text-slate-200 font-semibold">{selectedLetter.unicode}</span>
+                <div className="flex justify-between py-1 border-b border-black/[0.04] dark:border-white/[0.06]">
+                  <span className="text-[#7a7a7a]">Unicode:</span>
+                  <span className="font-mono text-[#1d1d1f] dark:text-white">{selectedLetter.unicode}</span>
                 </div>
-                <div className="flex justify-between py-1.5 border-b border-stone-100 dark:border-slate-800">
-                  <span className="text-stone-600 dark:text-slate-400">Blok Karakter:</span>
-                  <span className="text-stone-800 dark:text-slate-300 text-xs">Batak (U+1BC0:U+1BFF)</span>
+                <div className="flex justify-between py-1 border-b border-black/[0.04] dark:border-white/[0.06]">
+                  <span className="text-[#7a7a7a]">Blok:</span>
+                  <span className="text-[#1d1d1f] dark:text-white text-xs">Batak (U+1BC0:U+1BFF)</span>
                 </div>
               </div>
 
-              <div className="p-3 bg-stone-50 dark:bg-slate-800/60 rounded-lg border border-stone-200 dark:border-slate-700 text-xs text-stone-700 dark:text-slate-300 leading-relaxed">
-                <div className="flex items-center gap-1.5 font-bold text-stone-900 dark:text-white mb-1">
-                  <Info className="w-3.5 h-3.5 text-[#8b1e1b] dark:text-red-400" />
-                  <span>Kaidah Ortografi:</span>
+              <div className="p-4 bg-white dark:bg-[#272729] rounded-[14px] border border-black/[0.06] dark:border-white/[0.08] text-[13px] text-[#7a7a7a] dark:text-[#a1a1a6] leading-relaxed">
+                <div className="flex items-center gap-1.5 font-medium text-[#1d1d1f] dark:text-white mb-1">
+                  <Info className="w-3.5 h-3.5 text-[#0066cc] dark:text-[#2997ff]" />
+                  <span>Kaidah:</span>
                 </div>
                 {selectedLetter.description}
-              </div>
-
-              <div className="text-xs text-stone-600 dark:text-slate-400 flex items-center gap-2">
-                <Volume2 className="w-4 h-4 text-stone-400 dark:text-slate-500" />
-                <span>Bunyi fonemik diajarkan sesuai dialek standar Simalungun.</span>
               </div>
             </div>
           </div>
         </div>
       )}
 
-      {/* Modul Pembelajaran Bertahap */}
+      {/* VIEW 2: Progressive Stepped Learning Modules */}
       {activeView === "modul" && (
         <div className="space-y-6">
-          {/* Level selector buttons */}
+          {/* Level selector pills */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             {modules.map((m) => (
               <button
                 key={m.level}
                 type="button"
                 onClick={() => setSelectedModuleLevel(m.level)}
-                className={`p-4 rounded-xl border text-left transition flex flex-col justify-between ${
+                className={`p-5 rounded-[18px] border text-left transition duration-200 flex flex-col justify-between ${
                   selectedModuleLevel === m.level
-                    ? "bg-[#8b1e1b] dark:bg-[#a62521] text-white border-[#8b1e1b] dark:border-red-500 shadow-sm"
-                    : "bg-white dark:bg-[#161a24] border-stone-200 dark:border-slate-800 text-stone-900 dark:text-white hover:bg-stone-50 dark:hover:bg-slate-800"
+                    ? "bg-[#0066cc] text-white border-transparent"
+                    : "bg-[#f5f5f7] dark:bg-[#161617] border-black/[0.06] dark:border-white/[0.08] text-[#1d1d1f] dark:text-white hover:border-black/20 dark:hover:border-white/20"
                 }`}
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className={`text-xs font-mono font-bold px-2 py-0.5 rounded ${selectedModuleLevel === m.level ? "bg-white/20 text-white" : "bg-stone-100 dark:bg-slate-800 text-stone-700 dark:text-slate-300"}`}>
+                  <span className={`text-[11px] font-mono px-2 py-0.5 rounded-full ${selectedModuleLevel === m.level ? "bg-white/20 text-white" : "bg-white dark:bg-[#272729] text-[#7a7a7a]"}`}>
                     Level {m.level}
                   </span>
                   {selectedModuleLevel === m.level && <CheckCircle className="w-4 h-4 text-white" />}
                 </div>
                 <div>
-                  <h3 className="font-bold text-sm leading-snug">{m.title}</h3>
-                  <p className={`text-xs mt-1 line-clamp-2 ${selectedModuleLevel === m.level ? "text-red-100 dark:text-red-200" : "text-stone-600 dark:text-slate-400"}`}>
+                  <h3 className="font-semibold text-[15px] leading-snug">{m.title}</h3>
+                  <p className={`text-[13px] mt-1 line-clamp-2 ${selectedModuleLevel === m.level ? "text-white/80" : "text-[#7a7a7a]"}`}>
                     {m.description}
                   </p>
                 </div>
@@ -347,23 +338,23 @@ export default function BelajarPage() {
           {(() => {
             const currentMod = modules.find((m) => m.level === selectedModuleLevel) || modules[0];
             return (
-              <div className="bg-white dark:bg-[#161a24] rounded-2xl border border-stone-200 dark:border-slate-800 shadow-2xs p-6 sm:p-8 space-y-6 transition-colors duration-200">
-                <div className="border-b border-stone-100 dark:border-slate-800 pb-4">
-                  <span className="text-xs font-mono text-[#8b1e1b] dark:text-red-400 font-bold">Modul Pembelajaran</span>
-                  <h2 className="text-2xl font-bold text-stone-900 dark:text-white mt-0.5">{currentMod.title}</h2>
-                  <p className="text-sm text-stone-700 dark:text-slate-300 mt-1">{currentMod.description}</p>
+              <div className="bg-[#f5f5f7] dark:bg-[#161617] rounded-[24px] border border-black/[0.06] dark:border-white/[0.08] p-8 space-y-6 transition-colors duration-200">
+                <div className="border-b border-black/[0.06] dark:border-white/[0.08] pb-4">
+                  <span className="text-[12px] text-[#0066cc] dark:text-[#2997ff] font-medium">Modul Pembelajaran</span>
+                  <h2 className="text-2xl font-semibold text-[#1d1d1f] dark:text-white mt-0.5">{currentMod.title}</h2>
+                  <p className="text-[15px] text-[#7a7a7a] mt-1">{currentMod.description}</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {currentMod.lessons.map((lesson, idx) => (
-                    <div key={idx} className="p-5 rounded-xl bg-stone-50 dark:bg-slate-800/50 border border-stone-200 dark:border-slate-700 space-y-2">
+                    <div key={idx} className="p-6 rounded-[18px] bg-white dark:bg-[#272729] border border-black/[0.06] dark:border-white/[0.08] space-y-2">
                       <div className="flex items-center gap-2">
-                        <span className="w-6 h-6 rounded-full bg-[#8b1e1b] dark:bg-[#a62521] text-white text-xs font-bold flex items-center justify-center">
+                        <span className="w-6 h-6 rounded-full bg-[#0066cc] text-white text-[12px] font-bold flex items-center justify-center">
                           {idx + 1}
                         </span>
-                        <h4 className="font-bold text-stone-900 dark:text-white text-base">{lesson.title}</h4>
+                        <h4 className="font-semibold text-[#1d1d1f] dark:text-white text-[17px]">{lesson.title}</h4>
                       </div>
-                      <p className="text-sm text-stone-700 dark:text-slate-300 leading-relaxed pt-1">
+                      <p className="text-[14px] text-[#7a7a7a] dark:text-[#a1a1a6] leading-relaxed pt-1">
                         {lesson.content}
                       </p>
                     </div>
@@ -375,7 +366,7 @@ export default function BelajarPage() {
         </div>
       )}
 
-      {/* Kanvas Latihan Menulis */}
+      {/* VIEW 3: Writing Canvas */}
       {activeView === "kanvas" && <WritingCanvas />}
     </div>
   );
