@@ -13,14 +13,14 @@ interface Question {
   explanation: string;
 }
 
-const QUIZ_QUESTIONS: Question[] = [
+const INITIAL_QUESTIONS: Question[] = [
   {
     id: 1,
     category: "Membaca",
     prompt: "Aksara di bawah ini dibaca sebagai kata apa?",
     glyphPrompt: "\u1BC3\u1BEC\u1BD3\u1BD9\u1BF3",
-    options: ["horas", "hata", "bamu", "duma"],
-    correctIndex: 0,
+    options: ["bamu", "horas", "duma", "hata"],
+    correctIndex: 1, // B
     explanation:
       "Aksara terdiri dari: Ha+o (ᯃᯬ) 'ho' + Ra (ᯓ) + Sa dengan panongonan pemati (ᯙ᯳) 'ras', membentuk kata 'horas'."
   },
@@ -29,12 +29,12 @@ const QUIZ_QUESTIONS: Question[] = [
     category: "Ejaan",
     prompt: "Manakah penulisan aksara yang tepat untuk kata 'hata' (bahasa/kata)?",
     options: [
-      "\u1BC3\u1BD6",
       "\u1BC5\u1BC8",
       "\u1BC3\u1BEC\u1BD3",
+      "\u1BC3\u1BD6",
       "\u1BD9\u1BEA\u1BD5"
     ],
-    correctIndex: 0,
+    correctIndex: 2, // C
     explanation:
       "Kata 'hata' dibentuk dari dua suku kata bervokal bawaan /a/: Ha Simalungun (ᯃ) + Ta Selatan (ᯖ) tanpa tanda vokal."
   },
@@ -43,12 +43,12 @@ const QUIZ_QUESTIONS: Question[] = [
     category: "Ejaan",
     prompt: "Apakah nama tanda pemati vokal khas yang digunakan dalam Aksara Batak Simalungun (U+1BF3)?",
     options: [
-      "Panongonan",
       "Pangolat",
       "Haminsaran",
-      "Haboritan"
+      "Haboritan",
+      "Panongonan"
     ],
-    correctIndex: 0,
+    correctIndex: 3, // D
     explanation:
       "Aksara Batak Simalungun menggunakan tanda pemati vokal bernama 'Panongonan' (U+1BF3), berbeda dengan aksara Batak Toba dan Mandailing yang menggunakan 'Pangolat' (U+1BF2)."
   },
@@ -63,7 +63,7 @@ const QUIZ_QUESTIONS: Question[] = [
       "Menggunakan vokal mandiri U (ᯥ)",
       "Menggunakan tanda sihorlu (ᯬ)"
     ],
-    correctIndex: 0,
+    correctIndex: 0, // A
     explanation:
       "Pada ortografi Simalungun, suku kata 'su' wajib memakai diakritik /u/ khusus U+1BEF (ᯯ) yang berbeda bentuknya dari diakritik /u/ umum (U+1BEE) guna menjaga kejelasan anatomi aksara."
   },
@@ -72,12 +72,12 @@ const QUIZ_QUESTIONS: Question[] = [
     category: "Budaya",
     prompt: "Apakah arti falsafah luhur Simalungun 'Habonaron Do Bona'?",
     options: [
-      "Kebenaran adalah pangkal atau dasar segalanya",
       "Kerja keras menghasilkan kemakmuran",
       "Satu hati dalam persaudaraan",
+      "Kebenaran adalah pangkal atau dasar segalanya",
       "Menghormati orang tua dan leluhur"
     ],
-    correctIndex: 0,
+    correctIndex: 2, // C
     explanation:
       "'Habonaron Do Bona' adalah semboyan kultural Simalungun: Habonaron (kebenaran/kejujuran) do (adalah) bona (pokok/pangkal/akar)."
   },
@@ -86,8 +86,8 @@ const QUIZ_QUESTIONS: Question[] = [
     category: "Membaca",
     prompt: "Kata yang berarti 'surat, tulisan, atau aksara' di bawah ini dibaca apa?",
     glyphPrompt: "\u1BD9\u1BEF\u1BD3\u1BD6\u1BF3",
-    options: ["surat", "sirat", "sarit", "saut"],
-    correctIndex: 0,
+    options: ["sirat", "surat", "sarit", "saut"],
+    correctIndex: 1, // B
     explanation:
       "Aksara dibaca: Sa+u_khusus (ᯙᯯ) 'su' + Ra (ᯓ) + Ta+panongonan (ᯖ᯳) 'rat', merangkai kata 'surat'."
   },
@@ -95,8 +95,8 @@ const QUIZ_QUESTIONS: Question[] = [
     id: 7,
     category: "Budaya",
     prompt: "Apakah nama naskah lipat kulit kayu gaharu tradisional Batak yang berisi kearifan kuno?",
-    options: ["Pustaha", "Ulos", "Laklak", "Tandok"],
-    correctIndex: 0,
+    options: ["Ulos", "Laklak", "Tandok", "Pustaha"],
+    correctIndex: 3, // D
     explanation:
       "Pustaha adalah kitab tradisional Batak berbahan kulit kayu alim (laklak) berisi catatan pengobatan, kalender ramalan, dan hukum adat."
   },
@@ -110,7 +110,7 @@ const QUIZ_QUESTIONS: Question[] = [
       "Haluan (ᯪ, U+1BEA)",
       "Hajoringan (ᯱ, U+1BF1)"
     ],
-    correctIndex: 0,
+    correctIndex: 0, // A
     explanation:
       "Diftong khas /-ou/ dalam bahasa Simalungun dilambangkan dengan diakritik 'hatulungan' (ᯭ, Unicode U+1BED)."
   },
@@ -119,12 +119,12 @@ const QUIZ_QUESTIONS: Question[] = [
     category: "Budaya",
     prompt: "Falsafah kekerabatan 'Tolu Sahundulan' dalam masyarakat Simalungun terdiri atas pilar apa saja?",
     options: [
-      "Tondui, Sanina, dan Boru",
       "Bapa, Inang, dan Anak",
+      "Tondui, Sanina, dan Boru",
       "Raja, Datu, dan Parhata",
       "Huta, Ladang, dan Sopou"
     ],
-    correctIndex: 0,
+    correctIndex: 1, // B
     explanation:
       "Tolu Sahundulan (Tiga Pilar Duduk Bersama) adalah struktur sosial kekerabatan Simalungun yang terdiri atas Tondui (pihak pemberi istri), Sanina (saudara semarga), dan Boru (pihak penerima istri)."
   },
@@ -133,25 +133,43 @@ const QUIZ_QUESTIONS: Question[] = [
     category: "Budaya",
     prompt: "Bagaimanakah ungkapan terima kasih baku yang santun dalam Bahasa Simalungun?",
     options: [
-      "Diatei tupa",
       "Mauliate",
       "Bujur melas",
+      "Diatei tupa",
       "Njuah-njuah"
     ],
-    correctIndex: 0,
+    correctIndex: 2, // C
     explanation:
       "'Diatei tupa' adalah ucapan terima kasih khas Simalungun, yang secara harfiah bermakna 'layak dan elok di hati'."
   }
 ];
 
+function shuffleQuestionOptions(questions: Question[]): Question[] {
+  return questions.map((q) => {
+    const correctOptionText = q.options[q.correctIndex];
+    // Fisher-Yates shuffle
+    const shuffled = [...q.options];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return {
+      ...q,
+      options: shuffled,
+      correctIndex: shuffled.indexOf(correctOptionText)
+    };
+  });
+}
+
 export default function LatihanPage() {
+  const [questions, setQuestions] = useState<Question[]>(INITIAL_QUESTIONS);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
   const [score, setScore] = useState(0);
   const [quizFinished, setQuizFinished] = useState(false);
 
-  const currentQ = QUIZ_QUESTIONS[currentIndex];
+  const currentQ = questions[currentIndex];
 
   const handleSelect = (idx: number) => {
     if (isAnswered) return;
@@ -164,7 +182,7 @@ export default function LatihanPage() {
   };
 
   const handleNext = () => {
-    if (currentIndex + 1 < QUIZ_QUESTIONS.length) {
+    if (currentIndex + 1 < questions.length) {
       setCurrentIndex((prev) => prev + 1);
       setSelectedOption(null);
       setIsAnswered(false);
@@ -174,6 +192,7 @@ export default function LatihanPage() {
   };
 
   const restartQuiz = () => {
+    setQuestions(shuffleQuestionOptions(INITIAL_QUESTIONS));
     setCurrentIndex(0);
     setSelectedOption(null);
     setIsAnswered(false);
@@ -203,13 +222,13 @@ export default function LatihanPage() {
           {/* Progress bar */}
           <div className="space-y-2">
             <div className="flex justify-between text-xs text-stone-600 dark:text-slate-400 font-medium">
-              <span>Pertanyaan {currentIndex + 1} dari {QUIZ_QUESTIONS.length}</span>
+              <span>Pertanyaan {currentIndex + 1} dari {questions.length}</span>
               <span>Skor: {score}</span>
             </div>
             <div className="w-full bg-stone-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
               <div
                 className="bg-[#8b1e1b] dark:bg-[#a62521] h-full transition-all duration-300"
-                style={{ width: `${((currentIndex + 1) / QUIZ_QUESTIONS.length) * 100}%` }}
+                style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }}
               />
             </div>
           </div>
@@ -248,6 +267,8 @@ export default function LatihanPage() {
                 }
               }
 
+              const optionLetter = ["A", "B", "C", "D"][idx] || String(idx + 1);
+
               return (
                 <button
                   key={idx}
@@ -256,9 +277,14 @@ export default function LatihanPage() {
                   onClick={() => handleSelect(idx)}
                   className={`w-full p-4 rounded-xl border text-left text-sm sm:text-base transition flex items-center justify-between gap-3 ${optStyle}`}
                 >
-                  <span className={opt.startsWith("\u1BC0") || (opt.length <= 4 && /[\u1BC0-\u1BFF]/.test(opt)) ? "font-aksara text-2xl" : ""}>
-                    {opt}
-                  </span>
+                  <div className="flex items-center gap-3">
+                    <span className="w-7 h-7 rounded-lg bg-stone-200/70 dark:bg-slate-700 text-stone-700 dark:text-slate-200 text-xs font-bold flex items-center justify-center shrink-0">
+                      {optionLetter}
+                    </span>
+                    <span className={opt.startsWith("\u1BC0") || (opt.length <= 4 && /[\u1BC0-\u1BFF]/.test(opt)) ? "font-aksara text-2xl" : ""}>
+                      {opt}
+                    </span>
+                  </div>
                   {isAnswered && idx === currentQ.correctIndex && (
                     <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
                   )}
@@ -293,7 +319,7 @@ export default function LatihanPage() {
                 onClick={handleNext}
                 className="px-5 py-2.5 rounded-lg bg-[#8b1e1b] dark:bg-[#a62521] hover:bg-[#6b1412] text-white text-sm font-semibold transition flex items-center gap-2"
               >
-                <span>{currentIndex + 1 === QUIZ_QUESTIONS.length ? "Lihat Skor Akhir" : "Soal Berikutnya"}</span>
+                <span>{currentIndex + 1 === questions.length ? "Lihat Skor Akhir" : "Soal Berikutnya"}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
@@ -309,14 +335,14 @@ export default function LatihanPage() {
           <div className="space-y-2">
             <h2 className="text-2xl font-bold text-stone-900 dark:text-white">Sesi Latihan Selesai!</h2>
             <p className="text-stone-700 dark:text-slate-400 text-sm">
-              Anda telah menyelesaikan {QUIZ_QUESTIONS.length} pertanyaan kuis.
+              Anda telah menyelesaikan {questions.length} pertanyaan kuis.
             </p>
           </div>
 
           <div className="py-6 px-4 bg-stone-50 dark:bg-slate-800/60 rounded-xl border border-stone-200 dark:border-slate-700 max-w-sm mx-auto">
             <div className="text-xs text-stone-600 dark:text-slate-400 uppercase font-bold tracking-wider mb-1">Skor Akhir</div>
             <div className="text-4xl font-extrabold text-[#8b1e1b] dark:text-red-400">
-              {score} / {QUIZ_QUESTIONS.length}
+              {score} / {questions.length}
             </div>
             <p className="text-xs text-stone-600 dark:text-slate-400 mt-2">
               {score >= 8
