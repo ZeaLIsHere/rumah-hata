@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { simalungunAksaraRules } from "@/lib/data";
 import { WritingCanvas } from "@/components/WritingCanvas";
-import { Info, Volume2, BookOpen, Layers, PenTool, CheckCircle } from "lucide-react";
+import { Info, BookOpen, Layers, PenTool, CheckCircle } from "lucide-react";
 
 export default function BelajarPage() {
   const [activeView, setActiveView] = useState<"bagan" | "modul" | "kanvas">("bagan");
@@ -65,25 +65,25 @@ export default function BelajarPage() {
   ];
 
   return (
-    <div className="py-12 sm:py-20 px-4 sm:px-6 max-w-5xl mx-auto space-y-10">
+    <div className="py-8 sm:py-16 px-3.5 sm:px-6 max-w-5xl mx-auto space-y-8 sm:space-y-10">
       {/* Header */}
-      <div className="text-center max-w-2xl mx-auto space-y-3">
-        <h1 className="text-4xl sm:text-[48px] font-semibold text-[#1d1d1f] dark:text-white tracking-[-0.025em] leading-tight">
+      <div className="text-center max-w-2xl mx-auto space-y-2.5">
+        <h1 className="text-[28px] sm:text-[40px] lg:text-[48px] font-semibold text-[#1d1d1f] dark:text-white tracking-[-0.025em] leading-tight">
           Surat Sisimolungun
         </h1>
-        <p className="text-[17px] text-[#7a7a7a] dark:text-[#a1a1a6]">
+        <p className="text-[14px] sm:text-[17px] text-[#7a7a7a] dark:text-[#a1a1a6]">
           Pelajari sistem abugida aksara Batak Simalungun melalui kurikulum terstruktur.
         </p>
       </div>
 
       {/* Mode Navigation Pills */}
-      <div className="flex items-center justify-center gap-2 overflow-x-auto pb-2">
+      <div className="flex items-center justify-center gap-1.5 sm:gap-2 overflow-x-auto pb-1 no-scrollbar">
         <button
           type="button"
           onClick={() => setActiveView("bagan")}
-          className={`px-5 py-2 rounded-full text-[14px] font-medium whitespace-nowrap transition duration-200 flex items-center gap-1.5 ${
+          className={`px-4 sm:px-5 py-1.5 sm:py-2 rounded-full text-[13px] sm:text-[14px] font-medium whitespace-nowrap transition-all duration-200 flex items-center gap-1.5 active:scale-95 ${
             activeView === "bagan"
-              ? "bg-[#0066cc] text-white"
+              ? "bg-[#0066cc] text-white shadow-2xs"
               : "bg-[#f5f5f7] dark:bg-[#272729] text-[#1d1d1f] dark:text-[#f5f5f7] hover:bg-[#e8e8ed] dark:hover:bg-[#333336]"
           }`}
         >
@@ -94,9 +94,9 @@ export default function BelajarPage() {
         <button
           type="button"
           onClick={() => setActiveView("modul")}
-          className={`px-5 py-2 rounded-full text-[14px] font-medium whitespace-nowrap transition duration-200 flex items-center gap-1.5 ${
+          className={`px-4 sm:px-5 py-1.5 sm:py-2 rounded-full text-[13px] sm:text-[14px] font-medium whitespace-nowrap transition-all duration-200 flex items-center gap-1.5 active:scale-95 ${
             activeView === "modul"
-              ? "bg-[#0066cc] text-white"
+              ? "bg-[#0066cc] text-white shadow-2xs"
               : "bg-[#f5f5f7] dark:bg-[#272729] text-[#1d1d1f] dark:text-[#f5f5f7] hover:bg-[#e8e8ed] dark:hover:bg-[#333336]"
           }`}
         >
@@ -107,9 +107,9 @@ export default function BelajarPage() {
         <button
           type="button"
           onClick={() => setActiveView("kanvas")}
-          className={`px-5 py-2 rounded-full text-[14px] font-medium whitespace-nowrap transition duration-200 flex items-center gap-1.5 ${
+          className={`px-4 sm:px-5 py-1.5 sm:py-2 rounded-full text-[13px] sm:text-[14px] font-medium whitespace-nowrap transition-all duration-200 flex items-center gap-1.5 active:scale-95 ${
             activeView === "kanvas"
-              ? "bg-[#0066cc] text-white"
+              ? "bg-[#0066cc] text-white shadow-2xs"
               : "bg-[#f5f5f7] dark:bg-[#272729] text-[#1d1d1f] dark:text-[#f5f5f7] hover:bg-[#e8e8ed] dark:hover:bg-[#333336]"
           }`}
         >
@@ -120,21 +120,21 @@ export default function BelajarPage() {
 
       {/* VIEW 1: Interactive Chart */}
       {activeView === "bagan" && (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 space-y-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="lg:col-span-2 space-y-6 sm:space-y-8">
             {/* Ina ni Surat */}
-            <div className="bg-[#f5f5f7] dark:bg-[#161617] p-6 rounded-[24px] border border-black/[0.06] dark:border-white/[0.08] space-y-4 transition-colors duration-200">
-              <div className="flex items-center justify-between border-b border-black/[0.06] dark:border-white/[0.08] pb-3">
+            <div className="bg-[#f5f5f7] dark:bg-[#161617] p-4 sm:p-6 rounded-[20px] sm:rounded-[24px] border border-black/[0.06] dark:border-white/[0.08] space-y-3.5 transition-colors duration-200">
+              <div className="flex items-center justify-between border-b border-black/[0.06] dark:border-white/[0.08] pb-2.5">
                 <div>
-                  <h2 className="text-[19px] font-semibold text-[#1d1d1f] dark:text-white">Ina ni Surat (19 Huruf Induk)</h2>
-                  <p className="text-[13px] text-[#7a7a7a]">Vokal inheren /a/</p>
+                  <h2 className="text-[17px] sm:text-[19px] font-semibold text-[#1d1d1f] dark:text-white">Ina ni Surat (19 Huruf Induk)</h2>
+                  <p className="text-[12px] sm:text-[13px] text-[#7a7a7a]">Vokal inheren /a/</p>
                 </div>
-                <span className="text-[12px] bg-white dark:bg-[#272729] px-2.5 py-0.5 rounded-full text-[#7a7a7a] border border-black/[0.06] dark:border-white/[0.08]">
+                <span className="text-[11px] sm:text-[12px] bg-white dark:bg-[#272729] px-2.5 py-0.5 rounded-full text-[#7a7a7a] border border-black/[0.06] dark:border-white/[0.08]">
                   19 Huruf
                 </span>
               </div>
 
-              <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 gap-2.5">
+              <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 gap-2">
                 {simalungunAksaraRules.inaNiSurat.map((letter: any) => {
                   const isSelected = selectedLetter.char === letter.char;
                   return (
@@ -150,14 +150,14 @@ export default function BelajarPage() {
                           description: `Aksara dasar '${letter.latin}' pembawa vokal inheren /a/. Posisi grafis: ${letter.pos}.`
                         })
                       }
-                      className={`p-3 rounded-[14px] border text-center transition flex flex-col items-center justify-center gap-1 min-h-[85px] active:scale-95 duration-200 ${
+                      className={`p-2 sm:p-3 rounded-[12px] sm:rounded-[14px] border text-center transition-all flex flex-col items-center justify-center gap-0.5 min-h-[68px] sm:min-h-[85px] active:scale-95 duration-150 ${
                         isSelected
-                          ? "bg-[#0066cc] text-white border-transparent"
+                          ? "bg-[#0066cc] text-white border-transparent shadow-xs"
                           : "bg-white dark:bg-[#272729] border-black/[0.06] dark:border-white/[0.08] text-[#1d1d1f] dark:text-white hover:border-black/20 dark:hover:border-white/20"
                       }`}
                     >
-                      <span className="font-aksara text-3xl leading-none">{letter.char}</span>
-                      <span className={`text-[12px] font-medium ${isSelected ? "text-white" : "text-[#7a7a7a]"}`}>
+                      <span className="font-aksara text-2xl sm:text-3xl leading-none">{letter.char}</span>
+                      <span className={`text-[11px] sm:text-[12px] font-medium ${isSelected ? "text-white" : "text-[#7a7a7a]"}`}>
                         {letter.latin}
                       </span>
                     </button>
@@ -167,18 +167,18 @@ export default function BelajarPage() {
             </div>
 
             {/* Anak ni Surat */}
-            <div className="bg-[#f5f5f7] dark:bg-[#161617] p-6 rounded-[24px] border border-black/[0.06] dark:border-white/[0.08] space-y-4 transition-colors duration-200">
-              <div className="flex items-center justify-between border-b border-black/[0.06] dark:border-white/[0.08] pb-3">
+            <div className="bg-[#f5f5f7] dark:bg-[#161617] p-4 sm:p-6 rounded-[20px] sm:rounded-[24px] border border-black/[0.06] dark:border-white/[0.08] space-y-3.5 transition-colors duration-200">
+              <div className="flex items-center justify-between border-b border-black/[0.06] dark:border-white/[0.08] pb-2.5">
                 <div>
-                  <h2 className="text-[19px] font-semibold text-[#1d1d1f] dark:text-white">Anak ni Surat (Diakritik)</h2>
-                  <p className="text-[13px] text-[#7a7a7a]">Tanda vokal & konsonan akhir</p>
+                  <h2 className="text-[17px] sm:text-[19px] font-semibold text-[#1d1d1f] dark:text-white">Anak ni Surat (Diakritik)</h2>
+                  <p className="text-[12px] sm:text-[13px] text-[#7a7a7a]">Tanda vokal & konsonan akhir</p>
                 </div>
-                <span className="text-[12px] bg-white dark:bg-[#272729] px-2.5 py-0.5 rounded-full text-[#7a7a7a] border border-black/[0.06] dark:border-white/[0.08]">
+                <span className="text-[11px] sm:text-[12px] bg-white dark:bg-[#272729] px-2.5 py-0.5 rounded-full text-[#7a7a7a] border border-black/[0.06] dark:border-white/[0.08]">
                   Diakritik
                 </span>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 {simalungunAksaraRules.anakNiSurat.map((diac: any) => {
                   const isSelected = selectedLetter.char === diac.char;
                   const sampleChar = diac.vowel === "u_sa" ? "\u1BD9" : "\u1BC5";
@@ -195,14 +195,14 @@ export default function BelajarPage() {
                           description: diac.description
                         })
                       }
-                      className={`p-3.5 rounded-[14px] border text-left transition flex flex-col justify-between min-h-[96px] active:scale-95 duration-200 ${
+                      className={`p-2.5 sm:p-3.5 rounded-[12px] sm:rounded-[14px] border text-left transition-all flex flex-col justify-between min-h-[84px] sm:min-h-[96px] active:scale-95 duration-150 ${
                         isSelected
-                          ? "bg-[#0066cc] text-white border-transparent"
+                          ? "bg-[#0066cc] text-white border-transparent shadow-xs"
                           : "bg-white dark:bg-[#272729] border-black/[0.06] dark:border-white/[0.08] text-[#1d1d1f] dark:text-white hover:border-black/20 dark:hover:border-white/20"
                       }`}
                     >
                       <div className="flex items-center justify-between">
-                        <span className="font-aksara text-2xl leading-none">
+                        <span className="font-aksara text-xl sm:text-2xl leading-none">
                           {sampleChar}{diac.char}
                         </span>
                         <span className={`text-[10px] font-mono ${isSelected ? "text-white/80" : "text-[#7a7a7a]"}`}>
@@ -210,10 +210,10 @@ export default function BelajarPage() {
                         </span>
                       </div>
                       <div>
-                        <div className={`text-[13px] font-medium ${isSelected ? "text-white" : "text-[#1d1d1f] dark:text-white"}`}>
+                        <div className={`text-[12px] sm:text-[13px] font-medium truncate ${isSelected ? "text-white" : "text-[#1d1d1f] dark:text-white"}`}>
                           {diac.name}
                         </div>
-                        <div className={`text-[11px] ${isSelected ? "text-white/80" : "text-[#7a7a7a]"}`}>
+                        <div className={`text-[10px] sm:text-[11px] ${isSelected ? "text-white/80" : "text-[#7a7a7a]"}`}>
                           {diac.vowel || diac.consonant}
                         </div>
                       </div>
@@ -233,14 +233,14 @@ export default function BelajarPage() {
                       description: simalungunAksaraRules.virama.description
                     })
                   }
-                  className={`p-3.5 rounded-[14px] border text-left transition flex flex-col justify-between min-h-[96px] active:scale-95 duration-200 ${
+                  className={`p-2.5 sm:p-3.5 rounded-[12px] sm:rounded-[14px] border text-left transition-all flex flex-col justify-between min-h-[84px] sm:min-h-[96px] active:scale-95 duration-150 ${
                     selectedLetter.char === simalungunAksaraRules.virama.char
-                      ? "bg-[#0066cc] text-white border-transparent"
+                      ? "bg-[#0066cc] text-white border-transparent shadow-xs"
                       : "bg-white dark:bg-[#272729] border-black/[0.06] dark:border-white/[0.08] text-[#1d1d1f] dark:text-white hover:border-black/20 dark:hover:border-white/20"
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-aksara text-2xl leading-none">
+                    <span className="font-aksara text-xl sm:text-2xl leading-none">
                       ᯖ{simalungunAksaraRules.virama.char}
                     </span>
                     <span className="text-[10px] font-mono opacity-80">
@@ -248,10 +248,10 @@ export default function BelajarPage() {
                     </span>
                   </div>
                   <div>
-                    <div className="text-[13px] font-medium">
+                    <div className="text-[12px] sm:text-[13px] font-medium">
                       {simalungunAksaraRules.virama.name}
                     </div>
-                    <div className="text-[11px] opacity-80">
+                    <div className="text-[10px] sm:text-[11px] opacity-80">
                       Pemati vokal
                     </div>
                   </div>
@@ -260,22 +260,22 @@ export default function BelajarPage() {
             </div>
           </div>
 
-          {/* Letter Inspector (Apple Spec Card) */}
+          {/* Letter Inspector */}
           <div className="space-y-4">
-            <div className="bg-[#f5f5f7] dark:bg-[#161617] p-6 rounded-[24px] border border-black/[0.06] dark:border-white/[0.08] sticky top-20 space-y-6 transition-colors duration-200">
-              <div className="border-b border-black/[0.06] dark:border-white/[0.08] pb-4">
-                <div className="text-[11px] font-semibold uppercase tracking-wider text-[#7a7a7a] mb-1">
+            <div className="bg-[#f5f5f7] dark:bg-[#161617] p-5 sm:p-6 rounded-[20px] sm:rounded-[24px] border border-black/[0.06] dark:border-white/[0.08] sticky top-16 sm:top-20 space-y-4 sm:space-y-6 transition-colors duration-200">
+              <div className="border-b border-black/[0.06] dark:border-white/[0.08] pb-3">
+                <div className="text-[11px] font-semibold uppercase tracking-wider text-[#7a7a7a] mb-0.5">
                   Huruf Terpilih
                 </div>
-                <h3 className="text-2xl font-semibold text-[#1d1d1f] dark:text-white">{selectedLetter.name}</h3>
+                <h3 className="text-xl sm:text-2xl font-semibold text-[#1d1d1f] dark:text-white">{selectedLetter.name}</h3>
               </div>
 
               {/* Big Glyph Display */}
-              <div className="h-32 bg-white dark:bg-[#272729] rounded-[18px] border border-black/[0.06] dark:border-white/[0.08] flex items-center justify-center font-aksara text-6xl text-[#0066cc] dark:text-[#2997ff] select-all">
+              <div className="h-28 sm:h-32 bg-white dark:bg-[#272729] rounded-[16px] sm:rounded-[18px] border border-black/[0.06] dark:border-white/[0.08] flex items-center justify-center font-aksara text-5xl sm:text-6xl text-[#0066cc] dark:text-[#2997ff] select-all">
                 {selectedLetter.char}
               </div>
 
-              <div className="space-y-2.5 text-[14px]">
+              <div className="space-y-2 text-[13px] sm:text-[14px]">
                 <div className="flex justify-between py-1 border-b border-black/[0.04] dark:border-white/[0.06]">
                   <span className="text-[#7a7a7a]">Padanan Latin:</span>
                   <span className="font-medium text-[#1d1d1f] dark:text-white">{selectedLetter.latin}</span>
@@ -290,7 +290,7 @@ export default function BelajarPage() {
                 </div>
               </div>
 
-              <div className="p-4 bg-white dark:bg-[#272729] rounded-[14px] border border-black/[0.06] dark:border-white/[0.08] text-[13px] text-[#7a7a7a] dark:text-[#a1a1a6] leading-relaxed">
+              <div className="p-3.5 sm:p-4 bg-white dark:bg-[#272729] rounded-[14px] border border-black/[0.06] dark:border-white/[0.08] text-[12px] sm:text-[13px] text-[#7a7a7a] dark:text-[#a1a1a6] leading-relaxed">
                 <div className="flex items-center gap-1.5 font-medium text-[#1d1d1f] dark:text-white mb-1">
                   <Info className="w-3.5 h-3.5 text-[#0066cc] dark:text-[#2997ff]" />
                   <span>Kaidah:</span>
@@ -306,15 +306,15 @@ export default function BelajarPage() {
       {activeView === "modul" && (
         <div className="space-y-6">
           {/* Level selector pills */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3">
             {modules.map((m) => (
               <button
                 key={m.level}
                 type="button"
                 onClick={() => setSelectedModuleLevel(m.level)}
-                className={`p-5 rounded-[18px] border text-left transition duration-200 flex flex-col justify-between ${
+                className={`p-4 sm:p-5 rounded-[16px] sm:rounded-[18px] border text-left transition-all duration-200 flex flex-col justify-between active:scale-[0.98] ${
                   selectedModuleLevel === m.level
-                    ? "bg-[#0066cc] text-white border-transparent"
+                    ? "bg-[#0066cc] text-white border-transparent shadow-xs"
                     : "bg-[#f5f5f7] dark:bg-[#161617] border-black/[0.06] dark:border-white/[0.08] text-[#1d1d1f] dark:text-white hover:border-black/20 dark:hover:border-white/20"
                 }`}
               >
@@ -325,8 +325,8 @@ export default function BelajarPage() {
                   {selectedModuleLevel === m.level && <CheckCircle className="w-4 h-4 text-white" />}
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[15px] leading-snug">{m.title}</h3>
-                  <p className={`text-[13px] mt-1 line-clamp-2 ${selectedModuleLevel === m.level ? "text-white/80" : "text-[#7a7a7a]"}`}>
+                  <h3 className="font-semibold text-[14px] sm:text-[15px] leading-snug">{m.title}</h3>
+                  <p className={`text-[12px] sm:text-[13px] mt-1 line-clamp-2 ${selectedModuleLevel === m.level ? "text-white/80" : "text-[#7a7a7a]"}`}>
                     {m.description}
                   </p>
                 </div>
@@ -338,23 +338,23 @@ export default function BelajarPage() {
           {(() => {
             const currentMod = modules.find((m) => m.level === selectedModuleLevel) || modules[0];
             return (
-              <div className="bg-[#f5f5f7] dark:bg-[#161617] rounded-[24px] border border-black/[0.06] dark:border-white/[0.08] p-8 space-y-6 transition-colors duration-200">
-                <div className="border-b border-black/[0.06] dark:border-white/[0.08] pb-4">
-                  <span className="text-[12px] text-[#0066cc] dark:text-[#2997ff] font-medium">Modul Pembelajaran</span>
-                  <h2 className="text-2xl font-semibold text-[#1d1d1f] dark:text-white mt-0.5">{currentMod.title}</h2>
-                  <p className="text-[15px] text-[#7a7a7a] mt-1">{currentMod.description}</p>
+              <div className="bg-[#f5f5f7] dark:bg-[#161617] rounded-[20px] sm:rounded-[24px] border border-black/[0.06] dark:border-white/[0.08] p-5 sm:p-8 space-y-5 transition-colors duration-200">
+                <div className="border-b border-black/[0.06] dark:border-white/[0.08] pb-3.5">
+                  <span className="text-[11px] sm:text-[12px] text-[#0066cc] dark:text-[#2997ff] font-medium">Modul Pembelajaran</span>
+                  <h2 className="text-xl sm:text-2xl font-semibold text-[#1d1d1f] dark:text-white mt-0.5">{currentMod.title}</h2>
+                  <p className="text-[13px] sm:text-[15px] text-[#7a7a7a] mt-1">{currentMod.description}</p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                   {currentMod.lessons.map((lesson, idx) => (
-                    <div key={idx} className="p-6 rounded-[18px] bg-white dark:bg-[#272729] border border-black/[0.06] dark:border-white/[0.08] space-y-2">
+                    <div key={idx} className="p-4 sm:p-6 rounded-[16px] sm:rounded-[18px] bg-white dark:bg-[#272729] border border-black/[0.06] dark:border-white/[0.08] space-y-1.5">
                       <div className="flex items-center gap-2">
-                        <span className="w-6 h-6 rounded-full bg-[#0066cc] text-white text-[12px] font-bold flex items-center justify-center">
+                        <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#0066cc] text-white text-[11px] sm:text-[12px] font-bold flex items-center justify-center shrink-0">
                           {idx + 1}
                         </span>
-                        <h4 className="font-semibold text-[#1d1d1f] dark:text-white text-[17px]">{lesson.title}</h4>
+                        <h4 className="font-semibold text-[#1d1d1f] dark:text-white text-[15px] sm:text-[17px]">{lesson.title}</h4>
                       </div>
-                      <p className="text-[14px] text-[#7a7a7a] dark:text-[#a1a1a6] leading-relaxed pt-1">
+                      <p className="text-[13px] sm:text-[14px] text-[#7a7a7a] dark:text-[#a1a1a6] leading-relaxed pt-1">
                         {lesson.content}
                       </p>
                     </div>

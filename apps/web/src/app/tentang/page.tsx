@@ -46,40 +46,40 @@ export default function TentangPage() {
   ];
 
   return (
-    <div className="py-12 sm:py-20 px-4 sm:px-6 max-w-5xl mx-auto space-y-16">
+    <div className="py-8 sm:py-16 px-3.5 sm:px-6 max-w-5xl mx-auto space-y-10 sm:space-y-16">
       {/* Header */}
-      <div className="text-center max-w-2xl mx-auto space-y-3">
-        <h1 className="text-4xl sm:text-[48px] font-semibold text-[#1d1d1f] dark:text-white tracking-[-0.025em] leading-tight">
+      <div className="text-center max-w-2xl mx-auto space-y-2.5">
+        <h1 className="text-[28px] sm:text-[40px] lg:text-[48px] font-semibold text-[#1d1d1f] dark:text-white tracking-[-0.025em] leading-tight">
           Kaidah & Metodologi
         </h1>
-        <p className="text-[17px] text-[#7a7a7a] dark:text-[#a1a1a6]">
+        <p className="text-[14px] sm:text-[17px] text-[#7a7a7a] dark:text-[#a1a1a6]">
           Setiap transliterasi dan leksikon berlandaskan sumber kepustakaan resmi.
         </p>
       </div>
 
       {/* Rujukan Pustaka Grid */}
-      <section className="space-y-6">
-        <div className="flex items-center gap-2 border-b border-black/[0.06] dark:border-white/[0.08] pb-3">
-          <BookOpen className="w-5 h-5 text-[#0066cc] dark:text-[#2997ff]" />
-          <h2 className="text-[21px] font-semibold text-[#1d1d1f] dark:text-white">Rujukan Kepustakaan</h2>
+      <section className="space-y-5">
+        <div className="flex items-center gap-2 border-b border-black/[0.06] dark:border-white/[0.08] pb-2.5">
+          <BookOpen className="w-4 h-4 text-[#0066cc] dark:text-[#2997ff]" />
+          <h2 className="text-[18px] sm:text-[21px] font-semibold text-[#1d1d1f] dark:text-white">Rujukan Kepustakaan</h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
           {simalungunSources.map((src: any) => (
             <div
               key={src.id}
-              className="p-6 bg-[#f5f5f7] dark:bg-[#161617] rounded-[18px] border border-black/[0.06] dark:border-white/[0.08] space-y-3 flex flex-col justify-between transition-colors duration-200"
+              className="p-4 sm:p-6 bg-[#f5f5f7] dark:bg-[#161617] rounded-[16px] sm:rounded-[18px] border border-black/[0.06] dark:border-white/[0.08] space-y-2.5 flex flex-col justify-between transition-colors duration-200"
             >
               <div className="space-y-1.5">
-                <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-white dark:bg-[#272729] text-[#7a7a7a] border border-black/[0.04] dark:border-white/[0.06]">
+                <span className="text-[10px] sm:text-[11px] font-mono px-2 py-0.5 rounded-full bg-white dark:bg-[#272729] text-[#7a7a7a] border border-black/[0.04] dark:border-white/[0.06]">
                   {src.type} &middot; {src.year}
                 </span>
-                <h3 className="text-[17px] font-semibold text-[#1d1d1f] dark:text-white leading-snug">{src.title}</h3>
-                <p className="text-[13px] text-[#7a7a7a]">Penulis: {src.author}</p>
-                {src.publisher && <p className="text-[13px] text-[#7a7a7a]">Penerbit: {src.publisher}</p>}
-                <p className="text-[14px] text-[#7a7a7a] dark:text-[#a1a1a6] pt-1 leading-relaxed">{src.notes}</p>
+                <h3 className="text-[15px] sm:text-[17px] font-semibold text-[#1d1d1f] dark:text-white leading-snug">{src.title}</h3>
+                <p className="text-[12px] sm:text-[13px] text-[#7a7a7a]">Penulis: {src.author}</p>
+                {src.publisher && <p className="text-[12px] sm:text-[13px] text-[#7a7a7a]">Penerbit: {src.publisher}</p>}
+                <p className="text-[13px] sm:text-[14px] text-[#7a7a7a] dark:text-[#a1a1a6] pt-1 leading-relaxed">{src.notes}</p>
               </div>
-              <div className="pt-3 border-t border-black/[0.04] dark:border-white/[0.06] text-[12px] text-[#7a7a7a] flex justify-between items-center">
+              <div className="pt-2.5 border-t border-black/[0.04] dark:border-white/[0.06] text-[11px] sm:text-[12px] text-[#7a7a7a] flex justify-between items-center">
                 <span>Lisensi: {src.license}</span>
                 {src.url && (
                   <a
@@ -99,29 +99,29 @@ export default function TentangPage() {
       </section>
 
       {/* Rekam Keputusan Ortografi */}
-      <section className="space-y-6">
-        <div className="flex items-center gap-2 border-b border-black/[0.06] dark:border-white/[0.08] pb-3">
-          <Scale className="w-5 h-5 text-[#0066cc] dark:text-[#2997ff]" />
-          <h2 className="text-[21px] font-semibold text-[#1d1d1f] dark:text-white">Keputusan Ortografi</h2>
+      <section className="space-y-5">
+        <div className="flex items-center gap-2 border-b border-black/[0.06] dark:border-white/[0.08] pb-2.5">
+          <Scale className="w-4 h-4 text-[#0066cc] dark:text-[#2997ff]" />
+          <h2 className="text-[18px] sm:text-[21px] font-semibold text-[#1d1d1f] dark:text-white">Keputusan Ortografi</h2>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3.5">
           {decisions.map((dec) => (
-            <div key={dec.id} className="p-6 bg-[#f5f5f7] dark:bg-[#161617] rounded-[18px] border border-black/[0.06] dark:border-white/[0.08] space-y-2.5 transition-colors duration-200">
+            <div key={dec.id} className="p-4 sm:p-6 bg-[#f5f5f7] dark:bg-[#161617] rounded-[16px] sm:rounded-[18px] border border-black/[0.06] dark:border-white/[0.08] space-y-2 transition-colors duration-200">
               <div className="flex items-center justify-between">
-                <span className="font-mono text-[11px] font-semibold px-2 py-0.5 bg-white dark:bg-[#272729] text-[#1d1d1f] dark:text-white rounded-full border border-black/[0.04] dark:border-white/[0.06]">
+                <span className="font-mono text-[10px] sm:text-[11px] font-semibold px-2 py-0.5 bg-white dark:bg-[#272729] text-[#1d1d1f] dark:text-white rounded-full border border-black/[0.04] dark:border-white/[0.06]">
                   {dec.id}
                 </span>
-                <span className="text-[12px] text-[#0066cc] dark:text-[#2997ff] font-medium">Baku</span>
+                <span className="text-[11px] sm:text-[12px] text-[#0066cc] dark:text-[#2997ff] font-medium">Baku</span>
               </div>
-              <h3 className="text-[17px] font-semibold text-[#1d1d1f] dark:text-white">{dec.topic}</h3>
-              <div className="text-[14px] text-[#1d1d1f] dark:text-white bg-white dark:bg-[#272729] p-3 rounded-[12px] border border-black/[0.04] dark:border-white/[0.06]">
+              <h3 className="text-[15px] sm:text-[17px] font-semibold text-[#1d1d1f] dark:text-white">{dec.topic}</h3>
+              <div className="text-[13px] sm:text-[14px] text-[#1d1d1f] dark:text-white bg-white dark:bg-[#272729] p-2.5 sm:p-3 rounded-[12px] border border-black/[0.04] dark:border-white/[0.06]">
                 Keputusan: {dec.decision}
               </div>
-              <p className="text-[14px] text-[#7a7a7a] dark:text-[#a1a1a6] leading-relaxed">
+              <p className="text-[13px] sm:text-[14px] text-[#7a7a7a] dark:text-[#a1a1a6] leading-relaxed">
                 {dec.rationale}
               </p>
-              <div className="text-[12px] text-[#7a7a7a] font-mono pt-1">
+              <div className="text-[11px] sm:text-[12px] text-[#7a7a7a] font-mono pt-0.5">
                 Rujukan: {dec.source}
               </div>
             </div>

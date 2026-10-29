@@ -4,31 +4,31 @@ import { BookOpen, Sparkles, GraduationCap, ArrowRight } from "lucide-react";
 
 export default function HomePage() {
   return (
-    <div className="space-y-16 sm:space-y-24">
+    <div className="space-y-10 sm:space-y-20">
       {/* Museum Gallery Hero */}
-      <section className="pt-12 sm:pt-20 px-4 sm:px-6 max-w-5xl mx-auto text-center space-y-4">
-        <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-semibold text-[#1d1d1f] dark:text-white tracking-[-0.025em] leading-[1.08]">
+      <section className="pt-8 sm:pt-16 px-4 sm:px-6 max-w-5xl mx-auto text-center space-y-3.5">
+        <h1 className="text-[28px] sm:text-4xl lg:text-[56px] font-semibold text-[#1d1d1f] dark:text-white tracking-[-0.025em] leading-[1.12]">
           Penerjemah & Lensa Linguistik{" "}
           <span className="text-[#0066cc] dark:text-[#2997ff] block sm:inline">
             Batak Simalungun
           </span>
         </h1>
-        <p className="text-[19px] sm:text-[21px] text-[#7a7a7a] dark:text-[#a1a1a6] font-normal max-w-2xl mx-auto leading-relaxed">
+        <p className="text-[14px] sm:text-[17px] lg:text-[20px] text-[#7a7a7a] dark:text-[#a1a1a6] font-normal max-w-2xl mx-auto leading-relaxed">
           Terjemahan presisi kata dan kalimat, alih aksara Surat Sisimolungun, dan bedah linguistik terbuka.
         </p>
 
-        {/* Primary Action Pills */}
-        <div className="pt-2 flex items-center justify-center gap-3">
+        {/* Primary Action Pills with smooth active micro-interaction */}
+        <div className="pt-2 flex items-center justify-center gap-2.5">
           <Link
             href="/belajar"
-            className="inline-flex items-center gap-1.5 px-6 py-2.5 rounded-full bg-[#0066cc] hover:bg-[#0071e3] active:scale-95 text-white text-[15px] font-normal transition duration-200"
+            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-[#0066cc] hover:bg-[#0071e3] active:scale-95 text-white text-[13px] sm:text-[15px] font-normal transition duration-200 shadow-2xs"
           >
             <span>Mulai Belajar</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-3.5 h-3.5" />
           </Link>
           <Link
             href="/kamus"
-            className="inline-flex items-center gap-1.5 px-6 py-2.5 rounded-full bg-[#f5f5f7] dark:bg-[#272729] hover:bg-[#e8e8ed] dark:hover:bg-[#333336] active:scale-95 text-[#0066cc] dark:text-[#2997ff] text-[15px] font-normal transition duration-200"
+            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-[#f5f5f7] dark:bg-[#272729] hover:bg-[#e8e8ed] dark:hover:bg-[#333336] active:scale-95 text-[#0066cc] dark:text-[#2997ff] text-[13px] sm:text-[15px] font-normal transition duration-200"
           >
             <span>Buka Kamus</span>
           </Link>
@@ -36,39 +36,39 @@ export default function HomePage() {
       </section>
 
       {/* Main Translator Section */}
-      <section className="px-4 sm:px-6 max-w-5xl mx-auto">
+      <section className="px-3 sm:px-6 max-w-5xl mx-auto">
         <Translator />
       </section>
 
-      {/* Alternating Feature Tiles: Apple Store Utility Card Pattern */}
-      <section className="border-t border-black/[0.06] dark:border-white/[0.08] bg-[#f5f5f7] dark:bg-[#161617] py-16 sm:py-24 transition-colors duration-200">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 space-y-12">
-          <div className="text-center max-w-xl mx-auto space-y-2">
-            <h2 className="text-3xl sm:text-[40px] font-semibold text-[#1d1d1f] dark:text-white tracking-[-0.025em] leading-tight">
+      {/* Alternating Feature Tiles */}
+      <section className="border-t border-black/[0.06] dark:border-white/[0.08] bg-[#f5f5f7] dark:bg-[#161617] py-12 sm:py-20 transition-colors duration-200">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 space-y-8 sm:space-y-12">
+          <div className="text-center max-w-xl mx-auto space-y-1.5">
+            <h2 className="text-2xl sm:text-[36px] font-semibold text-[#1d1d1f] dark:text-white tracking-[-0.025em] leading-tight">
               Kecermatan Berbahasa
             </h2>
-            <p className="text-[17px] text-[#7a7a7a] dark:text-[#a1a1a6]">
+            <p className="text-[14px] sm:text-[16px] text-[#7a7a7a] dark:text-[#a1a1a6]">
               Setiap hasil terjemahan dibangun dengan standar tata bahasa yang dapat diuji.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
             {/* Tile 1 */}
-            <div className="p-8 bg-white dark:bg-[#272729] rounded-[18px] border border-black/[0.06] dark:border-white/[0.08] flex flex-col justify-between space-y-6 transition duration-200">
-              <div className="space-y-3">
-                <div className="w-10 h-10 rounded-full bg-[#f5f5f7] dark:bg-[#1d1d1f] flex items-center justify-center text-[#0066cc] dark:text-[#2997ff]">
-                  <Sparkles className="w-5 h-5" />
+            <div className="p-5 sm:p-8 bg-white dark:bg-[#272729] rounded-[18px] border border-black/[0.06] dark:border-white/[0.08] flex flex-col justify-between space-y-5 transition-all duration-200 hover:border-black/20 dark:hover:border-white/20">
+              <div className="space-y-2.5">
+                <div className="w-9 h-9 rounded-full bg-[#f5f5f7] dark:bg-[#1d1d1f] flex items-center justify-center text-[#0066cc] dark:text-[#2997ff]">
+                  <Sparkles className="w-4 h-4" />
                 </div>
-                <h3 className="text-[21px] font-semibold text-[#1d1d1f] dark:text-white tracking-tight">
+                <h3 className="text-[18px] sm:text-[21px] font-semibold text-[#1d1d1f] dark:text-white tracking-tight">
                   Alih Aksara Berkaidah
                 </h3>
-                <p className="text-[15px] text-[#7a7a7a] dark:text-[#a1a1a6] leading-relaxed">
+                <p className="text-[13px] sm:text-[15px] text-[#7a7a7a] dark:text-[#a1a1a6] leading-relaxed">
                   Alih aksara Surat Sisimolungun berjalan secara deterministik mengikuti blok Unicode resmi U+1BC0–U+1BFF.
                 </p>
               </div>
               <Link
                 href="/belajar"
-                className="text-[15px] text-[#0066cc] dark:text-[#2997ff] hover:underline inline-flex items-center gap-1 font-normal"
+                className="text-[14px] text-[#0066cc] dark:text-[#2997ff] hover:underline inline-flex items-center gap-1 font-normal"
               >
                 <span>Lihat bagan huruf</span>
                 <span>&rarr;</span>
@@ -76,21 +76,21 @@ export default function HomePage() {
             </div>
 
             {/* Tile 2 */}
-            <div className="p-8 bg-white dark:bg-[#272729] rounded-[18px] border border-black/[0.06] dark:border-white/[0.08] flex flex-col justify-between space-y-6 transition duration-200">
-              <div className="space-y-3">
-                <div className="w-10 h-10 rounded-full bg-[#f5f5f7] dark:bg-[#1d1d1f] flex items-center justify-center text-[#0066cc] dark:text-[#2997ff]">
-                  <BookOpen className="w-5 h-5" />
+            <div className="p-5 sm:p-8 bg-white dark:bg-[#272729] rounded-[18px] border border-black/[0.06] dark:border-white/[0.08] flex flex-col justify-between space-y-5 transition-all duration-200 hover:border-black/20 dark:hover:border-white/20">
+              <div className="space-y-2.5">
+                <div className="w-9 h-9 rounded-full bg-[#f5f5f7] dark:bg-[#1d1d1f] flex items-center justify-center text-[#0066cc] dark:text-[#2997ff]">
+                  <BookOpen className="w-4 h-4" />
                 </div>
-                <h3 className="text-[21px] font-semibold text-[#1d1d1f] dark:text-white tracking-tight">
+                <h3 className="text-[18px] sm:text-[21px] font-semibold text-[#1d1d1f] dark:text-white tracking-tight">
                   Lensa Linguistik
                 </h3>
-                <p className="text-[15px] text-[#7a7a7a] dark:text-[#a1a1a6] leading-relaxed">
+                <p className="text-[13px] sm:text-[15px] text-[#7a7a7a] dark:text-[#a1a1a6] leading-relaxed">
                   Pahami pembagian suku kata, analisis morfem, serta makna budaya dari leksikon baku Simalungun.
                 </p>
               </div>
               <Link
                 href="/kamus"
-                className="text-[15px] text-[#0066cc] dark:text-[#2997ff] hover:underline inline-flex items-center gap-1 font-normal"
+                className="text-[14px] text-[#0066cc] dark:text-[#2997ff] hover:underline inline-flex items-center gap-1 font-normal"
               >
                 <span>Jelajahi leksikon</span>
                 <span>&rarr;</span>
@@ -98,21 +98,21 @@ export default function HomePage() {
             </div>
 
             {/* Tile 3 */}
-            <div className="p-8 bg-white dark:bg-[#272729] rounded-[18px] border border-black/[0.06] dark:border-white/[0.08] flex flex-col justify-between space-y-6 transition duration-200">
-              <div className="space-y-3">
-                <div className="w-10 h-10 rounded-full bg-[#f5f5f7] dark:bg-[#1d1d1f] flex items-center justify-center text-[#0066cc] dark:text-[#2997ff]">
-                  <GraduationCap className="w-5 h-5" />
+            <div className="p-5 sm:p-8 bg-white dark:bg-[#272729] rounded-[18px] border border-black/[0.06] dark:border-white/[0.08] flex flex-col justify-between space-y-5 transition-all duration-200 hover:border-black/20 dark:hover:border-white/20">
+              <div className="space-y-2.5">
+                <div className="w-9 h-9 rounded-full bg-[#f5f5f7] dark:bg-[#1d1d1f] flex items-center justify-center text-[#0066cc] dark:text-[#2997ff]">
+                  <GraduationCap className="w-4 h-4" />
                 </div>
-                <h3 className="text-[21px] font-semibold text-[#1d1d1f] dark:text-white tracking-tight">
+                <h3 className="text-[18px] sm:text-[21px] font-semibold text-[#1d1d1f] dark:text-white tracking-tight">
                   Latihan Mandiri
                 </h3>
-                <p className="text-[15px] text-[#7a7a7a] dark:text-[#a1a1a6] leading-relaxed">
+                <p className="text-[13px] sm:text-[15px] text-[#7a7a7a] dark:text-[#a1a1a6] leading-relaxed">
                   Kuis membaca aksara dan kanvas interaktif untuk melatih goresan pena aksara secara bertahap.
                 </p>
               </div>
               <Link
                 href="/latihan"
-                className="text-[15px] text-[#0066cc] dark:text-[#2997ff] hover:underline inline-flex items-center gap-1 font-normal"
+                className="text-[14px] text-[#0066cc] dark:text-[#2997ff] hover:underline inline-flex items-center gap-1 font-normal"
               >
                 <span>Mulai kuis</span>
                 <span>&rarr;</span>

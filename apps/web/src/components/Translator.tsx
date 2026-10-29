@@ -33,6 +33,7 @@ export function Translator() {
   const [copied, setCopied] = useState(false);
   const [isExportOpen, setIsExportOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"translit" | "phonology" | "morphology" | "culture">("translit");
+  const [isSwapping, setIsSwapping] = useState(false);
 
   // AI translation state
   const [isAiLoading, setIsAiLoading] = useState(false);
@@ -109,8 +110,11 @@ export function Translator() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  // Swap handler
+  // Swap handler with animation
   const swapDirection = () => {
+    setIsSwapping(true);
+    setTimeout(() => setIsSwapping(false), 300);
+
     if (targetLang === "aksara") {
       if (sourceLang === "simalungun") {
         setSourceLang("indonesia");
@@ -182,11 +186,11 @@ export function Translator() {
   const hasOutput = targetLang === "aksara" ? Boolean(currentAksara) : Boolean(currentTranslation);
 
   return (
-    <div className="w-full space-y-6">
+    <div className="w-full space-y-4 sm:space-y-6">
       {/* Apple Configurator Container */}
-      <div className="bg-[#f5f5f7] dark:bg-[#161617] rounded-[24px] p-4 sm:p-6 border border-black/[0.06] dark:border-white/[0.08] transition-colors duration-200">
+      <div className="bg-[#f5f5f7] dark:bg-[#161617] rounded-[20px] sm:rounded-[24px] p-2.5 sm:p-5 border border-black/[0.06] dark:border-white/[0.08] transition-colors duration-200">
         {/* Top Centered Language Selector Bar */}
-        <div className="flex items-center justify-center gap-1.5 sm:gap-3 pb-4 max-w-full">
+        <div className="flex items-center justify-center gap-1.5 sm:gap-3 pb-2.5 sm:pb-3 max-w-full">
           {/* Source Language Dropdown */}
           <div className="relative shrink min-w-0" ref={sourceRef}>
             <button
@@ -195,14 +199,14 @@ export function Translator() {
                 setIsSourceOpen(!isSourceOpen);
                 setIsTargetOpen(false);
               }}
-              className="flex items-center gap-1 sm:gap-1.5 px-3 sm:px-4 py-2 rounded-full text-[13px] sm:text-[14px] font-medium text-[#1d1d1f] dark:text-[#f5f5f7] bg-white dark:bg-[#272729] border border-black/[0.06] dark:border-white/[0.08] hover:border-black/20 dark:hover:border-white/20 transition duration-200"
+              className="flex items-center gap-1 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[12px] sm:text-[14px] font-medium text-[#1d1d1f] dark:text-[#f5f5f7] bg-white dark:bg-[#272729] border border-black/[0.06] dark:border-white/[0.08] hover:border-black/20 dark:hover:border-white/20 transition-all duration-150 active:scale-95"
             >
-              <span className="truncate max-w-[100px] sm:max-w-none">{sourceLabel}</span>
-              <ChevronDown className="w-3.5 h-3.5 text-[#7a7a7a] shrink-0" />
+              <span className="truncate max-w-[95px] sm:max-w-none">{sourceLabel}</span>
+              <ChevronDown className="w-3 h-3 text-[#7a7a7a] shrink-0" />
             </button>
 
             {isSourceOpen && (
-              <div className="absolute left-0 mt-1.5 w-44 bg-white dark:bg-[#272729] rounded-2xl shadow-xl border border-black/[0.08] dark:border-white/[0.1] py-1.5 z-30 animate-fadeIn">
+              <div className="absolute left-0 mt-1.5 w-40 sm:w-44 bg-white dark:bg-[#272729] rounded-2xl shadow-xl border border-black/[0.08] dark:border-white/[0.1] py-1 z-30 animate-fadeIn">
                 <button
                   type="button"
                   onClick={() => {
@@ -210,7 +214,7 @@ export function Translator() {
                     if (targetLang === "simalungun") setTargetLang("indonesia");
                     setIsSourceOpen(false);
                   }}
-                  className={`w-full px-4 py-2 text-left text-[14px] hover:bg-[#f5f5f7] dark:hover:bg-white/[0.06] transition flex items-center justify-between ${
+                  className={`w-full px-3.5 py-2 text-left text-[13px] sm:text-[14px] hover:bg-[#f5f5f7] dark:hover:bg-white/[0.06] transition flex items-center justify-between ${
                     sourceLang === "simalungun" ? "font-semibold text-[#0066cc] dark:text-[#2997ff]" : "text-[#1d1d1f] dark:text-[#f5f5f7]"
                   }`}
                 >
@@ -224,7 +228,7 @@ export function Translator() {
                     if (targetLang === "indonesia") setTargetLang("simalungun");
                     setIsSourceOpen(false);
                   }}
-                  className={`w-full px-4 py-2 text-left text-[14px] hover:bg-[#f5f5f7] dark:hover:bg-white/[0.06] transition flex items-center justify-between ${
+                  className={`w-full px-3.5 py-2 text-left text-[13px] sm:text-[14px] hover:bg-[#f5f5f7] dark:hover:bg-white/[0.06] transition flex items-center justify-between ${
                     sourceLang === "indonesia" ? "font-semibold text-[#0066cc] dark:text-[#2997ff]" : "text-[#1d1d1f] dark:text-[#f5f5f7]"
                   }`}
                 >
@@ -235,11 +239,13 @@ export function Translator() {
             )}
           </div>
 
-          {/* Central Swap Button */}
+          {/* Central Swap Button with animated spin on click */}
           <button
             type="button"
             onClick={swapDirection}
-            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shrink-0 text-[#1d1d1f] dark:text-[#f5f5f7] bg-white dark:bg-[#272729] border border-black/[0.06] dark:border-white/[0.08] hover:border-black/20 dark:hover:border-white/20 active:scale-95 transition duration-200"
+            className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shrink-0 text-[#1d1d1f] dark:text-[#f5f5f7] bg-white dark:bg-[#272729] border border-black/[0.06] dark:border-white/[0.08] hover:border-black/20 dark:hover:border-white/20 active:scale-90 transition-transform duration-300 ${
+              isSwapping ? "rotate-180" : ""
+            }`}
             title="Tukar Bahasa"
           >
             <ArrowRightLeft className="w-3.5 h-3.5" />
@@ -253,14 +259,14 @@ export function Translator() {
                 setIsTargetOpen(!isTargetOpen);
                 setIsSourceOpen(false);
               }}
-              className="flex items-center gap-1 sm:gap-1.5 px-3 sm:px-4 py-2 rounded-full text-[13px] sm:text-[14px] font-medium text-[#1d1d1f] dark:text-[#f5f5f7] bg-white dark:bg-[#272729] border border-black/[0.06] dark:border-white/[0.08] hover:border-black/20 dark:hover:border-white/20 transition duration-200"
+              className="flex items-center gap-1 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[12px] sm:text-[14px] font-medium text-[#1d1d1f] dark:text-[#f5f5f7] bg-white dark:bg-[#272729] border border-black/[0.06] dark:border-white/[0.08] hover:border-black/20 dark:hover:border-white/20 transition-all duration-150 active:scale-95"
             >
-              <span className="truncate max-w-[110px] sm:max-w-none">{targetLabel}</span>
-              <ChevronDown className="w-3.5 h-3.5 text-[#7a7a7a] shrink-0" />
+              <span className="truncate max-w-[105px] sm:max-w-none">{targetLabel}</span>
+              <ChevronDown className="w-3 h-3 text-[#7a7a7a] shrink-0" />
             </button>
 
             {isTargetOpen && (
-              <div className="absolute right-0 mt-1.5 w-48 bg-white dark:bg-[#272729] rounded-2xl shadow-xl border border-black/[0.08] dark:border-white/[0.1] py-1.5 z-30 animate-fadeIn">
+              <div className="absolute right-0 mt-1.5 w-44 sm:w-48 bg-white dark:bg-[#272729] rounded-2xl shadow-xl border border-black/[0.08] dark:border-white/[0.1] py-1 z-30 animate-fadeIn">
                 {sourceLang === "indonesia" ? (
                   <>
                     <button
@@ -269,7 +275,7 @@ export function Translator() {
                         setTargetLang("simalungun");
                         setIsTargetOpen(false);
                       }}
-                      className={`w-full px-4 py-2 text-left text-[14px] hover:bg-[#f5f5f7] dark:hover:bg-white/[0.06] flex items-center justify-between ${
+                      className={`w-full px-3.5 py-2 text-left text-[13px] sm:text-[14px] hover:bg-[#f5f5f7] dark:hover:bg-white/[0.06] flex items-center justify-between ${
                         targetLang === "simalungun" ? "font-semibold text-[#0066cc] dark:text-[#2997ff]" : "text-[#1d1d1f] dark:text-[#f5f5f7]"
                       }`}
                     >
@@ -282,7 +288,7 @@ export function Translator() {
                         setTargetLang("aksara");
                         setIsTargetOpen(false);
                       }}
-                      className={`w-full px-4 py-2 text-left text-[14px] hover:bg-[#f5f5f7] dark:hover:bg-white/[0.06] flex items-center justify-between ${
+                      className={`w-full px-3.5 py-2 text-left text-[13px] sm:text-[14px] hover:bg-[#f5f5f7] dark:hover:bg-white/[0.06] flex items-center justify-between ${
                         targetLang === "aksara" ? "font-semibold text-[#0066cc] dark:text-[#2997ff]" : "text-[#1d1d1f] dark:text-[#f5f5f7]"
                       }`}
                     >
@@ -298,7 +304,7 @@ export function Translator() {
                         setTargetLang("indonesia");
                         setIsTargetOpen(false);
                       }}
-                      className={`w-full px-4 py-2 text-left text-[14px] hover:bg-[#f5f5f7] dark:hover:bg-white/[0.06] flex items-center justify-between ${
+                      className={`w-full px-3.5 py-2 text-left text-[13px] sm:text-[14px] hover:bg-[#f5f5f7] dark:hover:bg-white/[0.06] flex items-center justify-between ${
                         targetLang === "indonesia" ? "font-semibold text-[#0066cc] dark:text-[#2997ff]" : "text-[#1d1d1f] dark:text-[#f5f5f7]"
                       }`}
                     >
@@ -311,7 +317,7 @@ export function Translator() {
                         setTargetLang("aksara");
                         setIsTargetOpen(false);
                       }}
-                      className={`w-full px-4 py-2 text-left text-[14px] hover:bg-[#f5f5f7] dark:hover:bg-white/[0.06] flex items-center justify-between ${
+                      className={`w-full px-3.5 py-2 text-left text-[13px] sm:text-[14px] hover:bg-[#f5f5f7] dark:hover:bg-white/[0.06] flex items-center justify-between ${
                         targetLang === "aksara" ? "font-semibold text-[#0066cc] dark:text-[#2997ff]" : "text-[#1d1d1f] dark:text-[#f5f5f7]"
                       }`}
                     >
@@ -326,28 +332,28 @@ export function Translator() {
         </div>
 
         {/* Two Separate White Cards Grid (Apple Store Utility Card: rounded 18px) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 sm:gap-4 items-stretch">
           {/* Left Card: Input Box */}
-          <div className="bg-white dark:bg-[#272729] rounded-[18px] p-4 sm:p-6 border border-black/[0.06] dark:border-white/[0.08] flex flex-col justify-between min-h-[220px] sm:min-h-[260px] h-auto transition-colors duration-200">
+          <div className="bg-white dark:bg-[#272729] rounded-[16px] sm:rounded-[18px] p-4 sm:p-6 border border-black/[0.06] dark:border-white/[0.08] flex flex-col justify-between min-h-[170px] sm:min-h-[250px] h-auto transition-colors duration-200">
             <div className="flex-1 flex flex-col overflow-y-auto pr-1">
               <textarea
                 value={inputText}
                 maxLength={500}
                 onChange={(e) => setInputText(e.target.value)}
                 placeholder="Ketik atau tempelkan teks yang akan diterjemahkan"
-                className="w-full flex-1 text-[16px] sm:text-[17px] text-[#1d1d1f] dark:text-white bg-transparent resize-none border-none focus:outline-none placeholder:text-[#7a7a7a] leading-relaxed tracking-[-0.015em]"
+                className="w-full flex-1 text-[15px] sm:text-[17px] text-[#1d1d1f] dark:text-white bg-transparent resize-none border-none focus:outline-none placeholder:text-[#7a7a7a] leading-relaxed tracking-[-0.015em]"
               />
             </div>
 
             {/* Bottom Input Action Row */}
-            <div className="min-h-8 flex items-center justify-between text-[12px] text-[#7a7a7a] pt-2">
+            <div className="min-h-7 flex items-center justify-between text-[11px] sm:text-[12px] text-[#7a7a7a] pt-1">
               {inputText ? (
                 <button
                   type="button"
                   onClick={() => setInputText("")}
-                  className="hover:text-[#1d1d1f] dark:hover:text-white flex items-center gap-1.5 text-[#7a7a7a] font-normal transition"
+                  className="hover:text-[#1d1d1f] dark:hover:text-white flex items-center gap-1 text-[#7a7a7a] font-normal transition active:scale-95"
                 >
-                  <RotateCcw className="w-3.5 h-3.5" />
+                  <RotateCcw className="w-3 h-3" />
                   <span>Bersihkan</span>
                 </button>
               ) : (
@@ -358,10 +364,10 @@ export function Translator() {
           </div>
 
           {/* Right Card: Output Box */}
-          <div className="bg-white dark:bg-[#272729] rounded-[18px] p-4 sm:p-6 border border-black/[0.06] dark:border-white/[0.08] flex flex-col justify-between min-h-[220px] sm:min-h-[260px] h-auto transition-colors duration-200">
+          <div className="bg-white dark:bg-[#272729] rounded-[16px] sm:rounded-[18px] p-4 sm:p-6 border border-black/[0.06] dark:border-white/[0.08] flex flex-col justify-between min-h-[170px] sm:min-h-[250px] h-auto transition-colors duration-200">
             {hasOutput ? (
               <>
-                <div className="flex-1 flex flex-col space-y-3 overflow-y-auto pr-1">
+                <div className="flex-1 flex flex-col space-y-2 sm:space-y-3 overflow-y-auto pr-1">
                   {/* Aksara Output */}
                   {targetLang === "aksara" ? (
                     <div className="font-aksara text-2xl sm:text-4xl text-[#1d1d1f] dark:text-white tracking-wider leading-relaxed select-all break-words">
@@ -369,22 +375,22 @@ export function Translator() {
                     </div>
                   ) : (
                     /* Clean Latin Text Output */
-                    <div className="text-[16px] sm:text-[19px] font-normal text-[#1d1d1f] dark:text-white leading-relaxed select-all tracking-[-0.015em] break-words">
+                    <div className="text-[15px] sm:text-[19px] font-normal text-[#1d1d1f] dark:text-white leading-relaxed select-all tracking-[-0.015em] break-words">
                       {currentTranslation}
                     </div>
                   )}
 
                   {/* AI Explanation if active */}
                   {aiResult?.explanation && (
-                    <p className="text-[12px] text-[#7a7a7a] italic break-words">
+                    <p className="text-[11px] sm:text-[12px] text-[#7a7a7a] italic break-words">
                       {aiResult.explanation}
                     </p>
                   )}
                 </div>
 
                 {/* Bottom Output Action Row */}
-                <div className="min-h-8 flex flex-wrap items-center justify-between text-[12px] text-[#7a7a7a] pt-2 gap-1.5">
-                  <div className="flex items-center gap-1.5 text-[#7a7a7a]">
+                <div className="min-h-7 flex flex-wrap items-center justify-between text-[11px] sm:text-[12px] text-[#7a7a7a] pt-1 gap-1">
+                  <div className="flex items-center gap-1 text-[#7a7a7a]">
                     <ShieldCheck className="w-3.5 h-3.5 text-[#0066cc] dark:text-[#2997ff] shrink-0" />
                     <span className="font-normal text-[#1d1d1f] dark:text-[#f5f5f7]">
                       {aiResult
@@ -404,13 +410,13 @@ export function Translator() {
                     </a>
                   </div>
 
-                  <div className="flex items-center gap-1.5">
-                    {/* AI Translation Pill Button */}
+                  <div className="flex items-center gap-1">
+                    {/* AI Translation Pill Button with hover pulse */}
                     <button
                       type="button"
                       disabled={isAiLoading}
                       onClick={handleTranslateWithAi}
-                      className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#f5f5f7] dark:bg-[#1d1d1f] hover:bg-[#e8e8ed] dark:hover:bg-[#333336] text-[#0066cc] dark:text-[#2997ff] text-[12px] font-medium transition active:scale-95"
+                      className="inline-flex items-center gap-1 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-[#f5f5f7] dark:bg-[#1d1d1f] hover:bg-[#e8e8ed] dark:hover:bg-[#333336] text-[#0066cc] dark:text-[#2997ff] text-[11px] sm:text-[12px] font-medium transition active:scale-90"
                       title="Sempurnakan kalimat bebas dengan model AI berlandaskan kamus"
                     >
                       {isAiLoading ? (
@@ -426,7 +432,7 @@ export function Translator() {
                       <button
                         type="button"
                         onClick={() => setIsExportOpen(true)}
-                        className="w-8 h-8 rounded-full flex items-center justify-center text-[#7a7a7a] hover:text-[#1d1d1f] dark:hover:text-white hover:bg-black/[0.04] dark:hover:bg-white/[0.06] transition"
+                        className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-[#7a7a7a] hover:text-[#1d1d1f] dark:hover:text-white hover:bg-black/[0.04] dark:hover:bg-white/[0.06] transition active:scale-90"
                         title="Unduh Kartu Gambar PNG"
                       >
                         <Share2 className="w-3.5 h-3.5" />
@@ -435,7 +441,7 @@ export function Translator() {
                     <button
                       type="button"
                       onClick={handleCopy}
-                      className="w-8 h-8 rounded-full flex items-center justify-center text-[#7a7a7a] hover:text-[#1d1d1f] dark:hover:text-white hover:bg-black/[0.04] dark:hover:bg-white/[0.06] transition"
+                      className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-[#7a7a7a] hover:text-[#1d1d1f] dark:hover:text-white hover:bg-black/[0.04] dark:hover:bg-white/[0.06] transition active:scale-90"
                       title={targetLang === "aksara" ? "Salin Aksara" : "Salin Teks"}
                     >
                       {copied ? <Check className="w-3.5 h-3.5 text-[#0066cc] dark:text-[#2997ff]" /> : <Copy className="w-3.5 h-3.5" />}
@@ -444,34 +450,34 @@ export function Translator() {
                 </div>
               </>
             ) : (
-              <div className="h-full flex items-center justify-center text-[#7a7a7a] text-[14px] select-none" />
+              <div className="h-full flex items-center justify-center text-[#7a7a7a] text-[13px] select-none" />
             )}
           </div>
         </div>
 
         {/* AI Notice / Config Helper if error occurs */}
         {aiError && (
-          <div className="mt-3 p-3.5 bg-white dark:bg-[#272729] rounded-[14px] border border-black/[0.06] dark:border-white/[0.08] text-[12px] text-[#7a7a7a] flex items-center justify-between gap-2 animate-fadeIn">
-            <div className="flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 text-[#0066cc] dark:text-[#2997ff] shrink-0" />
+          <div className="mt-2.5 p-3 bg-white dark:bg-[#272729] rounded-[14px] border border-black/[0.06] dark:border-white/[0.08] text-[11px] sm:text-[12px] text-[#7a7a7a] flex items-center justify-between gap-2 animate-fadeIn">
+            <div className="flex items-center gap-1.5">
+              <AlertCircle className="w-3.5 h-3.5 text-[#0066cc] dark:text-[#2997ff] shrink-0" />
               <span>{aiError}</span>
             </div>
-            <span className="text-[11px] text-[#7a7a7a]">Atur DEEPSEEK_API_KEY di Vercel</span>
+            <span className="text-[10px] sm:text-[11px] text-[#7a7a7a]">Atur DEEPSEEK_API_KEY di Vercel</span>
           </div>
         )}
       </div>
 
       {/* Lensa Linguistik Container */}
       {currentAksara && (
-        <section id="lensa-linguistik" className="bg-[#f5f5f7] dark:bg-[#161617] rounded-[24px] p-4 sm:p-6 border border-black/[0.06] dark:border-white/[0.08] transition-colors duration-200">
+        <section id="lensa-linguistik" className="bg-[#f5f5f7] dark:bg-[#161617] rounded-[20px] sm:rounded-[24px] p-3.5 sm:p-6 border border-black/[0.06] dark:border-white/[0.08] transition-colors duration-200">
           {/* Lens Tabs: Pill Navigation with smooth mobile swiping */}
-          <div className="flex space-x-2 overflow-x-auto pb-4 no-scrollbar">
+          <div className="flex space-x-1.5 sm:space-x-2 overflow-x-auto pb-3 no-scrollbar">
             <button
               type="button"
               onClick={() => setActiveTab("translit")}
-              className={`px-4 py-2 rounded-full text-[13px] font-medium whitespace-nowrap transition duration-200 flex items-center gap-1.5 ${
+              className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[12px] sm:text-[13px] font-medium whitespace-nowrap transition-all duration-200 flex items-center gap-1.5 active:scale-95 ${
                 activeTab === "translit"
-                  ? "bg-[#0066cc] text-white"
+                  ? "bg-[#0066cc] text-white shadow-2xs"
                   : "bg-white dark:bg-[#272729] text-[#1d1d1f] dark:text-[#f5f5f7] hover:bg-black/[0.04] dark:hover:bg-white/[0.06]"
               }`}
             >
@@ -481,9 +487,9 @@ export function Translator() {
             <button
               type="button"
               onClick={() => setActiveTab("phonology")}
-              className={`px-4 py-2 rounded-full text-[13px] font-medium whitespace-nowrap transition duration-200 flex items-center gap-1.5 ${
+              className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[12px] sm:text-[13px] font-medium whitespace-nowrap transition-all duration-200 flex items-center gap-1.5 active:scale-95 ${
                 activeTab === "phonology"
-                  ? "bg-[#0066cc] text-white"
+                  ? "bg-[#0066cc] text-white shadow-2xs"
                   : "bg-white dark:bg-[#272729] text-[#1d1d1f] dark:text-[#f5f5f7] hover:bg-black/[0.04] dark:hover:bg-white/[0.06]"
               }`}
             >
@@ -492,9 +498,9 @@ export function Translator() {
             <button
               type="button"
               onClick={() => setActiveTab("morphology")}
-              className={`px-4 py-2 rounded-full text-[13px] font-medium whitespace-nowrap transition duration-200 flex items-center gap-1.5 ${
+              className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[12px] sm:text-[13px] font-medium whitespace-nowrap transition-all duration-200 flex items-center gap-1.5 active:scale-95 ${
                 activeTab === "morphology"
-                  ? "bg-[#0066cc] text-white"
+                  ? "bg-[#0066cc] text-white shadow-2xs"
                   : "bg-white dark:bg-[#272729] text-[#1d1d1f] dark:text-[#f5f5f7] hover:bg-black/[0.04] dark:hover:bg-white/[0.06]"
               }`}
             >
@@ -504,9 +510,9 @@ export function Translator() {
             <button
               type="button"
               onClick={() => setActiveTab("culture")}
-              className={`px-4 py-2 rounded-full text-[13px] font-medium whitespace-nowrap transition duration-200 flex items-center gap-1.5 ${
+              className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[12px] sm:text-[13px] font-medium whitespace-nowrap transition-all duration-200 flex items-center gap-1.5 active:scale-95 ${
                 activeTab === "culture"
-                  ? "bg-[#0066cc] text-white"
+                  ? "bg-[#0066cc] text-white shadow-2xs"
                   : "bg-white dark:bg-[#272729] text-[#1d1d1f] dark:text-[#f5f5f7] hover:bg-black/[0.04] dark:hover:bg-white/[0.06]"
               }`}
             >
@@ -515,28 +521,28 @@ export function Translator() {
           </div>
 
           {/* Tab Content inside Apple white utility card */}
-          <div className="bg-white dark:bg-[#272729] rounded-[18px] p-6 border border-black/[0.06] dark:border-white/[0.08] text-[#1d1d1f] dark:text-[#f5f5f7]">
+          <div className="bg-white dark:bg-[#272729] rounded-[16px] sm:rounded-[18px] p-4 sm:p-6 border border-black/[0.06] dark:border-white/[0.08] text-[#1d1d1f] dark:text-[#f5f5f7]">
             {/* Tab 1: Transliteration steps */}
             {activeTab === "translit" && (
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {/* Mobile stacked card view */}
-                <div className="space-y-3 sm:hidden">
+                <div className="space-y-2.5 sm:hidden">
                   {analysis.transliterationSteps.map((step) => (
                     <div
                       key={step.step}
-                      className="p-4 bg-[#f5f5f7] dark:bg-black/30 rounded-[14px] border border-black/[0.06] dark:border-white/[0.08] space-y-2"
+                      className="p-3 bg-[#f5f5f7] dark:bg-black/30 rounded-[12px] border border-black/[0.06] dark:border-white/[0.08] space-y-1.5"
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                          <span className="text-[12px] font-mono text-[#7a7a7a]">#{step.step}</span>
-                          <span className="text-[15px] font-semibold text-[#1d1d1f] dark:text-white">{step.input}</span>
+                          <span className="text-[11px] font-mono text-[#7a7a7a]">#{step.step}</span>
+                          <span className="text-[14px] font-semibold text-[#1d1d1f] dark:text-white">{step.input}</span>
                         </div>
-                        <span className="font-aksara text-2xl text-[#0066cc] dark:text-[#2997ff]">
+                        <span className="font-aksara text-xl text-[#0066cc] dark:text-[#2997ff]">
                           {step.output || "(inheren)"}
                         </span>
                       </div>
-                      <p className="text-[13px] text-[#7a7a7a] dark:text-[#a1a1a6] leading-relaxed">{step.explanation}</p>
-                      <div className="text-[11px] font-mono text-[#7a7a7a] bg-white dark:bg-[#272729] px-2 py-0.5 rounded-full border border-black/[0.06] dark:border-white/[0.08] w-fit">
+                      <p className="text-[12px] text-[#7a7a7a] dark:text-[#a1a1a6] leading-relaxed">{step.explanation}</p>
+                      <div className="text-[10px] font-mono text-[#7a7a7a] bg-white dark:bg-[#272729] px-2 py-0.5 rounded-full border border-black/[0.06] dark:border-white/[0.08] w-fit">
                         {step.rule}
                       </div>
                     </div>
@@ -581,20 +587,20 @@ export function Translator() {
 
             {/* Tab 2: Phonology & Syllabification */}
             {activeTab === "phonology" && (
-              <div className="space-y-6">
+              <div className="space-y-5">
                 <div>
-                  <h4 className="text-[12px] font-semibold uppercase tracking-wider text-[#7a7a7a] mb-3">
+                  <h4 className="text-[11px] sm:text-[12px] font-semibold uppercase tracking-wider text-[#7a7a7a] mb-2.5">
                     Segmentasi Suku Kata
                   </h4>
-                  <div className="flex flex-wrap items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
                     {analysis.tokens.map((tok, i) => (
-                      <div key={i} className="flex items-center gap-2 p-2.5 bg-[#f5f5f7] dark:bg-black/30 rounded-[14px] border border-black/[0.06] dark:border-white/[0.08]">
-                        <span className="font-medium text-[#1d1d1f] dark:text-white text-[14px]">{tok.surface}:</span>
+                      <div key={i} className="flex items-center gap-1.5 p-2 sm:p-2.5 bg-[#f5f5f7] dark:bg-black/30 rounded-[12px] sm:rounded-[14px] border border-black/[0.06] dark:border-white/[0.08]">
+                        <span className="font-medium text-[#1d1d1f] dark:text-white text-[13px] sm:text-[14px]">{tok.surface}:</span>
                         <div className="flex gap-1">
                           {tok.syllables.map((syl, sIdx) => (
                             <span
                               key={sIdx}
-                              className="px-2.5 py-0.5 bg-white dark:bg-[#272729] border border-black/[0.06] dark:border-white/[0.08] rounded-full text-[12px] font-mono text-[#1d1d1f] dark:text-[#f5f5f7]"
+                              className="px-2 py-0.5 bg-white dark:bg-[#272729] border border-black/[0.06] dark:border-white/[0.08] rounded-full text-[11px] sm:text-[12px] font-mono text-[#1d1d1f] dark:text-[#f5f5f7]"
                             >
                               {syl}
                             </span>
@@ -606,10 +612,10 @@ export function Translator() {
                 </div>
 
                 <div className="pt-2 border-t border-black/[0.06] dark:border-white/[0.08]">
-                  <h4 className="text-[12px] font-semibold uppercase tracking-wider text-[#7a7a7a] mb-2">
+                  <h4 className="text-[11px] sm:text-[12px] font-semibold uppercase tracking-wider text-[#7a7a7a] mb-2">
                     Kaidah Fonotaktik Simalungun
                   </h4>
-                  <ul className="text-[14px] text-[#7a7a7a] dark:text-[#a1a1a6] space-y-1.5 list-disc list-inside">
+                  <ul className="text-[13px] sm:text-[14px] text-[#7a7a7a] dark:text-[#a1a1a6] space-y-1.5 list-disc list-inside">
                     <li>Pola suku kata baku Simalungun meliputi V, CV, CVC, dan diftong khas /-ou/.</li>
                     <li>
                       Konsonan akhir tertutup dibedakan: tanda hembus /-h/ memakai hajoringan (ᯱ),
@@ -626,46 +632,46 @@ export function Translator() {
 
             {/* Tab 3: Morphology & Leipzig Glossing */}
             {activeTab === "morphology" && (
-              <div className="space-y-6">
+              <div className="space-y-5">
                 <div>
-                  <h4 className="text-[12px] font-semibold uppercase tracking-wider text-[#7a7a7a] mb-3">
+                  <h4 className="text-[11px] sm:text-[12px] font-semibold uppercase tracking-wider text-[#7a7a7a] mb-2.5">
                     Format Interlinear Leipzig
                   </h4>
-                  <div className="p-5 bg-[#1d1d1f] dark:bg-black text-[#f5f5f7] rounded-[18px] font-mono text-[13px] space-y-2 overflow-x-auto border border-black/[0.06] dark:border-white/[0.08]">
-                    <div className="flex gap-4">
-                      <span className="text-[#7a7a7a] select-none w-24">Sumber:</span>
+                  <div className="p-4 sm:p-5 bg-[#1d1d1f] dark:bg-black text-[#f5f5f7] rounded-[16px] sm:rounded-[18px] font-mono text-[12px] sm:text-[13px] space-y-1.5 sm:space-y-2 overflow-x-auto border border-black/[0.06] dark:border-white/[0.08]">
+                    <div className="flex gap-3 sm:gap-4">
+                      <span className="text-[#7a7a7a] select-none w-20 sm:w-24">Sumber:</span>
                       <span className="text-white">{analysis.interlinear.source}</span>
                     </div>
-                    <div className="flex gap-4">
-                      <span className="text-[#7a7a7a] select-none w-24">Segmentasi:</span>
+                    <div className="flex gap-3 sm:gap-4">
+                      <span className="text-[#7a7a7a] select-none w-20 sm:w-24">Segmentasi:</span>
                       <span className="text-[#2997ff]">{analysis.interlinear.segmented}</span>
                     </div>
-                    <div className="flex gap-4">
-                      <span className="text-[#7a7a7a] select-none w-24">Gloss:</span>
+                    <div className="flex gap-3 sm:gap-4">
+                      <span className="text-[#7a7a7a] select-none w-20 sm:w-24">Gloss:</span>
                       <span className="text-emerald-400">{analysis.interlinear.gloss}</span>
                     </div>
-                    <div className="flex gap-4">
-                      <span className="text-[#7a7a7a] select-none w-24">Bebas:</span>
+                    <div className="flex gap-3 sm:gap-4">
+                      <span className="text-[#7a7a7a] select-none w-20 sm:w-24">Bebas:</span>
                       <span className="text-[#f5f5f7]">&ldquo;{analysis.interlinear.free}&rdquo;</span>
                     </div>
                   </div>
                 </div>
 
                 <div className="pt-2 border-t border-black/[0.06] dark:border-white/[0.08]">
-                  <h4 className="text-[12px] font-semibold uppercase tracking-wider text-[#7a7a7a] mb-3">
+                  <h4 className="text-[11px] sm:text-[12px] font-semibold uppercase tracking-wider text-[#7a7a7a] mb-2.5">
                     Daftar Morfem
                   </h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                     {analysis.tokens.map((tok, i) => (
-                      <div key={i} className="p-4 border border-black/[0.06] dark:border-white/[0.08] rounded-[14px] bg-[#f5f5f7] dark:bg-black/30">
-                        <div className="flex items-center justify-between mb-1.5">
-                          <span className="font-semibold text-[#1d1d1f] dark:text-white text-[15px]">{tok.surface}</span>
-                          <span className="text-[11px] bg-white dark:bg-[#272729] text-[#7a7a7a] px-2 py-0.5 rounded-full border border-black/[0.06] dark:border-white/[0.08] font-mono">
+                      <div key={i} className="p-3 sm:p-4 border border-black/[0.06] dark:border-white/[0.08] rounded-[12px] sm:rounded-[14px] bg-[#f5f5f7] dark:bg-black/30">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="font-semibold text-[#1d1d1f] dark:text-white text-[14px] sm:text-[15px]">{tok.surface}</span>
+                          <span className="text-[10px] bg-white dark:bg-[#272729] text-[#7a7a7a] px-2 py-0.5 rounded-full border border-black/[0.06] dark:border-white/[0.08] font-mono">
                             {tok.pos || "kata"}
                           </span>
                         </div>
-                        <div className="text-[13px] text-[#7a7a7a] dark:text-[#a1a1a6] space-y-0.5">
-                          <div>Lema dasar: <span className="text-[#1d1d1f] dark:text-white">{tok.lemma || tok.surface}</span></div>
+                        <div className="text-[12px] sm:text-[13px] text-[#7a7a7a] dark:text-[#a1a1a6] space-y-0.5">
+                          <div>Lema: <span className="text-[#1d1d1f] dark:text-white">{tok.lemma || tok.surface}</span></div>
                           <div>Morfem: <span className="text-[#1d1d1f] dark:text-white">{tok.morphemes.map((m) => `${m.form} (${m.gloss})`).join(" + ")}</span></div>
                         </div>
                       </div>
@@ -679,11 +685,11 @@ export function Translator() {
             {activeTab === "culture" && (
               <div className="space-y-4">
                 {analysis.notes.length > 0 ? (
-                  <div className="space-y-3">
+                  <div className="space-y-2.5">
                     {analysis.notes.map((note, nIdx) => (
                       <div
                         key={nIdx}
-                        className="p-4 rounded-[14px] border border-black/[0.06] dark:border-white/[0.08] bg-[#f5f5f7] dark:bg-black/30 text-[14px] flex items-start gap-3"
+                        className="p-3.5 sm:p-4 rounded-[12px] sm:rounded-[14px] border border-black/[0.06] dark:border-white/[0.08] bg-[#f5f5f7] dark:bg-black/30 text-[13px] sm:text-[14px] flex items-start gap-2.5 sm:gap-3"
                       >
                         {note.kind === "warning" ? (
                           <AlertCircle className="w-4 h-4 text-[#0066cc] dark:text-[#2997ff] mt-0.5 shrink-0" />
@@ -691,25 +697,25 @@ export function Translator() {
                           <BookOpen className="w-4 h-4 text-[#0066cc] dark:text-[#2997ff] mt-0.5 shrink-0" />
                         )}
                         <div className="space-y-0.5">
-                          <div className="font-medium text-[#1d1d1f] dark:text-white text-[14px]">
+                          <div className="font-medium text-[#1d1d1f] dark:text-white text-[13px] sm:text-[14px]">
                             {note.kind === "culture"
                               ? "Catatan Budaya"
                               : note.kind === "morphology"
                               ? "Analisis Morfologi"
                               : "Pemberitahuan"}
                           </div>
-                          <p className="text-[13px] text-[#7a7a7a] dark:text-[#a1a1a6] leading-relaxed">{note.text}</p>
+                          <p className="text-[12px] sm:text-[13px] text-[#7a7a7a] dark:text-[#a1a1a6] leading-relaxed">{note.text}</p>
                         </div>
                       </div>
                     ))}
                   </div>
                 ) : (
-                  <p className="text-[14px] text-[#7a7a7a] italic">
+                  <p className="text-[13px] sm:text-[14px] text-[#7a7a7a] italic">
                     Belum ada catatan budaya khusus untuk entri ini.
                   </p>
                 )}
 
-                <div className="pt-3 border-t border-black/[0.06] dark:border-white/[0.08] text-[12px] text-[#7a7a7a]">
+                <div className="pt-2.5 border-t border-black/[0.06] dark:border-white/[0.08] text-[11px] sm:text-[12px] text-[#7a7a7a]">
                   <span>Rujukan: Kamus Simalungun: Indonesia (Tarigan 1989), Warisan Leluhur (Kozok 1999).</span>
                 </div>
               </div>

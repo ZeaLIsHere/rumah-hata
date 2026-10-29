@@ -200,22 +200,22 @@ export default function LatihanPage() {
   };
 
   return (
-    <div className="py-12 sm:py-20 px-4 sm:px-6 max-w-3xl mx-auto space-y-10">
+    <div className="py-8 sm:py-16 px-3.5 sm:px-6 max-w-3xl mx-auto space-y-6 sm:space-y-10">
       {/* Header */}
-      <div className="text-center space-y-3">
-        <h1 className="text-4xl sm:text-[48px] font-semibold text-[#1d1d1f] dark:text-white tracking-[-0.025em] leading-tight">
+      <div className="text-center space-y-2">
+        <h1 className="text-[28px] sm:text-[40px] lg:text-[48px] font-semibold text-[#1d1d1f] dark:text-white tracking-[-0.025em] leading-tight">
           Latihan Interaktif
         </h1>
-        <p className="text-[17px] text-[#7a7a7a] dark:text-[#a1a1a6]">
+        <p className="text-[14px] sm:text-[17px] text-[#7a7a7a] dark:text-[#a1a1a6]">
           Uji pemahaman membaca aksara, kaidah ortografis, dan falsafah bahasa Simalungun.
         </p>
       </div>
 
       {!quizFinished ? (
-        <div className="bg-[#f5f5f7] dark:bg-[#161617] rounded-[24px] border border-black/[0.06] dark:border-white/[0.08] p-6 sm:p-8 space-y-6 transition-colors duration-200">
+        <div className="bg-[#f5f5f7] dark:bg-[#161617] rounded-[20px] sm:rounded-[24px] border border-black/[0.06] dark:border-white/[0.08] p-4 sm:p-8 space-y-5 transition-colors duration-200">
           {/* Progress bar */}
-          <div className="space-y-2">
-            <div className="flex justify-between text-[13px] text-[#7a7a7a] font-normal">
+          <div className="space-y-1.5">
+            <div className="flex justify-between text-[12px] sm:text-[13px] text-[#7a7a7a] font-normal">
               <span>Pertanyaan {currentIndex + 1} dari {questions.length}</span>
               <span>Skor: {score}</span>
             </div>
@@ -228,18 +228,18 @@ export default function LatihanPage() {
           </div>
 
           {/* Question Box inside white card */}
-          <div className="bg-white dark:bg-[#272729] p-6 rounded-[18px] border border-black/[0.06] dark:border-white/[0.08] space-y-3">
-            <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-[#f5f5f7] dark:bg-black/30 text-[#7a7a7a] inline-block border border-black/[0.04] dark:border-white/[0.06]">
+          <div className="bg-white dark:bg-[#272729] p-4 sm:p-6 rounded-[16px] sm:rounded-[18px] border border-black/[0.06] dark:border-white/[0.08] space-y-2.5">
+            <span className="text-[10px] sm:text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#f5f5f7] dark:bg-black/30 text-[#7a7a7a] inline-block border border-black/[0.04] dark:border-white/[0.06]">
               {currentQ.category}
             </span>
-            <h2 className="text-[19px] sm:text-[21px] font-semibold text-[#1d1d1f] dark:text-white leading-snug">
+            <h2 className="text-[16px] sm:text-[20px] font-semibold text-[#1d1d1f] dark:text-white leading-snug">
               {currentQ.prompt}
             </h2>
 
             {/* Optional Glyph display */}
             {currentQ.glyphPrompt && (
-              <div className="py-6 px-4 bg-[#f5f5f7] dark:bg-[#161617] rounded-[14px] text-center border border-black/[0.04] dark:border-white/[0.06]">
-                <span className="font-aksara text-4xl sm:text-5xl text-[#0066cc] dark:text-[#2997ff] tracking-wider select-all">
+              <div className="py-4 sm:py-6 px-3 sm:px-4 bg-[#f5f5f7] dark:bg-[#161617] rounded-[12px] sm:rounded-[14px] text-center border border-black/[0.04] dark:border-white/[0.06]">
+                <span className="font-aksara text-3xl sm:text-5xl text-[#0066cc] dark:text-[#2997ff] tracking-wider select-all">
                   {currentQ.glyphPrompt}
                 </span>
               </div>
@@ -247,7 +247,7 @@ export default function LatihanPage() {
           </div>
 
           {/* Options Grid */}
-          <div className="space-y-2.5">
+          <div className="space-y-2 sm:space-y-2.5">
             {currentQ.options.map((opt, idx) => {
               let optStyle = "bg-white dark:bg-[#272729] border-black/[0.06] dark:border-white/[0.08] text-[#1d1d1f] dark:text-white hover:border-black/20 dark:hover:border-white/20";
 
@@ -269,21 +269,21 @@ export default function LatihanPage() {
                   type="button"
                   disabled={isAnswered}
                   onClick={() => handleSelect(idx)}
-                  className={`w-full p-4 rounded-[14px] border text-left text-[15px] sm:text-[16px] transition flex items-center justify-between gap-3 active:scale-[0.99] duration-150 ${optStyle}`}
+                  className={`w-full p-3 sm:p-4 rounded-[12px] sm:rounded-[14px] border text-left text-[14px] sm:text-[16px] transition-all flex items-center justify-between gap-2.5 active:scale-[0.98] duration-150 ${optStyle}`}
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="w-7 h-7 rounded-full bg-[#f5f5f7] dark:bg-black/30 text-[#7a7a7a] text-[12px] font-semibold flex items-center justify-center shrink-0 border border-black/[0.04] dark:border-white/[0.06]">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <span className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#f5f5f7] dark:bg-black/30 text-[#7a7a7a] text-[11px] sm:text-[12px] font-semibold flex items-center justify-center shrink-0 border border-black/[0.04] dark:border-white/[0.06]">
                       {optionLetter}
                     </span>
-                    <span className={opt.startsWith("\u1BC0") || (opt.length <= 4 && /[\u1BC0-\u1BFF]/.test(opt)) ? "font-aksara text-2xl" : ""}>
+                    <span className={`break-words ${opt.startsWith("\u1BC0") || (opt.length <= 4 && /[\u1BC0-\u1BFF]/.test(opt)) ? "font-aksara text-xl sm:text-2xl" : ""}`}>
                       {opt}
                     </span>
                   </div>
                   {isAnswered && idx === currentQ.correctIndex && (
-                    <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
                   )}
                   {isAnswered && idx === selectedOption && idx !== currentQ.correctIndex && (
-                    <XCircle className="w-5 h-5 text-rose-600 dark:text-rose-400 shrink-0" />
+                    <XCircle className="w-4 h-4 sm:w-5 sm:h-5 text-rose-600 dark:text-rose-400 shrink-0" />
                   )}
                 </button>
               );
@@ -292,8 +292,8 @@ export default function LatihanPage() {
 
           {/* Explanation Box */}
           {isAnswered && (
-            <div className="p-5 rounded-[16px] bg-white dark:bg-[#272729] border border-black/[0.06] dark:border-white/[0.08] text-[14px] text-[#1d1d1f] dark:text-[#f5f5f7] space-y-1 animate-fadeIn">
-              <div className="font-semibold text-[15px] flex items-center gap-1.5">
+            <div className="p-4 sm:p-5 rounded-[14px] sm:rounded-[16px] bg-white dark:bg-[#272729] border border-black/[0.06] dark:border-white/[0.08] text-[13px] sm:text-[14px] text-[#1d1d1f] dark:text-[#f5f5f7] space-y-1 animate-fadeIn">
+              <div className="font-semibold text-[14px] sm:text-[15px] flex items-center gap-1.5">
                 {selectedOption === currentQ.correctIndex ? (
                   <span className="text-emerald-600 dark:text-emerald-400">Tepat sekali</span>
                 ) : (
@@ -301,44 +301,44 @@ export default function LatihanPage() {
                 )}
                 <span>&middot; Penjelasan:</span>
               </div>
-              <p className="leading-relaxed text-[#7a7a7a] dark:text-[#a1a1a6] text-[13px]">{currentQ.explanation}</p>
+              <p className="leading-relaxed text-[#7a7a7a] dark:text-[#a1a1a6] text-[12px] sm:text-[13px]">{currentQ.explanation}</p>
             </div>
           )}
 
           {/* Next Button */}
           {isAnswered && (
-            <div className="flex justify-end pt-2">
+            <div className="flex justify-end pt-1">
               <button
                 type="button"
                 onClick={handleNext}
-                className="px-6 py-2.5 rounded-full bg-[#0066cc] hover:bg-[#0071e3] text-white text-[14px] font-normal transition duration-200 flex items-center gap-2 active:scale-95"
+                className="px-5 sm:px-6 py-2 sm:py-2.5 rounded-full bg-[#0066cc] hover:bg-[#0071e3] text-white text-[13px] sm:text-[14px] font-normal transition duration-200 flex items-center gap-1.5 active:scale-95 shadow-2xs"
               >
                 <span>{currentIndex + 1 === questions.length ? "Lihat Skor" : "Lanjut"}</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>
           )}
         </div>
       ) : (
         /* Quiz Completed Screen */
-        <div className="bg-[#f5f5f7] dark:bg-[#161617] rounded-[24px] border border-black/[0.06] dark:border-white/[0.08] p-8 text-center space-y-6 transition-colors duration-200">
-          <div className="w-14 h-14 rounded-full bg-white dark:bg-[#272729] text-[#0066cc] dark:text-[#2997ff] flex items-center justify-center mx-auto border border-black/[0.06] dark:border-white/[0.08]">
-            <Award className="w-7 h-7" />
+        <div className="bg-[#f5f5f7] dark:bg-[#161617] rounded-[20px] sm:rounded-[24px] border border-black/[0.06] dark:border-white/[0.08] p-6 sm:p-8 text-center space-y-5 transition-colors duration-200">
+          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white dark:bg-[#272729] text-[#0066cc] dark:text-[#2997ff] flex items-center justify-center mx-auto border border-black/[0.06] dark:border-white/[0.08]">
+            <Award className="w-6 h-6 sm:w-7 sm:h-7" />
           </div>
 
-          <div className="space-y-1.5">
-            <h2 className="text-2xl font-semibold text-[#1d1d1f] dark:text-white">Latihan Selesai</h2>
-            <p className="text-[#7a7a7a] text-[15px]">
+          <div className="space-y-1">
+            <h2 className="text-xl sm:text-2xl font-semibold text-[#1d1d1f] dark:text-white">Latihan Selesai</h2>
+            <p className="text-[#7a7a7a] text-[13px] sm:text-[15px]">
               Anda telah menyelesaikan {questions.length} pertanyaan.
             </p>
           </div>
 
-          <div className="py-6 px-6 bg-white dark:bg-[#272729] rounded-[18px] border border-black/[0.06] dark:border-white/[0.08] max-w-xs mx-auto">
-            <div className="text-[12px] text-[#7a7a7a] uppercase font-semibold tracking-wider mb-1">Skor Akhir</div>
-            <div className="text-4xl font-semibold text-[#0066cc] dark:text-[#2997ff]">
+          <div className="py-5 px-5 bg-white dark:bg-[#272729] rounded-[16px] sm:rounded-[18px] border border-black/[0.06] dark:border-white/[0.08] max-w-xs mx-auto">
+            <div className="text-[11px] sm:text-[12px] text-[#7a7a7a] uppercase font-semibold tracking-wider mb-1">Skor Akhir</div>
+            <div className="text-3xl sm:text-4xl font-semibold text-[#0066cc] dark:text-[#2997ff]">
               {score} / {questions.length}
             </div>
-            <p className="text-[13px] text-[#7a7a7a] mt-2">
+            <p className="text-[12px] text-[#7a7a7a] mt-1.5">
               {score >= 8
                 ? "Luar biasa! Pemahaman Anda sangat baik."
                 : "Bagus! Terus berlatih untuk mengasah penguasaan kaidah ortografi."}
@@ -349,9 +349,9 @@ export default function LatihanPage() {
             <button
               type="button"
               onClick={restartQuiz}
-              className="px-6 py-2.5 rounded-full bg-[#0066cc] hover:bg-[#0071e3] text-white text-[14px] font-normal transition duration-200 flex items-center gap-2 active:scale-95"
+              className="px-5 sm:px-6 py-2 sm:py-2.5 rounded-full bg-[#0066cc] hover:bg-[#0071e3] text-white text-[13px] sm:text-[14px] font-normal transition duration-200 flex items-center gap-1.5 active:scale-95 shadow-2xs"
             >
-              <RotateCcw className="w-4 h-4" />
+              <RotateCcw className="w-3.5 h-3.5" />
               <span>Ulangi Kuis</span>
             </button>
           </div>
