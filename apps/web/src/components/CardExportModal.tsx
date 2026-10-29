@@ -120,8 +120,8 @@ export function CardExportModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/50 dark:bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-white dark:bg-[#161617] rounded-[24px] max-w-2xl w-full border border-black/[0.08] dark:border-white/[0.1] shadow-2xl overflow-hidden space-y-4 p-6 sm:p-8 animate-fadeIn transition-colors duration-200">
+    <div className="fixed inset-0 z-50 bg-black/50 dark:bg-black/70 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+      <div className="bg-white dark:bg-[#161617] rounded-[24px] max-w-2xl w-full border border-black/[0.08] dark:border-white/[0.1] shadow-2xl overflow-hidden space-y-4 p-4 sm:p-6 md:p-8 animate-fadeIn transition-colors duration-200">
         {/* Modal Header */}
         <div className="flex items-center justify-between pb-3 border-b border-black/[0.06] dark:border-white/[0.08]">
           <div className="flex items-center gap-2.5">

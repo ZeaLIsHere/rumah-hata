@@ -35,7 +35,7 @@ export function WritingCanvas() {
   const updateDimensions = useCallback(() => {
     if (!containerRef.current) return;
     const containerWidth = containerRef.current.clientWidth;
-    const dim = Math.min(360, Math.max(260, containerWidth - 32));
+    const dim = Math.min(360, Math.max(220, containerWidth - 24));
     setCanvasDim(dim);
   }, []);
 

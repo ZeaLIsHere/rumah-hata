@@ -186,19 +186,19 @@ export function Translator() {
       {/* Apple Configurator Container */}
       <div className="bg-[#f5f5f7] dark:bg-[#161617] rounded-[24px] p-4 sm:p-6 border border-black/[0.06] dark:border-white/[0.08] transition-colors duration-200">
         {/* Top Centered Language Selector Bar */}
-        <div className="flex items-center justify-center gap-2 sm:gap-3 pb-4">
+        <div className="flex items-center justify-center gap-1.5 sm:gap-3 pb-4 max-w-full">
           {/* Source Language Dropdown */}
-          <div className="relative" ref={sourceRef}>
+          <div className="relative shrink min-w-0" ref={sourceRef}>
             <button
               type="button"
               onClick={() => {
                 setIsSourceOpen(!isSourceOpen);
                 setIsTargetOpen(false);
               }}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-full text-[14px] font-medium text-[#1d1d1f] dark:text-[#f5f5f7] bg-white dark:bg-[#272729] border border-black/[0.06] dark:border-white/[0.08] hover:border-black/20 dark:hover:border-white/20 transition duration-200"
+              className="flex items-center gap-1 sm:gap-1.5 px-3 sm:px-4 py-2 rounded-full text-[13px] sm:text-[14px] font-medium text-[#1d1d1f] dark:text-[#f5f5f7] bg-white dark:bg-[#272729] border border-black/[0.06] dark:border-white/[0.08] hover:border-black/20 dark:hover:border-white/20 transition duration-200"
             >
-              <span>{sourceLabel}</span>
-              <ChevronDown className="w-3.5 h-3.5 text-[#7a7a7a]" />
+              <span className="truncate max-w-[100px] sm:max-w-none">{sourceLabel}</span>
+              <ChevronDown className="w-3.5 h-3.5 text-[#7a7a7a] shrink-0" />
             </button>
 
             {isSourceOpen && (
@@ -239,24 +239,24 @@ export function Translator() {
           <button
             type="button"
             onClick={swapDirection}
-            className="w-10 h-10 rounded-full flex items-center justify-center text-[#1d1d1f] dark:text-[#f5f5f7] bg-white dark:bg-[#272729] border border-black/[0.06] dark:border-white/[0.08] hover:border-black/20 dark:hover:border-white/20 active:scale-95 transition duration-200"
+            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shrink-0 text-[#1d1d1f] dark:text-[#f5f5f7] bg-white dark:bg-[#272729] border border-black/[0.06] dark:border-white/[0.08] hover:border-black/20 dark:hover:border-white/20 active:scale-95 transition duration-200"
             title="Tukar Bahasa"
           >
             <ArrowRightLeft className="w-3.5 h-3.5" />
           </button>
 
           {/* Target Language Dropdown */}
-          <div className="relative" ref={targetRef}>
+          <div className="relative shrink min-w-0" ref={targetRef}>
             <button
               type="button"
               onClick={() => {
                 setIsTargetOpen(!isTargetOpen);
                 setIsSourceOpen(false);
               }}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-full text-[14px] font-medium text-[#1d1d1f] dark:text-[#f5f5f7] bg-white dark:bg-[#272729] border border-black/[0.06] dark:border-white/[0.08] hover:border-black/20 dark:hover:border-white/20 transition duration-200"
+              className="flex items-center gap-1 sm:gap-1.5 px-3 sm:px-4 py-2 rounded-full text-[13px] sm:text-[14px] font-medium text-[#1d1d1f] dark:text-[#f5f5f7] bg-white dark:bg-[#272729] border border-black/[0.06] dark:border-white/[0.08] hover:border-black/20 dark:hover:border-white/20 transition duration-200"
             >
-              <span>{targetLabel}</span>
-              <ChevronDown className="w-3.5 h-3.5 text-[#7a7a7a]" />
+              <span className="truncate max-w-[110px] sm:max-w-none">{targetLabel}</span>
+              <ChevronDown className="w-3.5 h-3.5 text-[#7a7a7a] shrink-0" />
             </button>
 
             {isTargetOpen && (
@@ -326,21 +326,21 @@ export function Translator() {
         </div>
 
         {/* Two Separate White Cards Grid (Apple Store Utility Card: rounded 18px) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 items-stretch">
           {/* Left Card: Input Box */}
-          <div className="bg-white dark:bg-[#272729] rounded-[18px] p-6 border border-black/[0.06] dark:border-white/[0.08] flex flex-col justify-between h-[250px] sm:h-[280px] transition-colors duration-200">
+          <div className="bg-white dark:bg-[#272729] rounded-[18px] p-4 sm:p-6 border border-black/[0.06] dark:border-white/[0.08] flex flex-col justify-between min-h-[220px] sm:min-h-[260px] h-auto transition-colors duration-200">
             <div className="flex-1 flex flex-col overflow-y-auto pr-1">
               <textarea
                 value={inputText}
                 maxLength={500}
                 onChange={(e) => setInputText(e.target.value)}
                 placeholder="Ketik atau tempelkan teks yang akan diterjemahkan"
-                className="w-full flex-1 text-[17px] text-[#1d1d1f] dark:text-white bg-transparent resize-none border-none focus:outline-none placeholder:text-[#7a7a7a] leading-relaxed tracking-[-0.015em]"
+                className="w-full flex-1 text-[16px] sm:text-[17px] text-[#1d1d1f] dark:text-white bg-transparent resize-none border-none focus:outline-none placeholder:text-[#7a7a7a] leading-relaxed tracking-[-0.015em]"
               />
             </div>
 
             {/* Bottom Input Action Row */}
-            <div className="h-8 flex items-center justify-between text-[12px] text-[#7a7a7a] pt-1">
+            <div className="min-h-8 flex items-center justify-between text-[12px] text-[#7a7a7a] pt-2">
               {inputText ? (
                 <button
                   type="button"
@@ -358,32 +358,32 @@ export function Translator() {
           </div>
 
           {/* Right Card: Output Box */}
-          <div className="bg-white dark:bg-[#272729] rounded-[18px] p-6 border border-black/[0.06] dark:border-white/[0.08] flex flex-col justify-between h-[250px] sm:h-[280px] transition-colors duration-200">
+          <div className="bg-white dark:bg-[#272729] rounded-[18px] p-4 sm:p-6 border border-black/[0.06] dark:border-white/[0.08] flex flex-col justify-between min-h-[220px] sm:min-h-[260px] h-auto transition-colors duration-200">
             {hasOutput ? (
               <>
                 <div className="flex-1 flex flex-col space-y-3 overflow-y-auto pr-1">
                   {/* Aksara Output */}
                   {targetLang === "aksara" ? (
-                    <div className="font-aksara text-3xl sm:text-4xl text-[#1d1d1f] dark:text-white tracking-wider leading-relaxed select-all">
+                    <div className="font-aksara text-2xl sm:text-4xl text-[#1d1d1f] dark:text-white tracking-wider leading-relaxed select-all break-words">
                       {currentAksara}
                     </div>
                   ) : (
                     /* Clean Latin Text Output */
-                    <div className="text-[17px] sm:text-[19px] font-normal text-[#1d1d1f] dark:text-white leading-relaxed select-all tracking-[-0.015em]">
+                    <div className="text-[16px] sm:text-[19px] font-normal text-[#1d1d1f] dark:text-white leading-relaxed select-all tracking-[-0.015em] break-words">
                       {currentTranslation}
                     </div>
                   )}
 
                   {/* AI Explanation if active */}
                   {aiResult?.explanation && (
-                    <p className="text-[12px] text-[#7a7a7a] italic">
+                    <p className="text-[12px] text-[#7a7a7a] italic break-words">
                       {aiResult.explanation}
                     </p>
                   )}
                 </div>
 
                 {/* Bottom Output Action Row */}
-                <div className="h-8 flex items-center justify-between text-[12px] text-[#7a7a7a] pt-1">
+                <div className="min-h-8 flex flex-wrap items-center justify-between text-[12px] text-[#7a7a7a] pt-2 gap-1.5">
                   <div className="flex items-center gap-1.5 text-[#7a7a7a]">
                     <ShieldCheck className="w-3.5 h-3.5 text-[#0066cc] dark:text-[#2997ff] shrink-0" />
                     <span className="font-normal text-[#1d1d1f] dark:text-[#f5f5f7]">
@@ -464,8 +464,8 @@ export function Translator() {
       {/* Lensa Linguistik Container */}
       {currentAksara && (
         <section id="lensa-linguistik" className="bg-[#f5f5f7] dark:bg-[#161617] rounded-[24px] p-4 sm:p-6 border border-black/[0.06] dark:border-white/[0.08] transition-colors duration-200">
-          {/* Lens Tabs: Pill Navigation */}
-          <div className="flex space-x-2 overflow-x-auto pb-4">
+          {/* Lens Tabs: Pill Navigation with smooth mobile swiping */}
+          <div className="flex space-x-2 overflow-x-auto pb-4 no-scrollbar">
             <button
               type="button"
               onClick={() => setActiveTab("translit")}
