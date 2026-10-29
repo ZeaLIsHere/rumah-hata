@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   BookOpen,
@@ -55,9 +56,16 @@ export function Navbar() {
           <div className="flex items-center justify-between h-12 sm:h-14">
             {/* Logo / Brand */}
             <Link href="/" className="flex items-center space-x-2.5 group">
-              <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#1d1d1f] dark:bg-white text-white dark:text-[#1d1d1f] flex items-center justify-center font-bold text-sm sm:text-base font-aksara transition-transform group-hover:scale-95 duration-200">
-                ᯃ
-              </span>
+              <div className="w-8 h-8 sm:w-9 sm:h-9 relative flex items-center justify-center transition-transform group-hover:scale-95 duration-200">
+                <Image
+                  src="/logo.svg"
+                  alt="Logo Rumah Hata"
+                  width={36}
+                  height={36}
+                  className="w-full h-full object-contain"
+                  priority
+                />
+              </div>
               <div className="flex items-baseline gap-1.5">
                 <span className="font-semibold text-base sm:text-lg text-[#1d1d1f] dark:text-white tracking-tight">
                   Rumah Hata
@@ -139,9 +147,15 @@ export function Navbar() {
           {/* Drawer Header */}
           <div className="flex items-center justify-between h-12 px-4 border-b border-black/[0.06] dark:border-white/[0.08] shrink-0">
             <div className="flex items-center space-x-2.5">
-              <span className="w-7 h-7 rounded-full bg-[#1d1d1f] dark:bg-white text-white dark:text-[#1d1d1f] flex items-center justify-center font-bold text-sm font-aksara">
-                ᯃ
-              </span>
+              <div className="w-7 h-7 relative flex items-center justify-center">
+                <Image
+                  src="/logo.svg"
+                  alt="Logo Rumah Hata"
+                  width={28}
+                  height={28}
+                  className="w-full h-full object-contain"
+                />
+              </div>
               <span className="font-semibold text-base text-[#1d1d1f] dark:text-white tracking-tight">
                 Rumah Hata
               </span>
