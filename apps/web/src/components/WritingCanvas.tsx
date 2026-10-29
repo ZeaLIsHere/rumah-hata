@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
-import { RotateCcw, Check, Sparkles, PenTool } from "lucide-react";
+import { RotateCcw, Check, Sparkles, AlertCircle, CheckCircle2 } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
 
 interface PracticeLetter {
@@ -21,13 +21,22 @@ const PRACTICE_LETTERS: PracticeLetter[] = [
   { char: "\u1BDF", latin: "la", name: "La (ᯟ)" }
 ];
 
+interface EvaluationResult {
+  score: number;
+  coverage: number;
+  precision: number;
+  status: "success" | "warning" | "error";
+  title: string;
+  feedback: string;
+}
+
 export function WritingCanvas() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [selectedLetter, setSelectedLetter] = useState<PracticeLetter>(PRACTICE_LETTERS[0]);
   const [isDrawing, setIsDrawing] = useState(false);
-  const [strokeCount, setStrokeCount] = useState(0);
-  const [evaluation, setEvaluation] = useState<string | null>(null);
+  const [strokes, setStrokes] = useState<Array<Array<{ x: number; y: number }>>>([]);
+  const [evaluation, setEvaluation] = useState<EvaluationResult | null>(null);
   const [canvasDim, setCanvasDim] = useState<number>(320);
   const { theme } = useTheme();
 
@@ -45,8 +54,9 @@ export function WritingCanvas() {
     return () => window.removeEventListener("resize", updateDimensions);
   }, [updateDimensions]);
 
-  const drawTemplate = useCallback(
-    (dim: number) => {
+  // Draw background, grid, template glyph, and any existing user strokes
+  const redrawAll = useCallback(
+    (dim: number, currentStrokes: Array<Array<{ x: number; y: number }>>) => {
       const canvas = canvasRef.current;
       if (!canvas) return;
       const ctx = canvas.getContext("2d");
@@ -57,11 +67,11 @@ export function WritingCanvas() {
 
       const isDark = document.documentElement.classList.contains("dark");
 
-      // Background
+      // 1. Background
       ctx.fillStyle = isDark ? "#1d1d1f" : "#ffffff";
       ctx.fillRect(0, 0, dim, dim);
 
-      // Guide grid
+      // 2. Guide grid lines
       ctx.strokeStyle = isDark ? "#2a2a2c" : "#f0f0f0";
       ctx.lineWidth = 1;
       ctx.setLineDash([4, 4]);
@@ -74,27 +84,53 @@ export function WritingCanvas() {
       ctx.stroke();
       ctx.setLineDash([]);
 
-      // Faint template glyph
+      // 3. Faint template reference glyph
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      const fontSize = Math.round(dim * 0.5);
+      const fontSize = Math.round(dim * 0.52);
       ctx.font = `${fontSize}px 'Noto Sans Batak', 'Plus Jakarta Sans', sans-serif`;
       ctx.fillStyle = isDark ? "#333336" : "#e0e0e0";
       ctx.fillText(selectedLetter.char, dim / 2, dim / 2);
+
+      // 4. Redraw user strokes
+      const lineWidth = Math.max(6, Math.round(dim / 35));
+      ctx.strokeStyle = "#0066cc";
+      ctx.lineWidth = lineWidth;
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+
+      for (const stroke of currentStrokes) {
+        if (stroke.length < 2) continue;
+        ctx.beginPath();
+        ctx.moveTo(stroke[0].x, stroke[0].y);
+        for (let i = 1; i < stroke.length; i++) {
+          ctx.lineTo(stroke[i].x, stroke[i].y);
+        }
+        ctx.stroke();
+      }
     },
     [selectedLetter]
   );
 
   useEffect(() => {
-    drawTemplate(canvasDim);
-    setStrokeCount(0);
+    redrawAll(canvasDim, strokes);
+  }, [canvasDim, drawTemplateCheck, redrawAll, strokes, theme]);
+
+  function drawTemplateCheck() {
+    // helper to trigger redraw
+  }
+
+  // Reset when user picks another letter
+  useEffect(() => {
+    setStrokes([]);
     setEvaluation(null);
-  }, [selectedLetter, canvasDim, drawTemplate, theme]);
+    redrawAll(canvasDim, []);
+  }, [selectedLetter, canvasDim, redrawAll]);
 
   const resetCanvas = () => {
-    drawTemplate(canvasDim);
-    setStrokeCount(0);
+    setStrokes([]);
     setEvaluation(null);
+    redrawAll(canvasDim, []);
   };
 
   const startDrawing = (e: React.PointerEvent<HTMLCanvasElement>) => {
@@ -105,11 +141,13 @@ export function WritingCanvas() {
 
     canvas.setPointerCapture(e.pointerId);
     setIsDrawing(true);
-    setStrokeCount((prev) => prev + 1);
 
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
+
+    const newStroke = [{ x, y }];
+    setStrokes((prev) => [...prev, newStroke]);
 
     ctx.strokeStyle = "#0066cc";
     ctx.lineWidth = Math.max(6, Math.round(canvasDim / 35));
@@ -131,6 +169,14 @@ export function WritingCanvas() {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
+    setStrokes((prev) => {
+      if (prev.length === 0) return [[{ x, y }]];
+      const updated = [...prev];
+      const current = [...updated[updated.length - 1], { x, y }];
+      updated[updated.length - 1] = current;
+      return updated;
+    });
+
     ctx.lineTo(x, y);
     ctx.stroke();
   };
@@ -144,15 +190,203 @@ export function WritingCanvas() {
     setIsDrawing(false);
   };
 
+  // Rigorous Pixel Overlap, Coverage & Precision Verification
   const evaluateDrawing = () => {
-    if (strokeCount === 0) {
-      setEvaluation("Kanvas masih kosong. Goreskan jari atau kursor mengikuti bayangan aksara.");
+    if (strokes.length === 0 || strokes.every((s) => s.length < 2)) {
+      setEvaluation({
+        score: 0,
+        coverage: 0,
+        precision: 0,
+        status: "error",
+        title: "Kanvas Masih Kosong",
+        feedback: "Belum ada goresan. Goreskan jari atau stylus mengikuti bayangan aksara."
+      });
       return;
     }
-    if (strokeCount < 2) {
-      setEvaluation("Bagus! Teruskan latihan untuk membentuk kelenturan goresan alami.");
+
+    const GRID = 100; // 100x100 analysis grid
+    const scaleFactor = GRID / canvasDim;
+
+    // 1. Offscreen Reference Canvas (Render the target glyph alone)
+    const refCanvas = document.createElement("canvas");
+    refCanvas.width = GRID;
+    refCanvas.height = GRID;
+    const refCtx = refCanvas.getContext("2d");
+    if (!refCtx) return;
+
+    refCtx.fillStyle = "#ffffff";
+    refCtx.fillRect(0, 0, GRID, GRID);
+    refCtx.textAlign = "center";
+    refCtx.textBaseline = "middle";
+    const refFontSize = Math.round(GRID * 0.52);
+    refCtx.font = `${refFontSize}px 'Noto Sans Batak', 'Plus Jakarta Sans', sans-serif`;
+    refCtx.fillStyle = "#000000";
+    refCtx.fillText(selectedLetter.char, GRID / 2, GRID / 2);
+
+    const refData = refCtx.getImageData(0, 0, GRID, GRID).data;
+    const refGrid = new Uint8Array(GRID * GRID);
+    let refPixelCount = 0;
+
+    for (let i = 0; i < GRID * GRID; i++) {
+      // Invert check: black pixel = glyph ink
+      if (refData[i * 4] < 200) {
+        refGrid[i] = 1;
+        refPixelCount++;
+      }
+    }
+
+    // 2. Offscreen User Strokes Canvas (Render user strokes alone)
+    const userCanvas = document.createElement("canvas");
+    userCanvas.width = GRID;
+    userCanvas.height = GRID;
+    const userCtx = userCanvas.getContext("2d");
+    if (!userCtx) return;
+
+    userCtx.fillStyle = "#ffffff";
+    userCtx.fillRect(0, 0, GRID, GRID);
+    userCtx.strokeStyle = "#000000";
+    userCtx.lineWidth = Math.max(4, Math.round(GRID / 30));
+    userCtx.lineCap = "round";
+    userCtx.lineJoin = "round";
+
+    for (const stroke of strokes) {
+      if (stroke.length < 2) continue;
+      userCtx.beginPath();
+      userCtx.moveTo(stroke[0].x * scaleFactor, stroke[0].y * scaleFactor);
+      for (let i = 1; i < stroke.length; i++) {
+        userCtx.lineTo(stroke[i].x * scaleFactor, stroke[i].y * scaleFactor);
+      }
+      userCtx.stroke();
+    }
+
+    const userData = userCtx.getImageData(0, 0, GRID, GRID).data;
+    const userGrid = new Uint8Array(GRID * GRID);
+    let userPixelCount = 0;
+
+    for (let i = 0; i < GRID * GRID; i++) {
+      if (userData[i * 4] < 200) {
+        userGrid[i] = 1;
+        userPixelCount++;
+      }
+    }
+
+    if (userPixelCount < 18) {
+      setEvaluation({
+        score: 5,
+        coverage: 5,
+        precision: 10,
+        status: "error",
+        title: "Goresan Terlalu Singkat",
+        feedback: "Goresan baru berupa titik atau coretan pendek. Lengkapi bentuk aksara sepenuhnya."
+      });
+      return;
+    }
+
+    // 3. Compute Coverage (how much of the glyph path is traced within tolerance)
+    const TOLERANCE_RADIUS = 5;
+    let hitRef = 0;
+
+    for (let y = 0; y < GRID; y++) {
+      for (let x = 0; x < GRID; x++) {
+        if (refGrid[y * GRID + x] === 1) {
+          let foundUserNear = false;
+          for (let dy = -TOLERANCE_RADIUS; dy <= TOLERANCE_RADIUS && !foundUserNear; dy++) {
+            for (let dx = -TOLERANCE_RADIUS; dx <= TOLERANCE_RADIUS; dx++) {
+              const ny = y + dy;
+              const nx = x + dx;
+              if (nx >= 0 && nx < GRID && ny >= 0 && ny < GRID) {
+                if (userGrid[ny * GRID + nx] === 1) {
+                  foundUserNear = true;
+                  break;
+                }
+              }
+            }
+          }
+          if (foundUserNear) hitRef++;
+        }
+      }
+    }
+
+    // 4. Compute Precision (how much of user's ink fell on or near the guideline)
+    const GUIDE_TOLERANCE = 6;
+    let validUser = 0;
+
+    for (let y = 0; y < GRID; y++) {
+      for (let x = 0; x < GRID; x++) {
+        if (userGrid[y * GRID + x] === 1) {
+          let onTrack = false;
+          for (let dy = -GUIDE_TOLERANCE; dy <= GUIDE_TOLERANCE && !onTrack; dy++) {
+            for (let dx = -GUIDE_TOLERANCE; dx <= GUIDE_TOLERANCE; dx++) {
+              const ny = y + dy;
+              const nx = x + dx;
+              if (nx >= 0 && nx < GRID && ny >= 0 && ny < GRID) {
+                if (refGrid[ny * GRID + nx] === 1) {
+                  onTrack = true;
+                  break;
+                }
+              }
+            }
+          }
+          if (onTrack) validUser++;
+        }
+      }
+    }
+
+    const coverage = refPixelCount > 0 ? hitRef / refPixelCount : 0;
+    const precision = userPixelCount > 0 ? validUser / userPixelCount : 0;
+
+    // Strict penalization for random scribbling:
+    // If precision < 35%, user scribbled wildly outside the letter!
+    let finalScore = 0;
+    if (precision < 0.35) {
+      finalScore = Math.round(precision * coverage * 100);
     } else {
-      setEvaluation("Bentuk aksara terbentuk dengan baik. Goresan tegas dan proporsional!");
+      finalScore = Math.round((coverage * 0.55 + precision * 0.45) * 100);
+    }
+    finalScore = Math.max(0, Math.min(100, finalScore));
+
+    const covPct = Math.round(coverage * 100);
+    const precPct = Math.round(precision * 100);
+
+    // Pedagogical feedback based on actual metrics
+    if (finalScore >= 75) {
+      setEvaluation({
+        score: finalScore,
+        coverage: covPct,
+        precision: precPct,
+        status: "success",
+        title: "Bentuk Aksara Sangat Tepat!",
+        feedback: `Akurasi goresan mencapai ${finalScore}%. Proporsi dan kelengkapan lekukan aksara '${selectedLetter.latin}' sangat presisi.`
+      });
+    } else if (finalScore >= 45) {
+      if (coverage < 0.5) {
+        setEvaluation({
+          score: finalScore,
+          coverage: covPct,
+          precision: precPct,
+          status: "warning",
+          title: "Bentuk Aksara Belum Lengkap",
+          feedback: `Kelengkapan baru ${covPct}%. Masih ada bagian huruf yang belum tergores. Lengkapi seluruh goresan.`
+        });
+      } else {
+        setEvaluation({
+          score: finalScore,
+          coverage: covPct,
+          precision: precPct,
+          status: "warning",
+          title: "Goresan Cukup Baik",
+          feedback: `Akurasi ${finalScore}%. Bentuk dasar sudah tampak, tetapi beberapa garis melebar ke luar jalur bayangan.`
+        });
+      }
+    } else {
+      setEvaluation({
+        score: finalScore,
+        coverage: covPct,
+        precision: precPct,
+        status: "error",
+        title: "Bentuk Belum Sesuai",
+        feedback: `Akurasi hanya ${finalScore}%. Goresan tidak mengikuti pola aksara '${selectedLetter.latin}'. Coba bersihkan dan ikuti garis panduan secara perlahan.`
+      });
     }
   };
 
@@ -165,7 +399,7 @@ export function WritingCanvas() {
         </div>
 
         {/* Letter picker chips */}
-        <div className="flex items-center gap-1.5 overflow-x-auto max-w-full pb-1">
+        <div className="flex items-center gap-1.5 overflow-x-auto max-w-full pb-1 no-scrollbar">
           {PRACTICE_LETTERS.map((letter) => (
             <button
               key={letter.latin}
@@ -211,7 +445,7 @@ export function WritingCanvas() {
             <button
               type="button"
               onClick={evaluateDrawing}
-              className="px-6 py-2.5 rounded-full bg-[#0066cc] hover:bg-[#0071e3] text-[13px] text-white font-medium transition active:scale-95 flex items-center gap-1.5"
+              className="px-6 py-2.5 rounded-full bg-[#0066cc] hover:bg-[#0071e3] text-[13px] text-white font-medium transition active:scale-95 flex items-center gap-1.5 shadow-2xs"
             >
               <Check className="w-3.5 h-3.5" />
               <span>Cek Goresan</span>
@@ -227,16 +461,58 @@ export function WritingCanvas() {
               <li>Pilih huruf yang ingin dilatih pada bilah di atas.</li>
               <li>Goreskan jari atau stylus mengikuti bayangan aksara.</li>
               <li>Tarik garis dari sisi kiri atas ke kanan bawah.</li>
-              <li>Tekan tombol &ldquo;Cek Goresan&rdquo; untuk memeriksa hasil.</li>
+              <li>Tekan tombol &ldquo;Cek Goresan&rdquo; untuk memeriksa akurasi bentuk.</li>
             </ol>
           </div>
 
           {evaluation && (
-            <div className="p-5 bg-white dark:bg-[#272729] border border-[#0066cc]/30 dark:border-[#2997ff]/30 rounded-[18px] text-[14px] text-[#1d1d1f] dark:text-white flex items-start gap-3 animate-fadeIn">
-              <Sparkles className="w-4 h-4 text-[#0066cc] dark:text-[#2997ff] mt-0.5 shrink-0" />
-              <div>
-                <div className="font-semibold mb-0.5">Umpan Balik:</div>
-                <p className="text-[13px] text-[#7a7a7a] dark:text-[#a1a1a6] leading-relaxed">{evaluation}</p>
+            <div
+              className={`p-5 rounded-[18px] border text-[14px] transition-all duration-200 space-y-2.5 animate-fadeIn ${
+                evaluation.status === "success"
+                  ? "bg-white dark:bg-[#272729] border-emerald-500/40 text-[#1d1d1f] dark:text-white"
+                  : evaluation.status === "warning"
+                  ? "bg-white dark:bg-[#272729] border-amber-500/40 text-[#1d1d1f] dark:text-white"
+                  : "bg-white dark:bg-[#272729] border-rose-500/40 text-[#1d1d1f] dark:text-white"
+              }`}
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  {evaluation.status === "success" ? (
+                    <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                  ) : evaluation.status === "warning" ? (
+                    <Sparkles className="w-5 h-5 text-amber-500 shrink-0" />
+                  ) : (
+                    <AlertCircle className="w-5 h-5 text-rose-600 dark:text-rose-400 shrink-0" />
+                  )}
+                  <span className="font-semibold text-[15px]">{evaluation.title}</span>
+                </div>
+
+                {/* Score Pill Badge */}
+                <span
+                  className={`text-[12px] font-semibold px-2.5 py-0.5 rounded-full border ${
+                    evaluation.status === "success"
+                      ? "bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800"
+                      : evaluation.status === "warning"
+                      ? "bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800"
+                      : "bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800"
+                  }`}
+                >
+                  {evaluation.score}% Akurat
+                </span>
+              </div>
+
+              <p className="text-[13px] text-[#7a7a7a] dark:text-[#a1a1a6] leading-relaxed">
+                {evaluation.feedback}
+              </p>
+
+              {/* Progress metrics */}
+              <div className="pt-2 border-t border-black/[0.04] dark:border-white/[0.06] grid grid-cols-2 gap-2 text-[12px] text-[#7a7a7a]">
+                <div>
+                  Kelengkapan: <span className="font-medium text-[#1d1d1f] dark:text-white">{evaluation.coverage}%</span>
+                </div>
+                <div>
+                  Kerapian Garis: <span className="font-medium text-[#1d1d1f] dark:text-white">{evaluation.precision}%</span>
+                </div>
               </div>
             </div>
           )}
