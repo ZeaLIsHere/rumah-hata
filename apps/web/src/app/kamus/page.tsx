@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { simalungunLexicon } from "@/lib/data";
-import { Search, AlertCircle } from "lucide-react";
+import { Search, AlertCircle, ChevronDown } from "lucide-react";
 
 export default function KamusPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -57,14 +57,34 @@ export default function KamusPage() {
           />
         </div>
 
-        {/* Category Pills with smooth scrolling */}
-        <div className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto pb-1 no-scrollbar justify-start sm:justify-center">
+        {/* Mobile Category Dropdown Selector (sm:hidden) */}
+        <div className="sm:hidden flex items-center justify-between gap-2 px-1">
+          <span className="text-[12px] text-[#7a7a7a]">Kategori:</span>
+          <div className="relative">
+            <select
+              value={selectedPos}
+              onChange={(e) => setSelectedPos(e.target.value)}
+              aria-label="Pilih kategori kelas kata"
+              className="appearance-none bg-[#f5f5f7] dark:bg-[#272729] text-[#1d1d1f] dark:text-[#f5f5f7] text-[12px] font-medium pl-3.5 pr-8 py-1.5 rounded-full border border-black/[0.06] dark:border-white/[0.08] focus:outline-none focus:border-[#0066cc] dark:focus:border-[#2997ff] active:scale-95 transition-all"
+            >
+              {posOptions.map((opt) => (
+                <option key={opt.value} value={opt.value} className="bg-white dark:bg-[#272729] text-[#1d1d1f] dark:text-[#f5f5f7]">
+                  {opt.label}
+                </option>
+              ))}
+            </select>
+            <ChevronDown className="w-3.5 h-3.5 text-[#7a7a7a] absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+          </div>
+        </div>
+
+        {/* Desktop Category Pills (hidden sm:flex) */}
+        <div className="hidden sm:flex items-center gap-1.5 justify-center flex-wrap">
           {posOptions.map((opt) => (
             <button
               key={opt.value}
               type="button"
               onClick={() => setSelectedPos(opt.value)}
-              className={`px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full text-[12px] sm:text-[13px] font-medium whitespace-nowrap transition-all duration-150 active:scale-95 ${
+              className={`px-3.5 py-1.5 rounded-full text-[13px] font-medium whitespace-nowrap transition-all duration-150 active:scale-95 ${
                 selectedPos === opt.value
                   ? "bg-[#0066cc] text-white shadow-2xs"
                   : "bg-[#f5f5f7] dark:bg-[#272729] text-[#7a7a7a] hover:text-[#1d1d1f] dark:hover:text-white"
