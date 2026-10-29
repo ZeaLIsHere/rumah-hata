@@ -331,22 +331,22 @@ export function Translator() {
           </div>
         </div>
 
-        {/* Two Separate White Cards Grid: Side-by-side horizontal (kiri-kanan) on both mobile and desktop */}
-        <div className="grid grid-cols-2 gap-2 sm:gap-4 items-stretch">
+        {/* Two Separate White Cards Grid: Vertically stacked on mobile, side-by-side on desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 items-stretch">
           {/* Left Card: Input Box */}
-          <div className="bg-white dark:bg-[#272729] rounded-[14px] sm:rounded-[18px] p-3 sm:p-6 border border-black/[0.06] dark:border-white/[0.08] flex flex-col justify-between min-h-[170px] sm:min-h-[250px] h-auto transition-colors duration-200">
+          <div className="bg-white dark:bg-[#272729] rounded-[16px] sm:rounded-[18px] p-4 sm:p-6 border border-black/[0.06] dark:border-white/[0.08] flex flex-col justify-between min-h-[180px] sm:min-h-[250px] h-auto transition-colors duration-200">
             <div className="flex-1 flex flex-col overflow-y-auto pr-1">
               <textarea
                 value={inputText}
                 maxLength={500}
                 onChange={(e) => setInputText(e.target.value)}
-                placeholder="Ketik teks..."
-                className="w-full flex-1 text-[13px] sm:text-[17px] text-[#1d1d1f] dark:text-white bg-transparent resize-none border-none focus:outline-none placeholder:text-[#7a7a7a] leading-relaxed tracking-[-0.015em]"
+                placeholder="Ketik atau tempelkan teks yang akan diterjemahkan"
+                className="w-full flex-1 text-[15px] sm:text-[17px] text-[#1d1d1f] dark:text-white bg-transparent resize-none border-none focus:outline-none placeholder:text-[#7a7a7a] leading-relaxed tracking-[-0.015em]"
               />
             </div>
 
             {/* Bottom Input Action Row */}
-            <div className="min-h-6 sm:min-h-7 flex items-center justify-between text-[10px] sm:text-[12px] text-[#7a7a7a] pt-1">
+            <div className="min-h-7 flex items-center justify-between text-[11px] sm:text-[12px] text-[#7a7a7a] pt-1">
               {inputText ? (
                 <button
                   type="button"
@@ -354,68 +354,75 @@ export function Translator() {
                   className="hover:text-[#1d1d1f] dark:hover:text-white flex items-center gap-1 text-[#7a7a7a] font-normal transition active:scale-95"
                 >
                   <RotateCcw className="w-3 h-3" />
-                  <span className="hidden xs:inline">Bersihkan</span>
+                  <span>Bersihkan</span>
                 </button>
               ) : (
                 <span />
               )}
-              <span className="font-mono text-[#7a7a7a]">{inputText.length}/500</span>
+              <span className="font-mono text-[#7a7a7a]">{inputText.length} / 500</span>
             </div>
           </div>
 
           {/* Right Card: Output Box */}
-          <div className="bg-white dark:bg-[#272729] rounded-[14px] sm:rounded-[18px] p-3 sm:p-6 border border-black/[0.06] dark:border-white/[0.08] flex flex-col justify-between min-h-[170px] sm:min-h-[250px] h-auto transition-colors duration-200">
+          <div className="bg-white dark:bg-[#272729] rounded-[16px] sm:rounded-[18px] p-4 sm:p-6 border border-black/[0.06] dark:border-white/[0.08] flex flex-col justify-between min-h-[180px] sm:min-h-[250px] h-auto transition-colors duration-200">
             {hasOutput ? (
               <>
-                <div className="flex-1 flex flex-col space-y-1.5 sm:space-y-3 overflow-y-auto pr-1">
+                <div className="flex-1 flex flex-col space-y-2 sm:space-y-3 overflow-y-auto pr-1">
                   {/* Aksara Output */}
                   {targetLang === "aksara" ? (
-                    <div className="font-aksara text-xl sm:text-4xl text-[#1d1d1f] dark:text-white tracking-wider leading-relaxed select-all break-words">
+                    <div className="font-aksara text-2xl sm:text-4xl text-[#1d1d1f] dark:text-white tracking-wider leading-relaxed select-all break-words">
                       {currentAksara}
                     </div>
                   ) : (
                     /* Clean Latin Text Output */
-                    <div className="text-[13px] sm:text-[19px] font-normal text-[#1d1d1f] dark:text-white leading-relaxed select-all tracking-[-0.015em] break-words">
+                    <div className="text-[15px] sm:text-[19px] font-normal text-[#1d1d1f] dark:text-white leading-relaxed select-all tracking-[-0.015em] break-words">
                       {currentTranslation}
                     </div>
                   )}
 
                   {/* AI Explanation if active */}
                   {aiResult?.explanation && (
-                    <p className="text-[10px] sm:text-[12px] text-[#7a7a7a] italic break-words">
+                    <p className="text-[11px] sm:text-[12px] text-[#7a7a7a] italic break-words">
                       {aiResult.explanation}
                     </p>
                   )}
                 </div>
 
                 {/* Bottom Output Action Row */}
-                <div className="min-h-6 sm:min-h-7 flex items-center justify-between text-[10px] sm:text-[12px] text-[#7a7a7a] pt-1 gap-1">
-                  <div className="flex items-center gap-1 text-[#7a7a7a] truncate min-w-0">
-                    <ShieldCheck className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#0066cc] dark:text-[#2997ff] shrink-0" />
-                    <span className="font-normal text-[#1d1d1f] dark:text-[#f5f5f7] truncate">
-                      {aiResult ? "AI" : "Baku"}
+                <div className="min-h-7 flex flex-wrap items-center justify-between text-[11px] sm:text-[12px] text-[#7a7a7a] pt-1 gap-1">
+                  <div className="flex items-center gap-1 text-[#7a7a7a]">
+                    <ShieldCheck className="w-3.5 h-3.5 text-[#0066cc] dark:text-[#2997ff] shrink-0" />
+                    <span className="font-normal text-[#1d1d1f] dark:text-[#f5f5f7]">
+                      {aiResult
+                        ? "Terjemahan AI"
+                        : analysis.tokens.some((t) => t.provenance === "dictionary")
+                        ? "Kamus Baku"
+                        : analysis.tokens.some((t) => t.provenance === "phrasebook")
+                        ? "Frasa Terverifikasi"
+                        : "Kaidah Baku"}
                     </span>
                     <a
                       href="#lensa-linguistik"
-                      className="text-[#0066cc] dark:text-[#2997ff] hover:underline font-normal shrink-0"
+                      className="text-[#0066cc] dark:text-[#2997ff] hover:underline font-normal ml-1 inline-flex items-center gap-0.5"
                     >
-                      &darr;
+                      <span>Bedah</span>
+                      <span>&darr;</span>
                     </a>
                   </div>
 
-                  <div className="flex items-center gap-0.5 sm:gap-1 shrink-0">
+                  <div className="flex items-center gap-1">
                     {/* AI Translation Pill Button */}
                     <button
                       type="button"
                       disabled={isAiLoading}
                       onClick={handleTranslateWithAi}
-                      className="inline-flex items-center gap-0.5 px-2 py-0.5 sm:px-3 sm:py-1 rounded-full bg-[#f5f5f7] dark:bg-[#1d1d1f] hover:bg-[#e8e8ed] dark:hover:bg-[#333336] text-[#0066cc] dark:text-[#2997ff] text-[10px] sm:text-[12px] font-medium transition active:scale-90"
+                      className="inline-flex items-center gap-1 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-[#f5f5f7] dark:bg-[#1d1d1f] hover:bg-[#e8e8ed] dark:hover:bg-[#333336] text-[#0066cc] dark:text-[#2997ff] text-[11px] sm:text-[12px] font-medium transition active:scale-90"
                       title="Sempurnakan kalimat bebas dengan model AI berlandaskan kamus"
                     >
                       {isAiLoading ? (
-                        <Loader2 className="w-2.5 h-2.5 sm:w-3 sm:h-3 animate-spin" />
+                        <Loader2 className="w-3 h-3 animate-spin" />
                       ) : (
-                        <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+                        <Sparkles className="w-3 h-3" />
                       )}
                       <span>AI</span>
                     </button>
@@ -425,25 +432,25 @@ export function Translator() {
                       <button
                         type="button"
                         onClick={() => setIsExportOpen(true)}
-                        className="w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-[#7a7a7a] hover:text-[#1d1d1f] dark:hover:text-white hover:bg-black/[0.04] dark:hover:bg-white/[0.06] transition active:scale-90"
+                        className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-[#7a7a7a] hover:text-[#1d1d1f] dark:hover:text-white hover:bg-black/[0.04] dark:hover:bg-white/[0.06] transition active:scale-90"
                         title="Unduh Kartu Gambar PNG"
                       >
-                        <Share2 className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                        <Share2 className="w-3.5 h-3.5" />
                       </button>
                     )}
                     <button
                       type="button"
                       onClick={handleCopy}
-                      className="w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-[#7a7a7a] hover:text-[#1d1d1f] dark:hover:text-white hover:bg-black/[0.04] dark:hover:bg-white/[0.06] transition active:scale-90"
+                      className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-[#7a7a7a] hover:text-[#1d1d1f] dark:hover:text-white hover:bg-black/[0.04] dark:hover:bg-white/[0.06] transition active:scale-90"
                       title={targetLang === "aksara" ? "Salin Aksara" : "Salin Teks"}
                     >
-                      {copied ? <Check className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#0066cc] dark:text-[#2997ff]" /> : <Copy className="w-3 h-3 sm:w-3.5 sm:h-3.5" />}
+                      {copied ? <Check className="w-3.5 h-3.5 text-[#0066cc] dark:text-[#2997ff]" /> : <Copy className="w-3.5 h-3.5" />}
                     </button>
                   </div>
                 </div>
               </>
             ) : (
-              <div className="h-full flex items-center justify-center text-[#7a7a7a] text-[12px] sm:text-[13px] select-none" />
+              <div className="h-full flex items-center justify-center text-[#7a7a7a] text-[13px] select-none" />
             )}
           </div>
         </div>
