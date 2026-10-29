@@ -114,11 +114,7 @@ export function WritingCanvas() {
 
   useEffect(() => {
     redrawAll(canvasDim, strokes);
-  }, [canvasDim, drawTemplateCheck, redrawAll, strokes, theme]);
-
-  function drawTemplateCheck() {
-    // helper to trigger redraw
-  }
+  }, [canvasDim, redrawAll, strokes, theme]);
 
   // Reset when user picks another letter
   useEffect(() => {
@@ -190,7 +186,7 @@ export function WritingCanvas() {
     setIsDrawing(false);
   };
 
-  // Rigorous Pixel Overlap, Coverage & Precision Verification
+  // Rigorous Computer Vision Verification via Alpha Mask Overlap & Precision
   const evaluateDrawing = () => {
     if (strokes.length === 0 || strokes.every((s) => s.length < 2)) {
       setEvaluation({
@@ -204,18 +200,17 @@ export function WritingCanvas() {
       return;
     }
 
-    const GRID = 100; // 100x100 analysis grid
+    const GRID = 100; // Normalized 100x100 resolution grid
     const scaleFactor = GRID / canvasDim;
 
-    // 1. Offscreen Reference Canvas (Render the target glyph alone)
+    // 1. Render Reference Glyph alone on transparent offscreen canvas
     const refCanvas = document.createElement("canvas");
     refCanvas.width = GRID;
     refCanvas.height = GRID;
-    const refCtx = refCanvas.getContext("2d");
+    const refCtx = refCanvas.getContext("2d", { willReadFrequently: true });
     if (!refCtx) return;
 
-    refCtx.fillStyle = "#ffffff";
-    refCtx.fillRect(0, 0, GRID, GRID);
+    refCtx.clearRect(0, 0, GRID, GRID);
     refCtx.textAlign = "center";
     refCtx.textBaseline = "middle";
     const refFontSize = Math.round(GRID * 0.52);
@@ -223,29 +218,28 @@ export function WritingCanvas() {
     refCtx.fillStyle = "#000000";
     refCtx.fillText(selectedLetter.char, GRID / 2, GRID / 2);
 
-    const refData = refCtx.getImageData(0, 0, GRID, GRID).data;
+    const refImgData = refCtx.getImageData(0, 0, GRID, GRID).data;
     const refGrid = new Uint8Array(GRID * GRID);
     let refPixelCount = 0;
 
+    // Check ALPHA channel (byte index 3) > 40 to detect real rendered glyph ink
     for (let i = 0; i < GRID * GRID; i++) {
-      // Invert check: black pixel = glyph ink
-      if (refData[i * 4] < 200) {
+      if (refImgData[i * 4 + 3] > 40) {
         refGrid[i] = 1;
         refPixelCount++;
       }
     }
 
-    // 2. Offscreen User Strokes Canvas (Render user strokes alone)
+    // 2. Render User Strokes alone on transparent offscreen canvas
     const userCanvas = document.createElement("canvas");
     userCanvas.width = GRID;
     userCanvas.height = GRID;
-    const userCtx = userCanvas.getContext("2d");
+    const userCtx = userCanvas.getContext("2d", { willReadFrequently: true });
     if (!userCtx) return;
 
-    userCtx.fillStyle = "#ffffff";
-    userCtx.fillRect(0, 0, GRID, GRID);
+    userCtx.clearRect(0, 0, GRID, GRID);
     userCtx.strokeStyle = "#000000";
-    userCtx.lineWidth = Math.max(4, Math.round(GRID / 30));
+    userCtx.lineWidth = Math.max(3, Math.round(GRID / 32));
     userCtx.lineCap = "round";
     userCtx.lineJoin = "round";
 
@@ -259,64 +253,65 @@ export function WritingCanvas() {
       userCtx.stroke();
     }
 
-    const userData = userCtx.getImageData(0, 0, GRID, GRID).data;
+    const userImgData = userCtx.getImageData(0, 0, GRID, GRID).data;
     const userGrid = new Uint8Array(GRID * GRID);
     let userPixelCount = 0;
 
+    // Check ALPHA channel (byte index 3) > 40 for real user ink
     for (let i = 0; i < GRID * GRID; i++) {
-      if (userData[i * 4] < 200) {
+      if (userImgData[i * 4 + 3] > 40) {
         userGrid[i] = 1;
         userPixelCount++;
       }
     }
 
-    if (userPixelCount < 18) {
+    if (userPixelCount < 15) {
       setEvaluation({
-        score: 5,
-        coverage: 5,
-        precision: 10,
+        score: 0,
+        coverage: 0,
+        precision: 0,
         status: "error",
-        title: "Goresan Terlalu Singkat",
-        feedback: "Goresan baru berupa titik atau coretan pendek. Lengkapi bentuk aksara sepenuhnya."
+        title: "Goresan Terlalu Sedikit",
+        feedback: "Goresan baru berupa titik kecil. Lengkapi seluruh bagian bentuk aksara."
       });
       return;
     }
 
-    // 3. Compute Coverage (how much of the glyph path is traced within tolerance)
-    const TOLERANCE_RADIUS = 5;
+    // 3. Compute Coverage: fraction of target glyph that is traced within tolerance
+    const TOL_RADIUS = 3;
     let hitRef = 0;
 
     for (let y = 0; y < GRID; y++) {
       for (let x = 0; x < GRID; x++) {
         if (refGrid[y * GRID + x] === 1) {
-          let foundUserNear = false;
-          for (let dy = -TOLERANCE_RADIUS; dy <= TOLERANCE_RADIUS && !foundUserNear; dy++) {
-            for (let dx = -TOLERANCE_RADIUS; dx <= TOLERANCE_RADIUS; dx++) {
+          let foundUser = false;
+          for (let dy = -TOL_RADIUS; dy <= TOL_RADIUS && !foundUser; dy++) {
+            for (let dx = -TOL_RADIUS; dx <= TOL_RADIUS; dx++) {
               const ny = y + dy;
               const nx = x + dx;
               if (nx >= 0 && nx < GRID && ny >= 0 && ny < GRID) {
                 if (userGrid[ny * GRID + nx] === 1) {
-                  foundUserNear = true;
+                  foundUser = true;
                   break;
                 }
               }
             }
           }
-          if (foundUserNear) hitRef++;
+          if (foundUser) hitRef++;
         }
       }
     }
 
-    // 4. Compute Precision (how much of user's ink fell on or near the guideline)
-    const GUIDE_TOLERANCE = 6;
+    // 4. Compute Precision: fraction of user's ink that stays ON or NEAR the guideline
+    const ON_TRACK_TOL = 4;
     let validUser = 0;
 
     for (let y = 0; y < GRID; y++) {
       for (let x = 0; x < GRID; x++) {
         if (userGrid[y * GRID + x] === 1) {
           let onTrack = false;
-          for (let dy = -GUIDE_TOLERANCE; dy <= GUIDE_TOLERANCE && !onTrack; dy++) {
-            for (let dx = -GUIDE_TOLERANCE; dx <= GUIDE_TOLERANCE; dx++) {
+          for (let dy = -ON_TRACK_TOL; dy <= ON_TRACK_TOL && !onTrack; dy++) {
+            for (let dx = -ON_TRACK_TOL; dx <= ON_TRACK_TOL; dx++) {
               const ny = y + dy;
               const nx = x + dx;
               if (nx >= 0 && nx < GRID && ny >= 0 && ny < GRID) {
@@ -335,11 +330,11 @@ export function WritingCanvas() {
     const coverage = refPixelCount > 0 ? hitRef / refPixelCount : 0;
     const precision = userPixelCount > 0 ? validUser / userPixelCount : 0;
 
-    // Strict penalization for random scribbling:
-    // If precision < 35%, user scribbled wildly outside the letter!
+    // Strict mathematical penalization for wild scribbles (e.g. crossing "X", wild zigzags):
+    // If precision < 40%, user drew mostly outside the target letter!
     let finalScore = 0;
     if (precision < 0.35) {
-      finalScore = Math.round(precision * coverage * 100);
+      finalScore = Math.round(coverage * precision * 100);
     } else {
       finalScore = Math.round((coverage * 0.55 + precision * 0.45) * 100);
     }
@@ -348,7 +343,7 @@ export function WritingCanvas() {
     const covPct = Math.round(coverage * 100);
     const precPct = Math.round(precision * 100);
 
-    // Pedagogical feedback based on actual metrics
+    // Pedagogical evaluation based on strict metric thresholds
     if (finalScore >= 75) {
       setEvaluation({
         score: finalScore,
@@ -356,17 +351,17 @@ export function WritingCanvas() {
         precision: precPct,
         status: "success",
         title: "Bentuk Aksara Sangat Tepat!",
-        feedback: `Akurasi goresan mencapai ${finalScore}%. Proporsi dan kelengkapan lekukan aksara '${selectedLetter.latin}' sangat presisi.`
+        feedback: `Akurasi goresan mencapai ${finalScore}%. Bentuk dan kelengkapan lekukan aksara '${selectedLetter.latin}' sangat presisi.`
       });
-    } else if (finalScore >= 45) {
-      if (coverage < 0.5) {
+    } else if (finalScore >= 50 && precision >= 0.4) {
+      if (coverage < 0.6) {
         setEvaluation({
           score: finalScore,
           coverage: covPct,
           precision: precPct,
           status: "warning",
           title: "Bentuk Aksara Belum Lengkap",
-          feedback: `Kelengkapan baru ${covPct}%. Masih ada bagian huruf yang belum tergores. Lengkapi seluruh goresan.`
+          feedback: `Kelengkapan baru ${covPct}%. Masih ada bagian huruf '${selectedLetter.latin}' yang belum tergores.`
         });
       } else {
         setEvaluation({
@@ -375,7 +370,7 @@ export function WritingCanvas() {
           precision: precPct,
           status: "warning",
           title: "Goresan Cukup Baik",
-          feedback: `Akurasi ${finalScore}%. Bentuk dasar sudah tampak, tetapi beberapa garis melebar ke luar jalur bayangan.`
+          feedback: `Akurasi ${finalScore}%. Bentuk dasar sudah tampak, namun beberapa garis keluar jalur bayangan.`
         });
       }
     } else {
@@ -385,7 +380,7 @@ export function WritingCanvas() {
         precision: precPct,
         status: "error",
         title: "Bentuk Belum Sesuai",
-        feedback: `Akurasi hanya ${finalScore}%. Goresan tidak mengikuti pola aksara '${selectedLetter.latin}'. Coba bersihkan dan ikuti garis panduan secara perlahan.`
+        feedback: `Akurasi hanya ${finalScore}%. Coretan tidak membentuk aksara '${selectedLetter.latin}'. Coba bersihkan dan ikuti garis panduan bayangan secara perlahan.`
       });
     }
   };
