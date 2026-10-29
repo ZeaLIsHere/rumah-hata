@@ -26,8 +26,8 @@ type SourceLang = "simalungun" | "indonesia";
 type TargetLang = "indonesia" | "simalungun" | "aksara";
 
 export function Translator() {
-  const [sourceLang, setSourceLang] = useState<SourceLang>("simalungun");
-  const [targetLang, setTargetLang] = useState<TargetLang>("indonesia");
+  const [sourceLang, setSourceLang] = useState<SourceLang>("indonesia");
+  const [targetLang, setTargetLang] = useState<TargetLang>("simalungun");
   const [inputText, setInputText] = useState("");
   const [copied, setCopied] = useState(false);
   const [isExportOpen, setIsExportOpen] = useState(false);
