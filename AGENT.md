@@ -17,6 +17,17 @@ Proyek ini memiliki skills di **`.agents/skills/`** (di root proyek). Setiap ski
 6. Di awal setiap tugas besar, sebutkan skill mana yang dibaca (satu baris).
 7. Jika skill menyebut file/skrip pendukung (`scripts/`, `references/`, `assets/`), gunakan sesuai petunjuknya, jangan menulis ulang dari nol.
 
+---
+
+## 0.1. Aturan Pemeriksaan Progres (WAJIB)
+
+Proyek ini memiliki berkas pelacak status di **[`PROGRESS.md`](./PROGRESS.md)** (di root proyek).
+
+1. **Sebelum mengerjakan atau merencanakan fitur baru**, agen WAJIB membaca `PROGRESS.md` untuk mengetahui status terkini proyek, fitur yang sudah berstatus selesai (*Completed*), dan bagian mana yang sedang berstatus dalam proses (*In Progress*).
+2. **Hindari pekerjaan sia-sia**: Dilarang merombak ulang, menghapus, atau menimpa fitur yang sudah tuntas dan teruji di `PROGRESS.md` kecuali ada instruksi perbaikan eksplisit dari pengguna.
+3. **Selalu mutakhirkan `PROGRESS.md`**: Setiap kali menyelesaikan atau memperbarui cakupan fitur, agen wajib memperbarui rincian di `PROGRESS.md` agar riwayat tetap sinkron.
+
+---
 Panduan pemetaan cepat (sesuaikan dengan skill yang benar-benar ada):
 
 | Jenis tugas | Cari skill tentang |
@@ -76,12 +87,13 @@ docs/                 # PRD, keputusan, catatan linguistik
 
 ## 5. Alur Kerja Tugas
 
-1. Baca `PRD.md` bagian terkait dan skill yang relevan (§0).
+1. Baca `PROGRESS.md` untuk memahami progres terkini, lalu baca `PRD.md` bagian terkait dan skill yang relevan (§0 & §0.1).
 2. Nyatakan rencana singkat (3–6 poin) sebelum mengubah banyak file.
 3. Kerjakan dalam langkah kecil; satu perubahan = satu tujuan.
 4. Tulis/ubah tes bersamaan dengan kode, terutama untuk engine linguistik.
 5. Jalankan `lint`, `typecheck`, dan tes sebelum menyatakan selesai.
-6. Laporkan: apa yang berubah, apa yang diuji, apa yang **belum** divalidasi, dan pertanyaan terbuka.
+6. Perbarui catatan status di `PROGRESS.md`.
+7. Laporkan: apa yang berubah, apa yang diuji, apa yang **belum** divalidasi, dan pertanyaan terbuka.
 
 Jika permintaan ambigu secara linguistik (bukan teknis), **tanya**, jangan menebak.
 
@@ -89,6 +101,7 @@ Jika permintaan ambigu secara linguistik (bukan teknis), **tanya**, jangan meneb
 
 - [ ] Sesuai PRD dan acceptance criteria fitur terkait.
 - [ ] Skill relevan sudah dibaca dan diikuti.
+- [ ] Berkas `PROGRESS.md` sudah diperiksa di awal dan diperbarui di akhir pengerjaan.
 - [ ] Lint, typecheck, dan tes lulus (termasuk gold set bila menyentuh engine/data).
 - [ ] Tidak ada data linguistik tanpa sumber/status validasi.
 - [ ] Badge `provenance`/`validation` tampil di UI yang menampilkan hasil.
