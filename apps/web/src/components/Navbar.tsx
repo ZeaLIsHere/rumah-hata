@@ -53,21 +53,21 @@ export function Navbar() {
     <>
       <header className="sticky top-0 z-40 bg-white/85 dark:bg-black/85 backdrop-blur-md border-b border-black/[0.06] dark:border-white/[0.08] transition-colors duration-200">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between h-12 sm:h-14">
+          <div className="flex items-center justify-between h-14 sm:h-16">
             {/* Logo / Brand */}
-            <Link href="/" className="flex items-center space-x-2.5 group">
-              <div className="w-8 h-8 sm:w-9 sm:h-9 relative flex items-center justify-center transition-transform group-hover:scale-95 duration-200">
+            <Link href="/" className="flex items-center space-x-3 group">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 relative flex items-center justify-center transition-transform group-hover:scale-95 duration-200">
                 <Image
                   src="/logo.svg"
                   alt="Logo Rumah Hata"
-                  width={36}
-                  height={36}
-                  className="w-full h-full object-contain"
+                  width={48}
+                  height={48}
+                  className="w-full h-full object-contain drop-shadow-2xs"
                   priority
                 />
               </div>
               <div className="flex items-baseline gap-1.5">
-                <span className="font-semibold text-base sm:text-lg text-[#1d1d1f] dark:text-white tracking-tight">
+                <span className="font-semibold text-lg sm:text-xl text-[#1d1d1f] dark:text-white tracking-tight">
                   Rumah Hata
                 </span>
               </div>
@@ -145,18 +145,18 @@ export function Navbar() {
       {mobileMenuOpen && (
         <div className="md:hidden fixed inset-0 z-50 bg-white dark:bg-[#000000] flex flex-col animate-slideDown overflow-y-auto">
           {/* Drawer Header */}
-          <div className="flex items-center justify-between h-12 px-4 border-b border-black/[0.06] dark:border-white/[0.08] shrink-0">
-            <div className="flex items-center space-x-2.5">
-              <div className="w-7 h-7 relative flex items-center justify-center">
+          <div className="flex items-center justify-between h-14 px-4 border-b border-black/[0.06] dark:border-white/[0.08] shrink-0">
+            <div className="flex items-center space-x-3">
+              <div className="w-9 h-9 relative flex items-center justify-center">
                 <Image
                   src="/logo.svg"
                   alt="Logo Rumah Hata"
-                  width={28}
-                  height={28}
+                  width={38}
+                  height={38}
                   className="w-full h-full object-contain"
                 />
               </div>
-              <span className="font-semibold text-base text-[#1d1d1f] dark:text-white tracking-tight">
+              <span className="font-semibold text-lg text-[#1d1d1f] dark:text-white tracking-tight">
                 Rumah Hata
               </span>
             </div>

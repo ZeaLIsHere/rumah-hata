@@ -7,17 +7,17 @@ export function Footer() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           <div>
-            <div className="flex items-center gap-2.5 mb-3">
-              <div className="w-8 h-8 relative flex items-center justify-center">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 relative flex items-center justify-center">
                 <Image
                   src="/logo.svg"
                   alt="Logo Rumah Hata"
-                  width={32}
-                  height={32}
+                  width={40}
+                  height={40}
                   className="w-full h-full object-contain"
                 />
               </div>
-              <span className="font-semibold text-[#1d1d1f] dark:text-white text-base">Rumah Hata</span>
+              <span className="font-semibold text-[#1d1d1f] dark:text-white text-lg">Rumah Hata</span>
               <span className="text-[11px] bg-white dark:bg-black/40 text-[#7a7a7a] px-2 py-0.5 rounded-full border border-black/[0.06] dark:border-white/[0.08]">
                 Simalungun
               </span>
